@@ -7,92 +7,131 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Buenos Aires RP | Panel Staff</title>
+<title>Buenos Aires RP | Panel</title>
 
 
 <style>
 
-*{
-box-sizing:border-box;
-}
-
 body{
+
 margin:0;
+
 font-family:Arial;
+
 background:linear-gradient(135deg,#0b1220,#0f172a);
+
 color:white;
+
 }
 
 
 .login{
+
 height:100vh;
+
 display:flex;
-align-items:center;
+
 justify-content:center;
+
+align-items:center;
+
 }
 
 
 .login-box{
+
 width:360px;
+
 max-width:90%;
-background:#111827;
+
 padding:30px;
-border-radius:15px;
+
+background:rgba(17,24,39,.9);
+
+border-radius:16px;
+
 text-align:center;
+
 }
 
 
 input,textarea{
 
 width:100%;
+
+box-sizing:border-box;
+
 padding:12px;
+
 margin:6px 0;
-border:none;
+
+border:0;
+
 border-radius:10px;
+
 background:#0f172a;
+
 color:white;
 
 }
 
 
+
 textarea{
+
 height:120px;
-resize:none;
+
 }
+
 
 
 button{
 
 padding:10px 15px;
+
 border:0;
+
 border-radius:8px;
+
 cursor:pointer;
+
 font-weight:bold;
 
 }
 
 
 .green{
+
 background:#22c55e;
+
 color:white;
+
 }
 
 
 .red{
+
 background:#ef4444;
+
 color:white;
+
 }
 
 
 .blue{
+
 background:#2563eb;
+
 color:white;
+
 }
 
 
 
 .hidden{
+
 display:none;
+
 }
 
 
@@ -100,18 +139,25 @@ display:none;
 .nav{
 
 display:flex;
+
 justify-content:center;
+
 gap:10px;
+
 padding:20px;
 
 }
 
 
+
 .tab{
 
 background:#1f2937;
-padding:12px 20px;
-border-radius:10px;
+
+padding:10px 15px;
+
+border-radius:8px;
+
 cursor:pointer;
 
 }
@@ -121,7 +167,9 @@ cursor:pointer;
 .container{
 
 max-width:900px;
+
 margin:auto;
+
 padding:20px;
 
 }
@@ -130,10 +178,13 @@ padding:20px;
 
 .card{
 
-background:#111827;
+background:rgba(17,24,39,.9);
+
 padding:20px;
-border-radius:15px;
-margin-bottom:15px;
+
+border-radius:14px;
+
+margin-top:15px;
 
 }
 
@@ -142,7 +193,9 @@ margin-bottom:15px;
 .user{
 
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
 
 }
@@ -152,11 +205,55 @@ align-items:center;
 .badge{
 
 background:#334155;
+
 padding:5px 10px;
+
 border-radius:8px;
+
 font-size:12px;
 
 }
+
+
+
+
+
+.modal{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:#0009;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+
+.modal-box{
+
+background:#111827;
+
+padding:25px;
+
+border-radius:15px;
+
+width:350px;
+
+}
+
 
 
 
@@ -170,26 +267,14 @@ flex-direction:column;
 }
 
 
-.tab{
-
-text-align:center;
-
-}
-
-
-.container{
-
-padding:10px;
-
-}
-
-
 .user{
 
 flex-direction:column;
+
 gap:10px;
 
 }
+
 
 
 button{
@@ -198,7 +283,9 @@ width:100%;
 
 }
 
+
 }
+
 
 
 </style>
@@ -211,7 +298,6 @@ width:100%;
 
 
 
-<!-- LOGIN -->
 
 
 <div id="loginBox" class="login">
@@ -220,14 +306,10 @@ width:100%;
 <div class="login-box">
 
 
-<h2>
-🇦🇷 Buenos Aires RP
-</h2>
+<h2>🇦🇷 Buenos Aires RP</h2>
 
 
-<p>
-Panel Staff
-</p>
+<p>Panel Staff</p>
 
 
 <input id="user" placeholder="Usuario">
@@ -255,11 +337,10 @@ Entrar
 
 
 
-<!-- PANEL -->
+
 
 
 <div id="panel" class="hidden">
-
 
 
 <div class="nav">
@@ -272,7 +353,6 @@ Entrar
 </div>
 
 
-
 <div class="tab" onclick="show('staff')">
 
 👥 Staff
@@ -281,6 +361,7 @@ Entrar
 
 
 </div>
+
 
 
 
@@ -297,7 +378,10 @@ Entrar
 </div>
 
 
+
 </div>
+
+
 
 
 
@@ -315,11 +399,11 @@ let POSTS=[];
 
 
 
+
 async function login(){
 
 
-
-let res=await fetch("/api/login",{
+let r=await fetch("/api/login",{
 
 method:"POST",
 
@@ -340,14 +424,13 @@ pass:pass.value
 });
 
 
-
-let data=await res.json();
+let data=await r.json();
 
 
 
 if(!data.success){
 
-error.innerHTML="❌ Datos incorrectos";
+error.innerHTML="❌ Login incorrecto";
 
 return;
 
@@ -365,24 +448,8 @@ panel.classList.remove("hidden");
 
 loadAll();
 
+
 show("updates");
-
-
-}
-
-
-
-
-
-function show(tab){
-
-
-updates.classList.add("hidden");
-
-staff.classList.add("hidden");
-
-
-document.getElementById(tab).classList.remove("hidden");
 
 
 }
@@ -399,6 +466,27 @@ return currentUser.role==="Dueño";
 
 
 }
+
+
+
+
+
+
+function show(id){
+
+
+updates.classList.add("hidden");
+
+staff.classList.add("hidden");
+
+
+document.getElementById(id).classList.remove("hidden");
+
+
+}
+
+
+
 
 
 
@@ -423,6 +511,364 @@ render();
 
 
 }
+
+
+
+
+
+
+
+
+function render(){
+
+
+updates.innerHTML="";
+
+
+if(isOwner()){
+
+
+updates.innerHTML+=`
+
+<div class="card">
+
+
+<h3>Crear actualización</h3>
+
+
+<input id="titulo" placeholder="Título">
+
+
+<textarea id="mensaje" placeholder="Mensaje"></textarea>
+
+
+<button class="green" onclick="crearPost()">
+
+Publicar
+
+</button>
+
+
+</div>
+
+`;
+
+}
+
+
+
+
+
+POSTS.forEach(p=>{
+
+
+updates.innerHTML+=`
+
+<div class="card">
+
+<h3>${p.titulo}</h3>
+
+<p>${p.mensaje}</p>
+
+<small>${p.fecha}</small>
+
+
+${isOwner()?`
+
+<br>
+
+<button class="red" onclick="deletePost(${p.id})">
+
+🗑 Eliminar
+
+</button>
+
+`:''}
+
+
+</div>
+
+`;
+
+});
+
+
+
+
+
+
+
+staff.innerHTML="";
+
+
+
+if(isOwner()){
+
+
+staff.innerHTML+=`
+
+<div class="card">
+
+
+<h3>Agregar Staff</h3>
+
+
+<input id="newUser" placeholder="Nombre">
+
+
+<input id="newRole" placeholder="Rango">
+
+
+<button class="green" onclick="addUser()">
+
+Agregar
+
+</button>
+
+
+</div>
+
+`;
+
+}
+
+
+
+
+
+
+USERS.forEach(u=>{
+
+
+staff.innerHTML+=`
+
+<div class="card user">
+
+
+<div>
+
+👤 ${u.username}
+
+<span class="badge">
+
+${u.role}
+
+</span>
+
+</div>
+
+
+
+${isOwner()?`
+
+<div>
+
+
+<button class="blue"
+onclick="editUser(${u.id},'${u.username}','${u.role}')">
+
+✏️
+
+</button>
+
+
+
+<button class="red"
+onclick="deleteUser(${u.id})">
+
+🗑️
+
+</button>
+
+
+</div>
+
+`:''}
+
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+
+async function addUser(){
+
+
+await fetch("/api/users",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+
+body:JSON.stringify({
+
+user:newUser.value,
+
+role:newRole.value
+
+})
+
+
+});
+
+
+loadAll();
+
+
+}
+
+
+
+
+
+
+
+
+function editUser(id,nombre,rango){
+
+
+let div=document.createElement("div");
+
+
+div.className="modal";
+
+
+div.innerHTML=`
+
+<div class="modal-box">
+
+
+<h3>Editar Staff</h3>
+
+
+<input id="editName" value="${nombre}">
+
+
+<input id="editRole" value="${rango}" placeholder="Rango">
+
+
+<button class="green" onclick="saveEdit(${id},this)">
+
+Guardar
+
+</button>
+
+
+<button class="red" onclick="this.parentElement.parentElement.remove()">
+
+Cancelar
+
+</button>
+
+
+</div>
+
+`;
+
+
+document.body.appendChild(div);
+
+
+}
+
+
+
+
+
+
+
+
+
+async function saveEdit(id,btn){
+
+
+let name=document.getElementById("editName").value;
+
+let role=document.getElementById("editRole").value;
+
+
+
+if(!role){
+
+alert("El rango es obligatorio");
+
+return;
+
+}
+
+
+
+await fetch("/api/users/"+id,{
+
+method:"PUT",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+user:name,
+
+role:role
+
+})
+
+});
+
+
+btn.parentElement.parentElement.remove();
+
+
+loadAll();
+
+
+}
+
+
+
+
+
+
+
+
+
+async function deleteUser(id){
+
+
+await fetch("/api/users/"+id,{
+
+method:"DELETE"
+
+});
+
+
+loadAll();
+
+
+}
+
+
+
 
 
 
@@ -462,6 +908,8 @@ loadAll();
 
 
 
+
+
 async function deletePost(id){
 
 
@@ -473,229 +921,6 @@ method:"DELETE"
 
 
 loadAll();
-
-
-}
-
-
-
-
-
-
-async function addUser(){
-
-
-await fetch("/api/users",{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-user:newUser.value,
-
-pass:newPass.value,
-
-role:newRole.value
-
-})
-
-});
-
-
-loadAll();
-
-
-}
-
-
-
-
-
-async function deleteUser(id){
-
-
-await fetch("/api/users/"+id,{
-
-method:"DELETE"
-
-});
-
-
-loadAll();
-
-
-}
-
-
-
-
-
-
-
-function render(){
-
-
-
-updates.innerHTML="";
-
-
-
-if(isOwner()){
-
-
-updates.innerHTML+=`
-
-<div class="card">
-
-<h3>📢 Crear actualización</h3>
-
-
-<input id="titulo" placeholder="Título">
-
-
-<textarea id="mensaje" placeholder="Mensaje"></textarea>
-
-
-<button class="green" onclick="crearPost()">
-
-Publicar
-
-</button>
-
-
-</div>
-
-`;
-
-}
-
-
-
-POSTS.forEach(p=>{
-
-
-updates.innerHTML+=`
-
-<div class="card">
-
-
-<h3>${p.titulo}</h3>
-
-<p>${p.mensaje}</p>
-
-<small>${p.fecha}</small>
-
-
-${isOwner()?`
-
-<br><br>
-
-<button class="red" onclick="deletePost(${p.id})">
-
-Eliminar
-
-</button>
-
-`:''}
-
-
-</div>
-
-`;
-
-});
-
-
-
-
-
-
-staff.innerHTML="";
-
-
-
-if(isOwner()){
-
-
-staff.innerHTML+=`
-
-<div class="card">
-
-<h3>Agregar Staff</h3>
-
-
-<input id="newUser" placeholder="Usuario">
-
-
-<input id="newPass" placeholder="Contraseña">
-
-
-<input id="newRole" placeholder="Rol">
-
-
-<button class="green" onclick="addUser()">
-
-Agregar
-
-</button>
-
-
-</div>
-
-`;
-
-}
-
-
-
-
-
-USERS.forEach(u=>{
-
-
-staff.innerHTML+=`
-
-<div class="card user">
-
-
-<div>
-
-👤 ${u.username}
-
-<span class="badge">
-
-${u.role}
-
-</span>
-
-
-</div>
-
-
-${isOwner()?`
-
-<button class="red" onclick="deleteUser(${u.id})">
-
-🗑
-
-</button>
-
-`:''}
-
-
-</div>
-
-
-`;
-
-});
-
 
 
 }
