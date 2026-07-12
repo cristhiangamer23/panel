@@ -7,16 +7,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Buenos Aires RP | Panel</title>
+<title>Buenos Aires RP | Panel Staff</title>
 
 
 <style>
+
+*{
+box-sizing:border-box;
+}
+
 
 body{
 
 margin:0;
 
-font-family:Arial;
+font-family:Arial, sans-serif;
 
 background:linear-gradient(135deg,#0b1220,#0f172a);
 
@@ -36,6 +41,8 @@ justify-content:center;
 
 align-items:center;
 
+padding:20px;
+
 }
 
 
@@ -44,7 +51,7 @@ align-items:center;
 
 width:360px;
 
-max-width:90%;
+max-width:100%;
 
 padding:30px;
 
@@ -54,6 +61,8 @@ background:rgba(17,24,39,.95);
 
 text-align:center;
 
+box-shadow:0 0 25px #0008;
+
 }
 
 
@@ -62,15 +71,15 @@ input,textarea{
 
 width:100%;
 
-box-sizing:border-box;
-
 padding:12px;
 
-margin:6px 0;
+margin:7px 0;
 
 border-radius:10px;
 
 border:none;
+
+outline:none;
 
 background:#0f172a;
 
@@ -83,6 +92,8 @@ color:white;
 textarea{
 
 height:120px;
+
+resize:none;
 
 }
 
@@ -113,6 +124,7 @@ color:white;
 }
 
 
+
 .red{
 
 background:#ef4444;
@@ -120,6 +132,7 @@ background:#ef4444;
 color:white;
 
 }
+
 
 
 .blue{
@@ -140,6 +153,7 @@ display:none;
 
 
 
+
 .nav{
 
 display:flex;
@@ -150,6 +164,8 @@ gap:10px;
 
 padding:20px;
 
+flex-wrap:wrap;
+
 }
 
 
@@ -158,9 +174,9 @@ padding:20px;
 
 background:#1f2937;
 
-padding:10px 15px;
+padding:12px 18px;
 
-border-radius:8px;
+border-radius:10px;
 
 cursor:pointer;
 
@@ -202,6 +218,8 @@ justify-content:space-between;
 
 align-items:center;
 
+gap:10px;
+
 }
 
 
@@ -220,6 +238,17 @@ font-size:12px;
 
 
 
+.actions{
+
+display:flex;
+
+gap:8px;
+
+}
+
+
+
+
 .modal{
 
 position:fixed;
@@ -232,7 +261,7 @@ width:100%;
 
 height:100%;
 
-background:#0009;
+background:rgba(0,0,0,.7);
 
 display:flex;
 
@@ -240,11 +269,17 @@ justify-content:center;
 
 align-items:center;
 
+padding:20px;
+
 }
 
 
 
 .modal-box{
+
+width:350px;
+
+max-width:100%;
 
 background:#111827;
 
@@ -252,13 +287,12 @@ padding:25px;
 
 border-radius:15px;
 
-width:350px;
-
 }
 
 
 
 @media(max-width:600px){
+
 
 .nav{
 
@@ -267,31 +301,45 @@ flex-direction:column;
 }
 
 
+.tab{
+
+text-align:center;
+
+}
+
+
+
 .user{
 
 flex-direction:column;
 
-gap:10px;
+align-items:stretch;
 
 }
 
 
-button{
+.actions button{
 
 width:100%;
 
 }
+
 
 }
 
 
 </style>
 
+
 </head>
+
 
 
 <body>
 
+
+
+<!-- LOGIN -->
 
 <div id="loginBox" class="login">
 
@@ -304,10 +352,12 @@ width:100%;
 <p>Panel Staff</p>
 
 
+
 <input id="user" placeholder="Usuario">
 
 
 <input id="pass" type="password" placeholder="Contraseña">
+
 
 
 <button class="green" onclick="login()">
@@ -317,14 +367,25 @@ Entrar
 </button>
 
 
-<p id="error"></p>
+
+<p id="error" style="color:#ef4444"></p>
+
 
 
 </div>
 
 
 </div>
+
+
+
+
+
+<!-- PANEL -->
+
+
 <div id="panel" class="hidden">
+
 
 
 <div class="nav">
@@ -337,11 +398,13 @@ Entrar
 </div>
 
 
+
 <div class="tab" onclick="show('staff')">
 
 👥 Staff
 
 </div>
+
 
 
 </div>
@@ -359,14 +422,12 @@ Entrar
 <div id="staff" class="hidden"></div>
 
 
-</div>
-
-
 
 </div>
 
 
 
+</div>
 
 
 
@@ -375,20 +436,17 @@ Entrar
 
 let currentUser=null;
 
+
 let USERS=[];
 
+
 let POSTS=[];
-
-
-
-
-
 
 
 async function login(){
 
 
-let response = await fetch("/api/login",{
+let res = await fetch("/api/login",{
 
 
 method:"POST",
@@ -399,18 +457,14 @@ headers:{
 
 "Content-Type":"application/json"
 
-
 },
 
 
 body:JSON.stringify({
 
-
 user:user.value,
 
-
 pass:pass.value
-
 
 })
 
@@ -419,16 +473,14 @@ pass:pass.value
 
 
 
-let data = await response.json();
-
-
+let data = await res.json();
 
 
 
 if(!data.success){
 
 
-error.innerHTML="❌ Usuario o contraseña incorrecta";
+error.innerText="❌ Usuario o contraseña incorrecta";
 
 
 return;
@@ -438,15 +490,15 @@ return;
 
 
 
-
-
 currentUser=data.user;
+
 
 
 loginBox.style.display="none";
 
 
 panel.classList.remove("hidden");
+
 
 
 await loadAll();
@@ -469,7 +521,7 @@ show("updates");
 function isOwner(){
 
 
-return currentUser.role==="Dueño";
+return currentUser && currentUser.role==="Dueño";
 
 
 }
@@ -482,7 +534,7 @@ return currentUser.role==="Dueño";
 
 
 
-function show(id){
+function show(seccion){
 
 
 updates.classList.add("hidden");
@@ -492,7 +544,7 @@ staff.classList.add("hidden");
 
 
 
-document.getElementById(id).classList.remove("hidden");
+document.getElementById(seccion).classList.remove("hidden");
 
 
 
@@ -510,19 +562,24 @@ async function loadAll(){
 
 
 
-let usuarios = await fetch("/api/users");
-
-USERS = await usuarios.json();
+let userRes=await fetch("/api/users");
 
 
+USERS=await userRes.json();
 
-let posts = await fetch("/api/posts");
 
-POSTS = await posts.json();
+
+
+let postRes=await fetch("/api/posts");
+
+
+POSTS=await postRes.json();
+
 
 
 
 render();
+
 
 
 }
@@ -539,8 +596,14 @@ function render(){
 
 
 
-updates.innerHTML="";
+// =====================
 
+// ACTUALIZACIONES
+
+// =====================
+
+
+updates.innerHTML="";
 
 
 
@@ -553,7 +616,7 @@ updates.innerHTML+=`
 <div class="card">
 
 
-<h3>Crear actualización</h3>
+<h3>📢 Crear actualización</h3>
 
 
 <input id="titulo" placeholder="Título">
@@ -571,12 +634,11 @@ Publicar
 
 </div>
 
+
 `;
 
 
 }
-
-
 
 
 
@@ -600,6 +662,7 @@ updates.innerHTML+=`
 <small>${p.fecha}</small>
 
 
+
 ${isOwner()?`
 
 
@@ -613,13 +676,16 @@ ${isOwner()?`
 </button>
 
 
+
 `:''}
 
 
 
 </div>
 
+
 `;
+
 
 
 });
@@ -630,6 +696,12 @@ ${isOwner()?`
 
 
 
+
+// =====================
+
+// STAFF
+
+// =====================
 
 
 staff.innerHTML="";
@@ -646,7 +718,7 @@ staff.innerHTML+=`
 <div class="card">
 
 
-<h3>Agregar Staff</h3>
+<h3>👥 Agregar Staff</h3>
 
 
 <input id="newUser" placeholder="Nombre del Staff">
@@ -664,13 +736,20 @@ Agregar
 
 </div>
 
+
 `;
+
+
 
 }
 
 
 
+
+
+
 USERS.forEach(u=>{
+
 
 
 staff.innerHTML+=`
@@ -696,21 +775,19 @@ ${u.role}
 
 
 
-
 ${isOwner()?`
 
 
-<div>
+<div class="actions">
 
 
 <button class="blue"
 
 onclick="editUser(${u.id},'${u.username}','${u.role}')">
 
-✏️
+✏️ Editar
 
 </button>
-
 
 
 
@@ -718,7 +795,7 @@ onclick="editUser(${u.id},'${u.username}','${u.role}')">
 
 onclick="deleteUser(${u.id})">
 
-🗑️
+🗑 Eliminar
 
 </button>
 
@@ -735,6 +812,7 @@ onclick="deleteUser(${u.id})">
 
 
 `;
+
 
 
 });
@@ -755,6 +833,21 @@ async function addUser(){
 
 
 
+if(!newRole.value){
+
+
+alert("El rango es obligatorio");
+
+
+return;
+
+
+}
+
+
+
+
+
 await fetch("/api/users",{
 
 
@@ -765,7 +858,6 @@ headers:{
 
 
 "Content-Type":"application/json"
-
 
 },
 
@@ -795,9 +887,8 @@ role:newRole.value
 loadAll();
 
 
-
 }
-async function editUser(id,nombre,rango){
+function editUser(id,nombre,rango){
 
 
 let modal=document.createElement("div");
@@ -811,7 +902,7 @@ modal.innerHTML=`
 <div class="modal-box">
 
 
-<h3>Editar Staff</h3>
+<h3>✏️ Editar Staff</h3>
 
 
 <input id="editName" value="${nombre}" placeholder="Nombre">
@@ -827,14 +918,17 @@ Guardar
 </button>
 
 
-<button class="red" onclick="this.parentElement.parentElement.remove()">
+
+<button class="red" onclick="this.closest('.modal').remove()">
 
 Cancelar
 
 </button>
 
 
+
 </div>
+
 
 `;
 
@@ -856,10 +950,12 @@ document.body.appendChild(modal);
 async function saveEdit(id){
 
 
+
 let nombre=document.getElementById("editName").value;
 
 
 let rango=document.getElementById("editRole").value;
+
 
 
 
@@ -878,7 +974,7 @@ return;
 
 
 
-await fetch("/api/users/"+id,{
+let res=await fetch("/api/users/"+id,{
 
 
 method:"PUT",
@@ -888,7 +984,6 @@ headers:{
 
 
 "Content-Type":"application/json"
-
 
 },
 
@@ -915,7 +1010,47 @@ role:rango
 
 
 
-loadAll();
+let data=await res.json();
+
+
+
+
+
+if(!data.success){
+
+
+alert(data.message || "Error al editar");
+
+
+return;
+
+
+}
+
+
+
+
+
+
+// Cerrar modal después de guardar
+
+let modal=document.querySelector(".modal");
+
+
+if(modal){
+
+modal.remove();
+
+}
+
+
+
+
+
+// Actualizar lista
+
+await loadAll();
+
 
 
 }
@@ -932,6 +1067,15 @@ async function deleteUser(id){
 
 
 
+let confirmar=confirm("¿Eliminar este usuario?");
+
+
+
+if(!confirmar)return;
+
+
+
+
 await fetch("/api/users/"+id,{
 
 
@@ -942,7 +1086,6 @@ headers:{
 
 
 "Content-Type":"application/json"
-
 
 },
 
@@ -991,7 +1134,6 @@ headers:{
 
 "Content-Type":"application/json"
 
-
 },
 
 
@@ -1020,6 +1162,7 @@ mensaje:mensaje.value
 loadAll();
 
 
+
 }
 
 
@@ -1034,6 +1177,15 @@ async function deletePost(id){
 
 
 
+let confirmar=confirm("¿Eliminar actualización?");
+
+
+
+if(!confirmar)return;
+
+
+
+
 await fetch("/api/posts/"+id,{
 
 
@@ -1044,7 +1196,6 @@ headers:{
 
 
 "Content-Type":"application/json"
-
 
 },
 
@@ -1076,5 +1227,6 @@ loadAll();
 
 
 </body>
+
 
 </html>
