@@ -1,11 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require("pg");
 const path = require("path");
-
+const { Pool } = require("pg");
 
 const app = express();
-
 
 app.use(cors());
 app.use(express.json());
@@ -13,14 +11,18 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
+// CONEXIÓN POSTGRESQL RENDER
+
 console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
+
 const pool = new Pool({
 
-connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
 
-ssl:{
-rejectUnauthorized:false
-}
+    ssl:{
+        rejectUnauthorized:false
+    }
 
 });
 
@@ -31,65 +33,65 @@ rejectUnauthorized:false
 
 async function iniciar(){
 
-await pool.query(`
+    await pool.query(`
 
-CREATE TABLE IF NOT EXISTS users(
+    CREATE TABLE IF NOT EXISTS users(
 
-id SERIAL PRIMARY KEY,
-username TEXT UNIQUE,
-password TEXT,
-role TEXT
+        id SERIAL PRIMARY KEY,
+        username TEXT,
+        password TEXT,
+        role TEXT
 
-);
-
-
-CREATE TABLE IF NOT EXISTS posts(
-
-id SERIAL PRIMARY KEY,
-titulo TEXT,
-mensaje TEXT,
-fecha TEXT
-
-);
-
-`);
+    );
 
 
+    CREATE TABLE IF NOT EXISTS posts(
 
-// Usuarios iniciales
+        id SERIAL PRIMARY KEY,
+        titulo TEXT,
+        mensaje TEXT,
+        fecha TEXT
 
-let usuarios=[
+    );
 
-["Cristhian","2040@","Dueño"],
-
-["Zarl","2050@","Owner 2"],
-
-["Alan","2060@","mod1"]
-
-];
+    `);
 
 
-for(let u of usuarios){
 
-await pool.query(
+    // Usuarios que tienen acceso al panel
 
-`
-INSERT INTO users(username,password,role)
+    const propietarios=[
 
-VALUES($1,$2,$3)
+        ["Cristhian","2040@","Dueño"],
 
-ON CONFLICT(username) DO NOTHING
+        ["Zarl","2050@","Owner 2"],
 
-`,
-u
+        ["Alan","2060@","mod1"]
 
-);
+    ];
 
 
-}
+
+    for(const u of propietarios){
+
+        await pool.query(
+
+        `
+        INSERT INTO users(username,password,role)
+
+        VALUES($1,$2,$3)
+
+        ON CONFLICT DO NOTHING
+        `,
+
+        u
+
+        );
+
+    }
 
 
-console.log("Base de datos lista");
+    console.log("Base de datos lista");
 
 
 }
@@ -100,70 +102,85 @@ iniciar();
 
 
 
+
+
+
 // LOGIN
 
 app.post("/api/login",async(req,res)=>{
 
 
-let {user,pass}=req.body;
+    const {user,pass}=req.body;
 
 
-let result=await pool.query(
 
-`
-SELECT * FROM users
+    const result = await pool.query(
 
-WHERE username=$1
+        `
+        SELECT *
+        FROM users
+        WHERE username=$1
+        AND password=$2
+        `,
 
-AND password=$2
-`,
+        [
+            user,
+            pass
+        ]
 
-[user,pass]
-
-);
+    );
 
 
-if(result.rows.length===0){
 
-return res.json({
+    if(result.rows.length===0){
 
-success:false
+        return res.json({
+
+            success:false
+
+        });
+
+    }
+
+
+
+    res.json({
+
+        success:true,
+
+        user:result.rows[0]
+
+    });
+
+
 
 });
 
-}
-
-
-
-res.json({
-
-success:true,
-
-user:result.rows[0]
-
-});
-
-
-});
 
 
 
 
 
-// USUARIOS
 
+
+
+// OBTENER STAFF
 
 app.get("/api/users",async(req,res)=>{
 
 
-let result=await pool.query(
+    const result = await pool.query(
 
-"SELECT * FROM users ORDER BY id"
+        `
+        SELECT id,username,role
+        FROM users
+        ORDER BY id
+        `
 
-);
+    );
 
 
-res.json(result.rows);
+    res.json(result.rows);
 
 
 });
@@ -171,79 +188,190 @@ res.json(result.rows);
 
 
 
+
+
+
+// AGREGAR STAFF SIN CONTRASEÑA
 
 app.post("/api/users",async(req,res)=>{
 
 
-let {user,pass,role}=req.body;
+    const {user,role}=req.body;
 
 
-await pool.query(
 
-`
-INSERT INTO users(username,password,role)
+    if(!role){
 
-VALUES($1,$2,$3)
+        return res.json({
 
-`,
+            success:false,
 
-[user,pass,role]
+            message:"El rango es obligatorio"
 
-);
+        });
+
+    }
 
 
-res.json({
 
-success:true
+    await pool.query(
+
+        `
+        INSERT INTO users(username,role)
+
+        VALUES($1,$2)
+
+        `,
+
+        [
+
+            user || "Sin nombre",
+
+            role
+
+        ]
+
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
 
 });
 
 
+
+
+
+
+
+
+
+// EDITAR STAFF
+
+app.put("/api/users/:id",async(req,res)=>{
+
+
+    const {user,role}=req.body;
+
+
+
+    if(!role){
+
+        return res.json({
+
+            success:false,
+
+            message:"El rango es obligatorio"
+
+        });
+
+    }
+
+
+
+    await pool.query(
+
+        `
+        UPDATE users
+
+        SET username=$1, role=$2
+
+        WHERE id=$3
+
+        `,
+
+        [
+
+            user || "Sin nombre",
+
+            role,
+
+            req.params.id
+
+        ]
+
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
 });
 
 
 
 
+
+
+
+
+// ELIMINAR STAFF
 
 app.delete("/api/users/:id",async(req,res)=>{
 
 
-await pool.query(
+    await pool.query(
 
-"DELETE FROM users WHERE id=$1",
+        `
+        DELETE FROM users
+        WHERE id=$1
+        `,
 
-[req.params.id]
+        [
 
-);
+            req.params.id
+
+        ]
+
+    );
 
 
-res.json({
 
-success:true
+    res.json({
+
+        success:true
+
+    });
+
 
 });
 
 
-});
 
 
 
 
 
-// POSTS
 
+
+// OBTENER ACTUALIZACIONES
 
 app.get("/api/posts",async(req,res)=>{
 
 
-let result=await pool.query(
+    const result = await pool.query(
 
-"SELECT * FROM posts ORDER BY id DESC"
+        `
+        SELECT *
+        FROM posts
+        ORDER BY id DESC
+        `
 
-);
+    );
 
 
-res.json(result.rows);
+    res.json(result.rows);
 
 
 });
@@ -252,79 +380,108 @@ res.json(result.rows);
 
 
 
+
+
+
+
+// CREAR ACTUALIZACIÓN
 
 app.post("/api/posts",async(req,res)=>{
 
 
-let {titulo,mensaje}=req.body;
+    const {titulo,mensaje}=req.body;
 
 
-await pool.query(
 
-`
+    await pool.query(
 
-INSERT INTO posts(titulo,mensaje,fecha)
+        `
+        INSERT INTO posts(titulo,mensaje,fecha)
 
-VALUES($1,$2,$3)
+        VALUES($1,$2,$3)
 
-`,
+        `,
 
-[
-titulo,
-mensaje,
-new Date().toLocaleString()
-]
+        [
 
-);
+            titulo,
+
+            mensaje,
+
+            new Date().toLocaleString()
+
+        ]
+
+    );
 
 
-res.json({
 
-success:true
+    res.json({
+
+        success:true
+
+    });
+
+
 
 });
 
 
-});
 
 
 
 
 
+
+
+// ELIMINAR ACTUALIZACIÓN
 
 app.delete("/api/posts/:id",async(req,res)=>{
 
 
-await pool.query(
+    await pool.query(
 
-"DELETE FROM posts WHERE id=$1",
+        `
+        DELETE FROM posts
+        WHERE id=$1
+        `,
 
-[req.params.id]
+        [
 
-);
+            req.params.id
+
+        ]
+
+    );
 
 
-res.json({
 
-success:true
+    res.json({
+
+        success:true
+
+    });
+
 
 });
 
 
-});
 
 
 
 
 
+// CARGAR INDEX
 
 app.get("*",(req,res)=>{
 
-res.sendFile(
 
-path.join(__dirname,"public","index.html")
+    res.sendFile(
 
-);
+        path.join(__dirname,"public","index.html")
+
+    );
+
 
 });
 
@@ -332,13 +489,18 @@ path.join(__dirname,"public","index.html")
 
 
 
-const PORT=process.env.PORT || 10000;
+
+const PORT = process.env.PORT || 10000;
 
 
 app.listen(PORT,()=>{
 
-console.log(
-"Servidor activo en puerto "+PORT
-);
+
+    console.log(
+
+        "Servidor activo en puerto "+PORT
+
+    );
+
 
 });
