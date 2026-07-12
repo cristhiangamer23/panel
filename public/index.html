@@ -25,6 +25,7 @@ color:white;
 }
 
 
+
 .login{
 
 height:100vh;
@@ -38,6 +39,7 @@ align-items:center;
 }
 
 
+
 .login-box{
 
 width:360px;
@@ -46,13 +48,14 @@ max-width:90%;
 
 padding:30px;
 
-background:rgba(17,24,39,.9);
-
 border-radius:16px;
+
+background:rgba(17,24,39,.95);
 
 text-align:center;
 
 }
+
 
 
 input,textarea{
@@ -65,9 +68,9 @@ padding:12px;
 
 margin:6px 0;
 
-border:0;
-
 border-radius:10px;
+
+border:none;
 
 background:#0f172a;
 
@@ -89,7 +92,7 @@ button{
 
 padding:10px 15px;
 
-border:0;
+border:none;
 
 border-radius:8px;
 
@@ -98,6 +101,7 @@ cursor:pointer;
 font-weight:bold;
 
 }
+
 
 
 .green{
@@ -216,8 +220,6 @@ font-size:12px;
 
 
 
-
-
 .modal{
 
 position:fixed;
@@ -256,9 +258,7 @@ width:350px;
 
 
 
-
 @media(max-width:600px){
-
 
 .nav{
 
@@ -276,28 +276,21 @@ gap:10px;
 }
 
 
-
 button{
 
 width:100%;
 
 }
 
-
 }
 
 
-
 </style>
-
 
 </head>
 
 
 <body>
-
-
-
 
 
 <div id="loginBox" class="login">
@@ -307,7 +300,6 @@ width:100%;
 
 
 <h2>🇦🇷 Buenos Aires RP</h2>
-
 
 <p>Panel Staff</p>
 
@@ -332,14 +324,6 @@ Entrar
 
 
 </div>
-
-
-
-
-
-
-
-
 <div id="panel" class="hidden">
 
 
@@ -386,7 +370,6 @@ Entrar
 
 
 
-
 <script>
 
 
@@ -400,41 +383,60 @@ let POSTS=[];
 
 
 
+
+
 async function login(){
 
 
-let r=await fetch("/api/login",{
+let response = await fetch("/api/login",{
+
 
 method:"POST",
 
+
 headers:{
+
 
 "Content-Type":"application/json"
 
+
 },
+
 
 body:JSON.stringify({
 
+
 user:user.value,
+
 
 pass:pass.value
 
+
 })
+
 
 });
 
 
-let data=await r.json();
+
+let data = await response.json();
+
+
 
 
 
 if(!data.success){
 
-error.innerHTML="❌ Login incorrecto";
+
+error.innerHTML="❌ Usuario o contraseña incorrecta";
+
 
 return;
 
+
 }
+
+
 
 
 
@@ -443,16 +445,21 @@ currentUser=data.user;
 
 loginBox.style.display="none";
 
+
 panel.classList.remove("hidden");
 
 
-loadAll();
+await loadAll();
 
 
 show("updates");
 
 
+
 }
+
+
+
 
 
 
@@ -472,15 +479,21 @@ return currentUser.role==="Dueño";
 
 
 
+
+
+
 function show(id){
 
 
 updates.classList.add("hidden");
 
+
 staff.classList.add("hidden");
 
 
+
 document.getElementById(id).classList.remove("hidden");
+
 
 
 }
@@ -492,18 +505,20 @@ document.getElementById(id).classList.remove("hidden");
 
 
 
+
 async function loadAll(){
 
 
-let u=await fetch("/api/users");
 
-USERS=await u.json();
+let usuarios = await fetch("/api/users");
+
+USERS = await usuarios.json();
 
 
 
-let p=await fetch("/api/posts");
+let posts = await fetch("/api/posts");
 
-POSTS=await p.json();
+POSTS = await posts.json();
 
 
 
@@ -519,10 +534,15 @@ render();
 
 
 
+
 function render(){
 
 
+
 updates.innerHTML="";
+
+
+
 
 
 if(isOwner()){
@@ -553,7 +573,11 @@ Publicar
 
 `;
 
+
 }
+
+
+
 
 
 
@@ -566,16 +590,21 @@ updates.innerHTML+=`
 
 <div class="card">
 
+
 <h3>${p.titulo}</h3>
 
+
 <p>${p.mensaje}</p>
+
 
 <small>${p.fecha}</small>
 
 
 ${isOwner()?`
 
-<br>
+
+<br><br>
+
 
 <button class="red" onclick="deletePost(${p.id})">
 
@@ -583,12 +612,15 @@ ${isOwner()?`
 
 </button>
 
+
 `:''}
+
 
 
 </div>
 
 `;
+
 
 });
 
@@ -598,7 +630,11 @@ ${isOwner()?`
 
 
 
+
+
 staff.innerHTML="";
+
+
 
 
 
@@ -613,7 +649,7 @@ staff.innerHTML+=`
 <h3>Agregar Staff</h3>
 
 
-<input id="newUser" placeholder="Nombre">
+<input id="newUser" placeholder="Nombre del Staff">
 
 
 <input id="newRole" placeholder="Rango">
@@ -634,9 +670,6 @@ Agregar
 
 
 
-
-
-
 USERS.forEach(u=>{
 
 
@@ -647,7 +680,9 @@ staff.innerHTML+=`
 
 <div>
 
+
 👤 ${u.username}
+
 
 <span class="badge">
 
@@ -655,16 +690,21 @@ ${u.role}
 
 </span>
 
+
 </div>
+
+
 
 
 
 ${isOwner()?`
 
+
 <div>
 
 
 <button class="blue"
+
 onclick="editUser(${u.id},'${u.username}','${u.role}')">
 
 ✏️
@@ -673,7 +713,9 @@ onclick="editUser(${u.id},'${u.username}','${u.role}')">
 
 
 
+
 <button class="red"
+
 onclick="deleteUser(${u.id})">
 
 🗑️
@@ -683,14 +725,20 @@ onclick="deleteUser(${u.id})">
 
 </div>
 
+
+
 `:''}
+
 
 
 </div>
 
+
 `;
 
+
 });
+
 
 
 }
@@ -706,22 +754,36 @@ onclick="deleteUser(${u.id})">
 async function addUser(){
 
 
+
 await fetch("/api/users",{
+
 
 method:"POST",
 
+
 headers:{
 
+
 "Content-Type":"application/json"
+
 
 },
 
 
 body:JSON.stringify({
 
+
+adminUser:currentUser.username,
+
+
+adminPass:currentUser.password,
+
+
 user:newUser.value,
 
+
 role:newRole.value
+
 
 })
 
@@ -729,28 +791,22 @@ role:newRole.value
 });
 
 
+
 loadAll();
 
 
+
 }
+async function editUser(id,nombre,rango){
 
 
+let modal=document.createElement("div");
 
 
+modal.className="modal";
 
 
-
-
-function editUser(id,nombre,rango){
-
-
-let div=document.createElement("div");
-
-
-div.className="modal";
-
-
-div.innerHTML=`
+modal.innerHTML=`
 
 <div class="modal-box">
 
@@ -758,13 +814,13 @@ div.innerHTML=`
 <h3>Editar Staff</h3>
 
 
-<input id="editName" value="${nombre}">
+<input id="editName" value="${nombre}" placeholder="Nombre">
 
 
 <input id="editRole" value="${rango}" placeholder="Rango">
 
 
-<button class="green" onclick="saveEdit(${id},this)">
+<button class="green" onclick="saveEdit(${id})">
 
 Guardar
 
@@ -783,7 +839,8 @@ Cancelar
 `;
 
 
-document.body.appendChild(div);
+
+document.body.appendChild(modal);
 
 
 }
@@ -796,47 +853,66 @@ document.body.appendChild(div);
 
 
 
-async function saveEdit(id,btn){
+async function saveEdit(id){
 
 
-let name=document.getElementById("editName").value;
-
-let role=document.getElementById("editRole").value;
+let nombre=document.getElementById("editName").value;
 
 
+let rango=document.getElementById("editRole").value;
 
-if(!role){
+
+
+if(!rango){
+
 
 alert("El rango es obligatorio");
 
+
 return;
 
+
 }
+
+
 
 
 
 await fetch("/api/users/"+id,{
 
+
 method:"PUT",
+
 
 headers:{
 
+
 "Content-Type":"application/json"
+
 
 },
 
+
 body:JSON.stringify({
 
-user:name,
 
-role:role
+adminUser:currentUser.username,
+
+
+adminPass:currentUser.password,
+
+
+user:nombre,
+
+
+role:rango
+
 
 })
 
+
 });
 
-
-btn.parentElement.parentElement.remove();
 
 
 loadAll();
@@ -855,17 +931,43 @@ loadAll();
 async function deleteUser(id){
 
 
+
 await fetch("/api/users/"+id,{
 
-method:"DELETE"
+
+method:"DELETE",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify({
+
+
+adminUser:currentUser.username,
+
+
+adminPass:currentUser.password
+
+
+})
+
 
 });
+
 
 
 loadAll();
 
 
 }
+
 
 
 
@@ -877,31 +979,49 @@ loadAll();
 async function crearPost(){
 
 
+
 await fetch("/api/posts",{
+
 
 method:"POST",
 
+
 headers:{
+
 
 "Content-Type":"application/json"
 
+
 },
+
 
 body:JSON.stringify({
 
+
+adminUser:currentUser.username,
+
+
+adminPass:currentUser.password,
+
+
 titulo:titulo.value,
+
 
 mensaje:mensaje.value
 
+
 })
 
+
 });
+
 
 
 loadAll();
 
 
 }
+
 
 
 
@@ -913,11 +1033,36 @@ loadAll();
 async function deletePost(id){
 
 
+
 await fetch("/api/posts/"+id,{
 
-method:"DELETE"
+
+method:"DELETE",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify({
+
+
+adminUser:currentUser.username,
+
+
+adminPass:currentUser.password
+
+
+})
+
 
 });
+
 
 
 loadAll();
@@ -928,7 +1073,6 @@ loadAll();
 
 
 </script>
-
 
 
 </body>
