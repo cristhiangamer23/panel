@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Buenos Aires RP | Panel</title>
@@ -13,29 +12,42 @@
 
 *{
 box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
 }
 
 body{
+
 margin:0;
-font-family:"Segoe UI",sans-serif;
+
+min-height:100vh;
+
 background:
 radial-gradient(circle at top,#17365F,#0B1220,#070B14);
+
 color:white;
-overflow-x:hidden;
+
 }
 
+/* LOGIN */
+
 .login{
+
 height:100vh;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 padding:20px;
+
 }
+
 
 .login-box{
 
 width:390px;
-max-width:100%;
 
 padding:45px;
 
@@ -45,47 +57,56 @@ background:rgba(255,255,255,.08);
 
 backdrop-filter:blur(20px);
 
-border:1px solid rgba(255,255,255,.12);
+border:1px solid rgba(255,255,255,.15);
 
-box-shadow:0 25px 60px rgba(0,0,0,.45);
+box-shadow:
+0 25px 60px rgba(0,0,0,.45);
 
 text-align:center;
 
 }
 
+
+/* LOGO */
+
 .logo{
 
-width:95px;
-height:95px;
+width:100px;
 
-margin:auto auto 20px;
+height:100px;
+
+margin:0 auto 20px;
 
 border-radius:50%;
 
-display:flex;
-justify-content:center;
-align-items:center;
-
-background:rgba(255,255,255,.08);
-
-border:2px solid rgba(77,237,255,.35);
-
-box-shadow:0 0 25px rgba(77,237,255,.35);
-
 overflow:hidden;
 
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border:2px solid rgba(77,237,255,.5);
+
+box-shadow:
+0 0 25px rgba(77,237,255,.45);
+
 }
+
 
 .logo img{
 
 width:100%;
+
 height:100%;
 
 object-fit:cover;
 
-border-radius:50%;
-
 }
+
+
+/* TITULO */
 
 h1{
 
@@ -93,19 +114,65 @@ margin:0;
 
 font-size:32px;
 
-font-weight:800;
+font-weight:900;
 
-color:white;
+background:linear-gradient(
+90deg,
+#4DEDFF,
+white,
+#4DEDFF
+);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
 
 }
+
 
 .subtitle{
 
-margin:10px 0 25px;
+margin:12px 0 25px;
 
-color:#AAB7C4;
+color:#94A3B8;
 
 }
+
+
+/* INPUTS */
+
+input{
+
+width:100%;
+
+padding:14px;
+
+margin:8px 0;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:#0F172A;
+
+color:white;
+
+font-size:15px;
+
+}
+
+
+input:focus{
+
+box-shadow:
+0 0 15px rgba(77,237,255,.35);
+
+}
+
+
+/* BOTON LOGIN */
 
 .login-btn{
 
@@ -113,280 +180,296 @@ width:100%;
 
 padding:15px;
 
-margin-top:18px;
+margin-top:15px;
 
 border:none;
 
 border-radius:14px;
+
+cursor:pointer;
+
+font-weight:bold;
 
 font-size:16px;
 
-font-weight:bold;
-
-cursor:pointer;
-
 color:#06121D;
 
-background:linear-gradient(90deg,#00C6FF,#4DEDFF);
+background:
+linear-gradient(
+90deg,
+#00C6FF,
+#4DEDFF
+);
 
 transition:.25s;
 
 }
+
 
 .login-btn:hover{
 
-transform:translateY(-2px);
+transform:translateY(-3px);
 
-box-shadow:0 0 20px rgba(77,237,255,.45);
+box-shadow:
+0 0 25px rgba(77,237,255,.45);
 
 }
+
+
+#error{
+
+color:#ef4444;
+
+margin-top:15px;
+
+}
+
 
 .footer{
 
-margin-top:28px;
+margin-top:25px;
 
 font-size:12px;
 
-color:#7E8B99;
+color:#64748B;
 
 }
 
-.login-box p{
-color:#cbd5e1;
-margin-top:8px;
-margin-bottom:22px;
-font-size:15px;
-}
 
-input,
-textarea{
-
-width:100%;
-
-padding:12px;
-
-margin:7px 0;
-
-border:none;
-
-border-radius:10px;
-
-outline:none;
-
-background:#0f172a;
-
-color:white;
-
-transition:.25s;
-
-}
-
-input:focus,
-textarea:focus{
-
-border:1px solid #4DEDFF;
-
-box-shadow:0 0 12px rgba(77,237,255,.25);
-
-}
-
-textarea{
-
-height:120px;
-
-resize:none;
-
-}
-
-button{
-
-padding:10px 15px;
-
-border:none;
-
-border-radius:8px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-transition:.2s;
-
-}
-
-button:hover{
-
-transform:translateY(-2px);
-
-}
-
-.green{
-background:#22c55e;
-color:white;
-}
-
-.red{
-background:#ef4444;
-color:white;
-}
-
-.blue{
-background:#2563eb;
-color:white;
-}
+/* GENERAL */
 
 .hidden{
+
 display:none;
+
 }
 
-.nav{
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div id="loginBox" class="login">
+
+
+<div class="login-box">
+
+
+<div class="logo">
+
+<img src="https://media.discordapp.net/attachments/1422562797148962929/1526052310005055638/ChatGPT_Image_6_jul_2026_02_46_06_p.m..png?ex=6a559e77&is=6a544cf7&hm=7a8b8dd5d5708a95848980033996c9284903d032929ffea38eb5f56bfef59152&=&format=webp&quality=lossless&width=930&height=930" alt="Buenos Aires RP">
+
+</div>
+
+
+<h1>
+
+Buenos Aires RP
+
+</h1>
+
+
+<p class="subtitle">
+
+Panel de Recursos Humanos
+
+</p>
+
+
+<input id="user" placeholder="👤 Usuario">
+
+
+<input id="pass" type="password" placeholder="🔒 Contraseña">
+
+
+<button class="login-btn" onclick="login()">
+
+Iniciar Sesión
+
+</button>
+
+
+<p id="error"></p>
+
+
+<div class="footer">
+
+© 2026 Buenos Aires RP
+
+</div>
+
+
+</div>
+
+
+</div>
+<!-- PANEL PRINCIPAL -->
+
+<div id="panel" class="hidden">
+
+
+<header class="topbar">
+
+<div>
+
+<h2>
+
+Buenos Aires RP
+
+</h2>
+
+<span id="welcome"></span>
+
+</div>
+
+
+<div>
+
+<span id="roleBadge"></span>
+
+</div>
+
+
+</header>
+
+
+
+<!-- ESTADISTICAS -->
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+👥
+</div>
+
+<h3 id="staffCount">
+0
+</h3>
+
+<p>
+Personal
+</p>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<div class="stat-icon">
+📢
+</div>
+
+<h3 id="postCount">
+0
+</h3>
+
+<p>
+Actualizaciones
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- BOTONES -->
+
+<div class="nav">
+
+
+<button class="tab active" onclick="show('updates')">
+
+📢 Actualizaciones
+
+</button>
+
+
+<button class="tab" onclick="show('staff')">
+
+👥 Staff
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div class="container">
+
+
+<!-- ACTUALIZACIONES -->
+
+
+<div id="updates">
+
+
+</div>
+
+
+
+
+
+<!-- STAFF -->
+
+
+<div id="staff" class="hidden">
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<style>
+
+
+/* PANEL */
+
+
+.topbar{
+
 display:flex;
-justify-content:center;
-gap:10px;
-padding:20px;
-flex-wrap:wrap;
-}
 
-.tab{
-
-background:linear-gradient(135deg,#2563EB,#3B82F6);
-
-color:white;
-
-padding:13px 22px;
-
-border:none;
-
-border-radius:12px;
-
-cursor:pointer;
-
-font-size:15px;
-
-font-weight:700;
-
-transition:.25s;
-
-box-shadow:0 8px 20px rgba(37,99,235,.30);
-
-}
-
-.tab:hover{
-
-transform:translateY(-2px);
-
-background:linear-gradient(135deg,#1D4ED8,#2563EB);
-
-}
-
-.tab.active{
-
-background:linear-gradient(135deg,#06B6D4,#4DEDFF);
-
-color:#06121D;
-
-box-shadow:0 0 18px rgba(77,237,255,.45);
-
-}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-}
-
-.card{
-background:rgba(17,24,39,.9);
-padding:20px;
-border-radius:14px;
-margin-top:15px;
-}
-
-.user{
-display:flex;
 justify-content:space-between;
-align-items:center;
-gap:10px;
-}
-
-.badge{
-background:#334155;
-padding:5px 10px;
-border-radius:8px;
-font-size:12px;
-}
-
-.actions{
-display:flex;
-gap:8px;
-}
-
-.modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.7);
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-}
-
-.modal-box{
-background:#111827;
-width:350px;
-max-width:100%;
-padding:25px;
-border-radius:15px;
-}
-
-@media(max-width:600px){
-
-h1{
-font-size:28px;
-}
-
-.logo{
-width:80px;
-height:80px;
-}
-
-.nav{
-flex-direction:column;
-}
-
-.tab{
-text-align:center;
-}
-
-.user{
-flex-direction:column;
-align-items:stretch;
-}
-
-.actions button{
-width:100%;
-}
-
-}
-
-  .topbar{
-
-display:flex;
-
-justify-content:space-between;
 
 align-items:center;
 
 padding:25px;
 
-background:#111827;
+background:rgba(17,24,39,.85);
 
-border-bottom:1px solid #293548;
+backdrop-filter:blur(15px);
+
+border-bottom:1px solid rgba(77,237,255,.15);
 
 }
+
 
 .topbar h2{
 
@@ -398,31 +481,47 @@ color:#4DEDFF;
 
 }
 
+
+
 #welcome{
 
 color:#94A3B8;
 
 }
 
+
+
 #roleBadge{
 
-background:#4DEDFF;
+background:linear-gradient(
+90deg,
+#00C6FF,
+#4DEDFF
+);
 
-color:#07131F;
+color:#06121D;
 
-padding:8px 16px;
+padding:8px 18px;
 
-border-radius:25px;
+border-radius:30px;
 
 font-weight:bold;
 
 }
 
+
+
+
+
+/* ESTADISTICAS */
+
+
 .stats{
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+grid-template-columns:
+repeat(auto-fit,minmax(200px,1fr));
 
 gap:20px;
 
@@ -430,184 +529,270 @@ padding:25px;
 
 }
 
+
+
 .stat-card{
 
-background:#111827;
+background:
+linear-gradient(
+180deg,
+#182435,
+#111827
+);
 
 padding:25px;
 
-border-radius:18px;
+border-radius:20px;
 
 text-align:center;
 
-box-shadow:0 10px 25px rgba(0,0,0,.3);
+border:1px solid rgba(77,237,255,.15);
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.35);
 
 transition:.25s;
 
 }
 
+
+
 .stat-card:hover{
 
 transform:translateY(-5px);
 
+border-color:#4DEDFF;
+
+box-shadow:
+0 0 25px rgba(77,237,255,.25);
+
 }
+
+
+
+.stat-icon{
+
+font-size:35px;
+
+}
+
+
 
 .stat-card h3{
 
-font-size:34px;
+font-size:38px;
 
-margin:0;
+margin:10px 0;
 
 color:#4DEDFF;
 
 }
 
-.stat-card p{
 
-margin-top:10px;
+
+.stat-card p{
 
 color:#94A3B8;
 
-}
-
-.green h3{
-
-color:#22C55E;
+margin:0;
 
 }
-  
+
+
+
+
+/* NAVEGACION */
+
+
+.nav{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+padding:20px;
+
+}
+
+
+
+.tab{
+
+background:#2563EB;
+
+color:white;
+
+padding:13px 25px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+transition:.25s;
+
+}
+
+
+
+.tab:hover{
+
+background:#1D4ED8;
+
+transform:translateY(-3px);
+
+}
+
+
+
+.tab.active{
+
+background:#4DEDFF;
+
+color:#06121D;
+
+box-shadow:
+
+0 0 20px rgba(77,237,255,.45);
+
+}
+
+
+
+
+
+/* CONTENEDOR */
+
+
+.container{
+
+max-width:950px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+
+
+.card{
+
+background:
+
+linear-gradient(
+180deg,
+#182435,
+#111827
+);
+
+padding:22px;
+
+border-radius:18px;
+
+margin-top:15px;
+
+border:1px solid rgba(77,237,255,.15);
+
+box-shadow:
+
+0 10px 25px rgba(0,0,0,.3);
+
+transition:.25s;
+
+animation:showCard .35s ease;
+
+}
+
+
+
+.card:hover{
+
+border-color:#4DEDFF;
+
+transform:translateY(-3px);
+
+}
+
+
+
+
+@keyframes showCard{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.topbar{
+
+flex-direction:column;
+
+gap:15px;
+
+text-align:center;
+
+}
+
+
+
+.nav{
+
+flex-direction:column;
+
+}
+
+
+.tab{
+
+width:100%;
+
+}
+
+
+}
+
 </style>
-
-</head>
-
-<body>
-
-<!-- LOGIN -->
-
-<div id="loginBox" class="login">
-
-<div class="login-box">
-
-<div class="logo">
-
-<img
-src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a5542f9&is=6a53f179&hm=41331dc1ae4d44f399e1f1d48918c1333f686632b24f94e1da4f6901f1b7b91f&=&format=webp&quality=lossless&width=930&height=930"
-alt="Buenos Aires RP">
-
-</div>
-
-<h1>Buenos Aires RP</h1>
-
-<p class="subtitle">
-Panel de Recursos Humanos
-</p>
-
-<input
-id="user"
-placeholder="👤 Usuario">
-
-<input
-id="pass"
-type="password"
-placeholder="🔒 Contraseña">
-
-<button
-class="login-btn"
-onclick="login()">
-
-Iniciar Sesión
-
-</button>
-
-<p id="error"></p>
-
-<div class="footer">
-
-© 2026 Buenos Aires RP
-
-</div>
-
-</div>
-
-</div>
-
-<!-- PANEL -->
-<div id="panel" class="hidden">
-
-<header class="topbar">
-
-<div>
-
-<h2>Buenos Aires RP</h2>
-
-<span id="welcome"></span>
-
-</div>
-
-<div>
-
-<span id="roleBadge"></span>
-
-</div>
-
-</header>
-
-<div class="stats">
-
-<div class="stat-card">
-
-<h3 id="staffCount">0</h3>
-
-<p>👥 Personal</p>
-
-</div>
-
-<div class="stat-card">
-
-<h3 id="postCount">0</h3>
-
-<p>📢 Actualizaciones</p>
-
-</div>
-
-</div>
-
-<div class="nav">
-
-<button class="tab active" onclick="show('updates')">
-📢 Actualizaciones
-</button>
-
-<button class="tab" onclick="show('staff')">
-👥 Staff
-</button>
-
-</div>
-
-<div class="container">
-
-<div id="updates"></div>
-
-<div id="staff" class="hidden"></div>
-
-</div>
-
-</div>
-
 <script>
 
-let currentUser=null;
+let currentUser = null;
 
-let USERS=[];
+let USERS = [];
 
-let POSTS=[];
+let POSTS = [];
 
+
+// LOGIN
 
 async function login(){
 
 
 let respuesta = await fetch("/api/login",{
-
 
 method:"POST",
 
@@ -617,7 +802,6 @@ headers:{
 
 },
 
-
 body:JSON.stringify({
 
 user:user.value,
@@ -626,62 +810,51 @@ pass:pass.value
 
 })
 
-
 });
-
 
 
 let data = await respuesta.json();
 
 
-
-
 if(!data.success){
-
 
 error.innerText="❌ Usuario o contraseña incorrecta";
 
-
 return;
 
-
 }
-
-
 
 
 currentUser=data.user;
 
 
-
 loginBox.style.display="none";
-
 
 panel.classList.remove("hidden");
 
+
+welcome.innerText=
+"Bienvenido, "+currentUser.username;
+
+
+roleBadge.innerText=
+currentUser.role;
 
 
 await loadAll();
 
 
-
 show("updates");
 
 
-
 }
-
-
-
 
 
 
 
 function isOwner(){
 
-
 return currentUser && currentUser.role==="Dueño";
-
 
 }
 
@@ -689,7 +862,7 @@ return currentUser && currentUser.role==="Dueño";
 
 
 
-
+// CAMBIO DE PESTAÑA
 
 function show(tab){
 
@@ -699,9 +872,30 @@ updates.classList.add("hidden");
 staff.classList.add("hidden");
 
 
+document.getElementById(tab)
+.classList.remove("hidden");
 
-document.getElementById(tab).classList.remove("hidden");
 
+
+document.querySelectorAll(".tab")
+.forEach(btn=>{
+
+btn.classList.remove("active");
+
+});
+
+
+if(tab==="updates"){
+
+document.querySelectorAll(".tab")[0]
+.classList.add("active");
+
+}else{
+
+document.querySelectorAll(".tab")[1]
+.classList.add("active");
+
+}
 
 
 }
@@ -710,25 +904,36 @@ document.getElementById(tab).classList.remove("hidden");
 
 
 
+// CARGAR DATOS
 
 
 async function loadAll(){
 
 
-
-let usuarios = await fetch("/api/users");
-
-
-USERS = await usuarios.json();
+let usuarios =
+await fetch("/api/users");
 
 
+USERS =
+await usuarios.json();
 
 
-let publicaciones = await fetch("/api/posts");
+
+let publicaciones =
+await fetch("/api/posts");
 
 
-POSTS = await publicaciones.json();
+POSTS =
+await publicaciones.json();
 
+
+
+document.getElementById("staffCount")
+.innerText=USERS.length;
+
+
+document.getElementById("postCount")
+.innerText=POSTS.length;
 
 
 
@@ -741,73 +946,46 @@ render();
 
 
 
-
-
-
 function render(){
 
-welcome.innerText="Conectado como "+currentUser.username;
 
-roleBadge.innerText=currentUser.role;
-
-staffCount.innerText=USERS.length;
-
-postCount.innerText=POSTS.length;
-
-adminCount.innerText=USERS.filter(x=>x.role==="Dueño").length;
-
-  
-// ======================
-
-// ACTUALIZACIONES
-
-// ======================
-
+/* ACTUALIZACIONES */
 
 
 updates.innerHTML="";
 
 
-
-
 if(isOwner()){
-
 
 
 updates.innerHTML+=`
 
 <div class="card">
 
-
 <h3>📢 Crear actualización</h3>
 
 
-<input id="titulo" placeholder="Título">
+<input id="titulo"
+placeholder="Título">
 
 
-<textarea id="mensaje" placeholder="Mensaje"></textarea>
+<textarea id="mensaje"
+placeholder="Mensaje"></textarea>
 
 
-
-<button class="green" onclick="crearPost()">
+<button class="login-btn"
+onclick="crearPost()">
 
 Publicar
 
 </button>
 
 
-
 </div>
-
 
 `;
 
-
-
 }
-
-
-
 
 
 
@@ -819,48 +997,48 @@ updates.innerHTML+=`
 <div class="card">
 
 
-<h3>${post.titulo}</h3>
+<h3>
+🚀 ${post.titulo}
+</h3>
 
 
-<p>${post.mensaje}</p>
+<p>
+${post.mensaje}
+</p>
 
 
-<small>${post.fecha}</small>
-
-
+<small>
+${post.fecha}
+</small>
 
 
 ${isOwner()?`
 
-<br><br>
+<br>
 
-
-<button class="blue" onclick="sendDiscord(${post.id})">
+<button class="blue"
+onclick="sendDiscord(${post.id})">
 
 🔔 Discord
 
 </button>
 
 
-
-<button class="red" onclick="deletePost(${post.id})">
+<button class="red"
+onclick="deletePost(${post.id})">
 
 🗑 Eliminar
 
 </button>
 
 
-
 `:''}
-
 
 
 </div>
 
 
 `;
-
-
 
 });
 
@@ -870,25 +1048,13 @@ ${isOwner()?`
 
 
 
-
-
-// ======================
-
-// STAFF
-
-// ======================
-
+/* STAFF */
 
 
 staff.innerHTML="";
 
 
-
-
-
-
 if(isOwner()){
-
 
 
 staff.innerHTML+=`
@@ -896,56 +1062,46 @@ staff.innerHTML+=`
 <div class="card">
 
 
-<h3>👥 Agregar Staff</h3>
+<h3>
+👥 Agregar Staff
+</h3>
 
 
-
-<input id="newUser" placeholder="Nombre (opcional)">
-
-
-
-<input id="newRole" placeholder="Rango obligatorio">
+<input id="newUser"
+placeholder="Nombre">
 
 
+<input id="newRole"
+placeholder="Rango">
 
-<button class="green" onclick="addUser()">
+
+<button class="login-btn"
+onclick="addUser()">
 
 Agregar
 
 </button>
 
 
-
 </div>
-
-
 
 `;
 
-
-
 }
-
-
-
 
 
 
 USERS.forEach(u=>{
 
 
-
 staff.innerHTML+=`
 
-<div class="card user">
+<div class="card">
 
 
-
-<div>
-
+<h3>
 
 👤 ${u.username}
-
 
 <span class="badge">
 
@@ -954,39 +1110,28 @@ ${u.role}
 </span>
 
 
-</div>
-
+</h3>
 
 
 
 ${isOwner()?`
 
-
-<div class="actions">
-
-
 <button class="blue"
 
 onclick="editUser(${u.id},'${u.username}','${u.role}')">
 
-✏️
+✏️ Editar
 
 </button>
-
 
 
 <button class="red"
 
 onclick="deleteUser(${u.id})">
 
-🗑
+🗑 Eliminar
 
 </button>
-
-
-
-</div>
-
 
 
 `:''}
@@ -995,13 +1140,9 @@ onclick="deleteUser(${u.id})">
 
 </div>
 
-
 `;
 
-
-
 });
-
 
 
 }
@@ -1012,39 +1153,31 @@ onclick="deleteUser(${u.id})">
 
 
 
+// AGREGAR STAFF
 
 
 async function addUser(){
 
 
-
 if(!newRole.value){
-
 
 alert("El rango es obligatorio");
 
-
 return;
-
 
 }
 
 
 
-
 await fetch("/api/users",{
-
 
 method:"POST",
 
-
 headers:{
-
 
 "Content-Type":"application/json"
 
 },
-
 
 body:JSON.stringify({
 
@@ -1054,66 +1187,40 @@ role:newRole.value
 
 })
 
-
 });
-
 
 
 loadAll();
 
 
 }
-  function editUser(id,nombre,rango){
-
-
-let modal=document.createElement("div");
-
-
-modal.className="modal";
 
 
 
-modal.innerHTML=`
-
-<div class="modal-box">
-
-
-<h3>✏️ Editar Staff</h3>
 
 
 
-<input id="editName" value="${nombre}" placeholder="Nombre">
+
+// EDITAR STAFF
+
+
+function editUser(id,nombre,rango){
+
+
+let nuevoNombre=
+prompt("Nombre:",nombre);
+
+
+let nuevoRango=
+prompt("Rango:",rango);
 
 
 
-<input id="editRole" value="${rango}" placeholder="Rango">
+if(!nuevoRango)return;
 
 
 
-<button class="green" onclick="saveEdit(${id})">
-
-Guardar
-
-</button>
-
-
-
-<button class="red" onclick="this.closest('.modal').remove()">
-
-Cancelar
-
-</button>
-
-
-
-</div>
-
-
-`;
-
-
-
-document.body.appendChild(modal);
+saveEdit(id,nuevoNombre,nuevoRango);
 
 
 }
@@ -1122,96 +1229,28 @@ document.body.appendChild(modal);
 
 
 
+async function saveEdit(id,nombre,rango){
 
 
-
-async function saveEdit(id){
-
-
-
-let nombre=document.getElementById("editName").value;
-
-
-let rango=document.getElementById("editRole").value;
-
-
-
-
-if(!rango){
-
-
-alert("El rango es obligatorio");
-
-
-return;
-
-
-}
-
-
-
-
-
-let respuesta = await fetch("/api/users/"+id,{
-
+await fetch("/api/users/"+id,{
 
 method:"PUT",
 
-
 headers:{
-
 
 "Content-Type":"application/json"
 
 },
 
-
 body:JSON.stringify({
-
 
 user:nombre,
 
 role:rango
 
-
 })
 
-
 });
-
-
-
-let data=await respuesta.json();
-
-
-
-
-if(!data.success){
-
-
-alert("Error al actualizar");
-
-
-return;
-
-
-}
-
-
-
-
-
-let modal=document.querySelector(".modal");
-
-
-if(modal){
-
-
-modal.remove();
-
-
-}
-
 
 
 loadAll();
@@ -1224,25 +1263,23 @@ loadAll();
 
 
 
+
+// ELIMINAR STAFF
 
 
 async function deleteUser(id){
 
 
-
-if(!confirm("¿Eliminar usuario?")) return;
-
+if(!confirm("¿Eliminar usuario?"))
+return;
 
 
 
 await fetch("/api/users/"+id,{
 
-
 method:"DELETE"
 
-
 });
-
 
 
 loadAll();
@@ -1256,39 +1293,31 @@ loadAll();
 
 
 
+// CREAR ACTUALIZACION
 
 
 async function crearPost(){
 
 
-
 await fetch("/api/posts",{
-
 
 method:"POST",
 
-
 headers:{
-
 
 "Content-Type":"application/json"
 
 },
 
-
 body:JSON.stringify({
-
 
 titulo:titulo.value,
 
 mensaje:mensaje.value
 
-
 })
 
-
 });
-
 
 
 loadAll();
@@ -1301,25 +1330,23 @@ loadAll();
 
 
 
+
+// ELIMINAR ACTUALIZACION
 
 
 async function deletePost(id){
 
 
-
-if(!confirm("¿Eliminar actualización?")) return;
-
+if(!confirm("¿Eliminar actualización?"))
+return;
 
 
 
 await fetch("/api/posts/"+id,{
 
-
 method:"DELETE"
 
-
 });
-
 
 
 loadAll();
@@ -1333,34 +1360,30 @@ loadAll();
 
 
 
+// ENVIAR A DISCORD
+
 
 async function sendDiscord(id){
 
 
-
-let post = POSTS.find(x=>x.id===id);
+let post =
+POSTS.find(x=>x.id===id);
 
 
 
 await fetch("/api/webhook",{
 
-
 method:"POST",
 
-
 headers:{
-
 
 "Content-Type":"application/json"
 
 },
 
-
 body:JSON.stringify(post)
 
-
 });
-
 
 
 alert("✅ Actualización enviada a Discord");
@@ -1369,14 +1392,4 @@ alert("✅ Actualización enviada a Discord");
 }
 
 
-
-
-
-
 </script>
-
-
-</body>
-
-
-</html>
