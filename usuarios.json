@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "user": "Cristhian",
+    "pass": "2040@",
+    "role": "Dueño",
+    "activity": "Activo"
+  },
+  {
+    "id": 2,
+    "user": "Zarl",
+    "pass": "2050@",
+    "role": "Owner 2",
+    "activity": "Activo"
+  },
+  {
+    "id": 3,
+    "user": "Alan",
+    "pass": "2060@",
+    "role": "Moderador",
+    "activity": "Activo"
+  }
+]
