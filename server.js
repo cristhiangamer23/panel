@@ -9,7 +9,6 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 
-
 // ================= DATABASE =================
 
 
@@ -41,7 +40,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 id SERIAL PRIMARY KEY,
 
-user VARCHAR(50) UNIQUE NOT NULL,
+username VARCHAR(50) UNIQUE NOT NULL,
 
 pass VARCHAR(100) NOT NULL,
 
@@ -70,13 +69,13 @@ fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 
 
+
 // Crear usuario principal
 
 
-let existe =
-await pool.query(
+let existe = await pool.query(
 
-"SELECT * FROM usuarios WHERE user='Cristhian'"
+"SELECT * FROM usuarios WHERE username='Cristhian'"
 
 );
 
@@ -91,7 +90,7 @@ await pool.query(
 
 INSERT INTO usuarios
 
-(user,pass,role,activity)
+(username,pass,role,activity)
 
 VALUES($1,$2,$3,$4)
 
@@ -142,6 +141,7 @@ iniciarBaseDatos();
 
 
 
+
 // ================= CONFIG =================
 
 
@@ -173,16 +173,13 @@ resave:false,
 
 saveUninitialized:false,
 
-
 cookie:{
 
 maxAge:1000*60*60*24
 
 }
 
-
 }));
-
 
 
 app.use(express.static("public"));
@@ -193,7 +190,9 @@ app.use(express.static("public"));
 
 
 
-// ================= FUNCIONES PERMISOS =================
+
+
+// ================= PERMISOS =================
 
 
 
@@ -235,6 +234,8 @@ usuario.role==="Owner 2"
 
 
 
+
+
 // ================= LOGIN =================
 
 
@@ -255,10 +256,7 @@ pass
 
 
 
-
-const result =
-
-await pool.query(
+const result = await pool.query(
 
 `
 
@@ -266,15 +264,18 @@ SELECT *
 
 FROM usuarios
 
-WHERE user=$1
+WHERE username=$1
 
 AND pass=$2
 
 `,
 
 [
+
 user,
+
 pass
+
 ]
 
 );
@@ -304,7 +305,7 @@ req.session.user={
 
 id:usuario.id,
 
-user:usuario.user,
+user:usuario.username,
 
 role:usuario.role,
 
@@ -331,6 +332,9 @@ user:req.session.user
 catch(error){
 
 
+console.log(error);
+
+
 res.status(500).json({
 
 error:"Error servidor"
@@ -349,7 +353,9 @@ error:"Error servidor"
 
 
 
-// ================= SESION =================
+
+
+// ================= SESSION =================
 
 
 
@@ -387,6 +393,8 @@ user:req.session.user
 
 
 
+
+
 // ================= STAFF =================
 
 
@@ -394,9 +402,7 @@ user:req.session.user
 app.get("/api/staff",async(req,res)=>{
 
 
-const result=
-
-await pool.query(
+const result = await pool.query(
 
 `
 
@@ -416,6 +422,7 @@ res.json(result.rows);
 
 
 });
+
 
 
 
@@ -451,7 +458,7 @@ await pool.query(
 
 INSERT INTO usuarios
 
-(user,pass,role,activity)
+(username,pass,role,activity)
 
 VALUES($1,$2,$3,$4)
 
@@ -489,6 +496,8 @@ success:true
 
 
 
+
+
 // EDITAR STAFF
 
 
@@ -518,7 +527,7 @@ UPDATE usuarios
 
 SET
 
-user=$1,
+username=$1,
 
 role=$2,
 
@@ -553,6 +562,7 @@ success:true
 
 
 });
+
 
 
 
@@ -626,9 +636,7 @@ success:true
 app.get("/api/posts",async(req,res)=>{
 
 
-const result=
-
-await pool.query(
+const result = await pool.query(
 
 `
 
@@ -673,10 +681,7 @@ error:"Sin permisos"
 
 
 
-
-const result=
-
-await pool.query(
+const result = await pool.query(
 
 `
 
@@ -713,6 +718,7 @@ post:result.rows[0]
 
 
 });
+
 
 
 
