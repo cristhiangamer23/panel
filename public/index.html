@@ -17,9 +17,11 @@ box-sizing:border-box;
 
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#0b1220,#0f172a);
+font-family:"Segoe UI",sans-serif;
+background:
+radial-gradient(circle at top,#17365F,#0B1220,#070B14);
 color:white;
+overflow-x:hidden;
 }
 
 .login{
@@ -31,60 +33,121 @@ padding:20px;
 }
 
 .login-box{
-width:360px;
+
+width:390px;
 max-width:100%;
-padding:30px;
-border-radius:16px;
-background:rgba(17,24,39,.95);
+
+padding:45px;
+
+border-radius:25px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.12);
+
+box-shadow:0 25px 60px rgba(0,0,0,.45);
+
 text-align:center;
-box-shadow:0 0 30px rgba(0,0,0,.35);
+
 }
 
-.logo-title{
+.logo{
+
+width:95px;
+height:95px;
+
+margin:auto auto 20px;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:rgba(255,255,255,.08);
+
+border:2px solid rgba(77,237,255,.35);
+
+box-shadow:0 0 25px rgba(77,237,255,.35);
+
+overflow:hidden;
+
+}
+
+.logo img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+border-radius:50%;
+
+}
+
+h1{
 
 margin:0;
 
-font-size:34px;
+font-size:32px;
 
-font-weight:900;
+font-weight:800;
 
-letter-spacing:1.5px;
-
-font-family:
-"Segoe UI",
-"Trebuchet MS",
-Arial,
-sans-serif;
-
-background:linear-gradient(
-90deg,
-#4DEDFF,
-#FFFFFF,
-#4DEDFF
-);
-
-background-size:200% auto;
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-text-shadow:
-0 0 12px rgba(77,237,255,.45);
-
-animation:shine 4s linear infinite;
+color:white;
 
 }
 
-@keyframes shine{
+.subtitle{
 
-0%{
-background-position:0% center;
+margin:10px 0 25px;
+
+color:#AAB7C4;
+
 }
 
-100%{
-background-position:200% center;
+.login-btn{
+
+width:100%;
+
+padding:15px;
+
+margin-top:18px;
+
+border:none;
+
+border-radius:14px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+color:#06121D;
+
+background:linear-gradient(90deg,#00C6FF,#4DEDFF);
+
+transition:.25s;
+
 }
+
+.login-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 0 20px rgba(77,237,255,.45);
+
+}
+
+.footer{
+
+margin-top:28px;
+
+font-size:12px;
+
+color:#7E8B99;
 
 }
 
@@ -251,8 +314,13 @@ border-radius:15px;
 
 @media(max-width:600px){
 
-.logo-title{
+h1{
 font-size:28px;
+}
+
+.logo{
+width:80px;
+height:80px;
 }
 
 .nav{
@@ -390,21 +458,44 @@ color:#22C55E;
 
 <div class="login-box">
 
-<h2 class="logo-title">
-Buenos Aires RP
-</h2>
+<div class="logo">
 
-<p>PANEL RRHH</p>
+<img
+src="AQUI_VA_EL_LINK_DE_TU_LOGO"
+alt="Buenos Aires RP">
 
-<input id="user" placeholder="Usuario">
+</div>
 
-<input id="pass" type="password" placeholder="Contraseña">
+<h1>Buenos Aires RP</h1>
 
-<button class="green" onclick="login()">
-Entrar
+<p class="subtitle">
+Panel de Recursos Humanos
+</p>
+
+<input
+id="user"
+placeholder="👤 Usuario">
+
+<input
+id="pass"
+type="password"
+placeholder="🔒 Contraseña">
+
+<button
+class="login-btn"
+onclick="login()">
+
+Iniciar Sesión
+
 </button>
 
-<p id="error" style="color:red;"></p>
+<p id="error"></p>
+
+<div class="footer">
+
+© 2026 Buenos Aires RP
+
+</div>
 
 </div>
 
