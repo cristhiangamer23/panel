@@ -1,7 +1,6 @@
 {
   "name": "panel-buenos-aires-rp",
   "version": "1.0.0",
-  "license": "MIT",
   "description": "Panel Staff Buenos Aires RP",
   "main": "server.js",
   "scripts": {
