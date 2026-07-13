@@ -7,42 +7,57 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Buenos Aires RP | Panel</title>
+<title>Buenos Aires RP | Panel Staff</title>
 
 
 <style>
 
+
 *{
+
 box-sizing:border-box;
+
 font-family:"Segoe UI",sans-serif;
+
 }
+
 
 
 body{
 
 margin:0;
 
+min-height:100vh;
+
 background:
-radial-gradient(circle at top,#17365F,#0B1220,#070B14);
+
+linear-gradient(
+135deg,
+#050816,
+#0b1b36,
+#07111f
+);
 
 color:white;
 
-min-height:100vh;
+overflow:hidden;
 
 }
 
 
 
+/* LOGIN */
 
-.login{
+
+.login-container{
 
 height:100vh;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
+
+justify-content:center;
 
 padding:20px;
 
@@ -50,161 +65,333 @@ padding:20px;
 
 
 
-.login-box{
 
-width:390px;
+.login-card{
+
+
+width:420px;
+
 
 padding:45px;
 
-border-radius:25px;
 
-background:rgba(255,255,255,.08);
+border-radius:30px;
 
-backdrop-filter:blur(20px);
 
-border:1px solid rgba(255,255,255,.15);
+background:
 
-box-shadow:0 25px 60px rgba(0,0,0,.45);
+rgba(255,255,255,.08);
+
+
+backdrop-filter:blur(25px);
+
+
+border:
+
+1px solid rgba(255,255,255,.15);
+
+
+box-shadow:
+
+0 30px 80px rgba(0,0,0,.6);
+
 
 text-align:center;
 
+
+animation:entrada .8s ease;
+
+
 }
 
 
 
-.logo{
+@keyframes entrada{
 
-width:100px;
+from{
 
-height:100px;
+opacity:0;
 
-margin:auto auto 20px;
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+
+
+
+
+/* LOGO */
+
+
+.logo-box{
+
+
+width:120px;
+
+
+height:120px;
+
+
+margin:auto;
+
 
 border-radius:50%;
 
-overflow:hidden;
 
-border:2px solid rgba(77,237,255,.5);
+padding:4px;
+
+
+background:
+
+linear-gradient(
+135deg,
+#4DEDFF,
+#0066ff
+);
+
+
+box-shadow:
+
+0 0 40px rgba(77,237,255,.6);
+
 
 }
 
 
 
-.logo img{
+.logo-box img{
+
 
 width:100%;
 
+
 height:100%;
+
+
+border-radius:50%;
+
 
 object-fit:cover;
 
+
 }
+
 
 
 
 
 h1{
 
-margin:0;
 
-font-size:32px;
+margin-top:25px;
+
+
+font-size:34px;
+
 
 font-weight:900;
 
-background:linear-gradient(
+
+background:
+
+linear-gradient(
 90deg,
 #4DEDFF,
-#FFFFFF,
+white,
 #4DEDFF
 );
 
+
 -webkit-background-clip:text;
+
 
 -webkit-text-fill-color:transparent;
 
+
 }
+
+
 
 
 
 .subtitle{
 
-margin:12px 0 25px;
 
-color:#4DEDFF;
+color:#94A3B8;
 
-font-weight:bold;
+
+margin-bottom:30px;
+
 
 }
 
 
 
-input{
+
+
+.input-box{
+
+
+position:relative;
+
+
+margin-bottom:15px;
+
+
+}
+
+
+
+
+.input-box input{
+
 
 width:100%;
 
-padding:14px;
 
-margin:8px 0;
+padding:15px 18px;
+
+
+border-radius:15px;
+
 
 border:none;
 
+
 outline:none;
 
-border-radius:12px;
 
 background:#0F172A;
 
+
 color:white;
 
+
+font-size:15px;
+
+
 }
+
+
+
+
+.input-box input:focus{
+
+
+box-shadow:
+
+0 0 20px rgba(77,237,255,.4);
+
+
+}
+
+
 
 
 
 .login-btn{
 
+
 width:100%;
 
-padding:15px;
 
-margin-top:18px;
+padding:16px;
+
+
+margin-top:15px;
+
 
 border:none;
 
-border-radius:14px;
+
+border-radius:15px;
+
 
 cursor:pointer;
 
+
+font-size:16px;
+
+
 font-weight:bold;
 
-background:linear-gradient(
+
+background:
+
+linear-gradient(
 90deg,
 #00C6FF,
 #4DEDFF
 );
 
+
 color:#06121D;
 
+
+transition:.3s;
+
+
 }
+
+
+
+
+
+.login-btn:hover{
+
+
+transform:translateY(-3px);
+
+
+box-shadow:
+
+0 0 30px rgba(77,237,255,.6);
+
+
+}
+
+
 
 
 
 #error{
 
+
 color:#ef4444;
 
+
 margin-top:15px;
+
 
 }
 
 
 
+
+
 .footer{
+
 
 margin-top:25px;
 
+
 font-size:12px;
 
-color:#94A3B8;
+
+color:#64748B;
+
 
 }
 
@@ -227,18 +414,25 @@ display:none;
 
 
 
-<div id="loginBox" class="login">
+
+<div id="loginBox" class="login-container">
 
 
-<div class="login-box">
+<div class="login-card">
 
 
 
-<div class="logo">
+
+
+<div class="logo-box">
+
 
 <img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png">
 
+
 </div>
+
+
 
 
 
@@ -250,31 +444,55 @@ Buenos Aires RP
 
 
 
+
+
 <p class="subtitle">
 
-Panel de Recursos Humanos
+Panel Administrativo Premium
 
 </p>
 
 
 
 
+
+
+
+<div class="input-box">
+
 <input id="user" placeholder="👤 Usuario">
 
+</div>
+
+
+
+
+
+<div class="input-box">
 
 <input id="pass" type="password" placeholder="🔒 Contraseña">
+
+</div>
+
+
+
 
 
 
 <button class="login-btn" onclick="login()">
 
-Iniciar Sesión
+🚀 Ingresar al Panel
 
 </button>
 
 
 
+
+
 <p id="error"></p>
+
+
+
 
 
 
@@ -286,32 +504,34 @@ Iniciar Sesión
 
 
 
-</div>
 
 
+
 </div>
-<!-- PANEL PRINCIPAL -->
+
+</div>
+<!-- PANEL PREMIUM -->
 
 
 <div id="panel" class="hidden">
 
 
-
 <style>
 
 
-.panel-container{
-
-padding:30px;
+.dashboard{
 
 min-height:100vh;
+
+padding:30px;
 
 }
 
 
 
 
-.header-panel{
+
+.topbar{
 
 
 display:flex;
@@ -323,22 +543,25 @@ justify-content:space-between;
 align-items:center;
 
 
+padding:22px 30px;
+
+
 background:rgba(255,255,255,.08);
 
 
-padding:20px 25px;
+border:1px solid rgba(255,255,255,.12);
 
 
-border-radius:20px;
+backdrop-filter:blur(20px);
 
 
-border:1px solid rgba(255,255,255,.15);
+border-radius:25px;
 
 
-backdrop-filter:blur(15px);
+box-shadow:0 20px 50px rgba(0,0,0,.35);
 
 
-margin-bottom:25px;
+margin-bottom:30px;
 
 
 }
@@ -346,26 +569,26 @@ margin-bottom:25px;
 
 
 
-.header-title h2{
+
+.brand h2{
 
 
 margin:0;
 
 
-font-size:28px;
+font-size:30px;
 
 
 font-weight:900;
 
 
+background:
 
-background:linear-gradient(
+linear-gradient(
 90deg,
 #4DEDFF,
-#FFFFFF,
-#4DEDFF
+white
 );
-
 
 
 -webkit-background-clip:text;
@@ -380,7 +603,10 @@ background:linear-gradient(
 
 
 
-.header-title span{
+.brand p{
+
+
+margin:5px 0 0;
 
 
 color:#94A3B8;
@@ -395,17 +621,16 @@ font-size:14px;
 
 
 
-
 .logout{
-
-
-padding:12px 22px;
 
 
 border:none;
 
 
-border-radius:12px;
+padding:13px 25px;
+
+
+border-radius:15px;
 
 
 background:#ef4444;
@@ -420,10 +645,11 @@ font-weight:bold;
 cursor:pointer;
 
 
-transition:.25s;
+transition:.3s;
 
 
 }
+
 
 
 
@@ -434,7 +660,7 @@ transition:.25s;
 transform:translateY(-3px);
 
 
-box-shadow:0 0 20px rgba(239,68,68,.5);
+box-shadow:0 0 25px rgba(239,68,68,.5);
 
 
 }
@@ -445,16 +671,22 @@ box-shadow:0 0 20px rgba(239,68,68,.5);
 
 
 
-.cards{
+/* ESTADISTICAS */
+
+
+.stats{
 
 
 display:grid;
 
 
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 
 
 gap:20px;
+
+
+margin-bottom:30px;
 
 
 }
@@ -463,19 +695,19 @@ gap:20px;
 
 
 
-.card{
-
-
-background:rgba(255,255,255,.08);
-
-
-border:1px solid rgba(255,255,255,.15);
+.stat-card{
 
 
 padding:25px;
 
 
-border-radius:20px;
+border-radius:22px;
+
+
+background:rgba(255,255,255,.08);
+
+
+border:1px solid rgba(255,255,255,.12);
 
 
 backdrop-filter:blur(15px);
@@ -490,13 +722,13 @@ transition:.3s;
 
 
 
-.card:hover{
+.stat-card:hover{
 
 
 transform:translateY(-5px);
 
 
-box-shadow:0 15px 35px rgba(0,0,0,.35);
+box-shadow:0 20px 40px rgba(0,0,0,.35);
 
 
 }
@@ -505,16 +737,61 @@ box-shadow:0 15px 35px rgba(0,0,0,.35);
 
 
 
-.card h3{
+.stat-card h3{
 
 
-margin:0 0 10px;
+margin:0;
+
+
+color:#94A3B8;
+
+
+font-size:14px;
+
+
+}
+
+
+
+
+
+.stat-number{
+
+
+font-size:35px;
+
+
+font-weight:900;
+
+
+margin-top:10px;
 
 
 color:#4DEDFF;
 
 
-font-size:20px;
+}
+
+
+
+
+
+
+
+
+/* MENU */
+
+
+.menu-grid{
+
+
+display:grid;
+
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+
+gap:25px;
 
 
 }
@@ -523,7 +800,82 @@ font-size:20px;
 
 
 
-.card p{
+.menu-card{
+
+
+padding:30px;
+
+
+border-radius:25px;
+
+
+background:rgba(255,255,255,.08);
+
+
+border:1px solid rgba(255,255,255,.12);
+
+
+backdrop-filter:blur(20px);
+
+
+transition:.3s;
+
+
+}
+
+
+
+
+
+.menu-card:hover{
+
+
+transform:translateY(-6px);
+
+
+box-shadow:0 25px 50px rgba(0,0,0,.4);
+
+
+}
+
+
+
+
+
+.menu-icon{
+
+
+font-size:35px;
+
+
+margin-bottom:15px;
+
+
+}
+
+
+
+
+
+.menu-card h3{
+
+
+margin:0 0 10px;
+
+
+font-size:22px;
+
+
+color:#4DEDFF;
+
+
+}
+
+
+
+
+
+.menu-card p{
 
 
 color:#CBD5E1;
@@ -538,22 +890,19 @@ font-size:14px;
 
 
 
-.action-btn{
+.open-btn{
 
 
-padding:12px 20px;
+margin-top:15px;
+
+
+padding:12px 25px;
 
 
 border:none;
 
 
-border-radius:12px;
-
-
-cursor:pointer;
-
-
-font-weight:bold;
+border-radius:14px;
 
 
 background:linear-gradient(
@@ -566,7 +915,13 @@ background:linear-gradient(
 color:#06121D;
 
 
-transition:.25s;
+font-weight:bold;
+
+
+cursor:pointer;
+
+
+transition:.3s;
 
 
 }
@@ -575,33 +930,16 @@ transition:.25s;
 
 
 
-.action-btn:hover{
+.open-btn:hover{
 
 
-transform:translateY(-3px);
+transform:scale(1.05);
 
 
-box-shadow:0 0 20px rgba(77,237,255,.5);
-
-
-}
-
-
-
-
-
-.delete-btn{
-
-
-background:#ef4444;
-
-
-color:white;
+box-shadow:0 0 25px rgba(77,237,255,.5);
 
 
 }
-
-
 
 
 
@@ -613,32 +951,32 @@ color:white;
 
 
 
-<div class="panel-container">
+<div class="dashboard">
 
 
 
 
 
-<div class="header-panel">
+<div class="topbar">
 
 
 
-<div class="header-title">
+<div class="brand">
 
 
 <h2>
 
-Panel Buenos Aires RP
+Buenos Aires RP
 
 </h2>
 
 
 
-<span>
+<p>
 
-Gestión del equipo administrativo
+Panel de Gestión Administrativa
 
-</span>
+</p>
 
 
 
@@ -657,7 +995,6 @@ Cerrar Sesión
 
 
 
-
 </div>
 
 
@@ -668,14 +1005,41 @@ Cerrar Sesión
 
 
 
-<div class="cards">
+<!-- ESTADISTICAS -->
+
+
+<div class="stats">
+
+
+
+
+
+<div class="stat-card">
+
+
+<h3>
+
+👥 Miembros Staff
+
+</h3>
+
+
+<div class="stat-number">
+
+0
+
+</div>
+
+
+</div>
 
 
 
 
 
 
-<div class="card">
+
+<div class="stat-card">
 
 
 <h3>
@@ -685,20 +1049,17 @@ Cerrar Sesión
 </h3>
 
 
+<div class="stat-number">
 
-<p>
+0
 
-Publica novedades y anuncios del servidor.
-
-</p>
-
+</div>
 
 
-<button class="action-btn">
+</div>
 
-Abrir
 
-</button>
+
 
 
 
@@ -712,26 +1073,84 @@ Abrir
 
 
 
-<div class="card">
+<!-- MENU PRINCIPAL -->
+
+
+<div class="menu-grid">
+
+
+
+
+
+<div class="menu-card">
+
+
+<div class="menu-icon">
+
+📢
+
+</div>
 
 
 <h3>
 
-👥 Staff
+Actualizaciones
 
 </h3>
 
 
-
 <p>
 
-Administra miembros, rangos y actividad.
+Crea anuncios profesionales para la comunidad.
 
 </p>
 
 
 
-<button class="action-btn">
+<button class="open-btn">
+
+Abrir
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="menu-card">
+
+
+<div class="menu-icon">
+
+👥
+
+</div>
+
+
+<h3>
+
+Gestión Staff
+
+</h3>
+
+
+<p>
+
+Administra usuarios, rangos y actividad.
+
+</p>
+
+
+
+<button class="open-btn">
 
 Abrir
 
@@ -748,15 +1167,22 @@ Abrir
 
 
 </div>
-<!-- ACTUALIZACIONES -->
 
 
-<div class="section">
 
 
-<h2 class="section-title">
 
-📢 Escribe la actualización
+
+</div>
+<!-- SECCIÓN ACTUALIZACIONES -->
+
+
+<div class="premium-section">
+
+
+<h2>
+
+📢 Crear Actualización
 
 </h2>
 
@@ -775,27 +1201,25 @@ Abrir
 
 
 
-<br><br>
+<div class="section-buttons">
 
 
+<button class="premium-btn">
 
-
-<button class="action-btn">
-
-🚀 Publicar Actualización
+🚀 Publicar
 
 </button>
 
 
 
-
-
-<button class="action-btn delete-btn">
+<button class="premium-delete">
 
 🗑️ Eliminar
 
 </button>
 
+
+</div>
 
 
 
@@ -810,15 +1234,15 @@ Abrir
 
 
 
-<!-- STAFF -->
+<!-- SECCIÓN STAFF -->
 
 
-<div class="section">
+<div class="premium-section">
 
 
-<h2 class="section-title">
+<h2>
 
-👥 STAFF
+👥 Gestión del Staff
 
 </h2>
 
@@ -828,11 +1252,7 @@ Abrir
 
 
 
-
-<!-- AGREGAR STAFF -->
-
-
-<div class="add-staff">
+<div class="staff-add">
 
 
 
@@ -849,14 +1269,14 @@ Abrir
 <select id="nuevoEstado">
 
 
-<option value="Activo">
+<option>
 
 🟢 Activo
 
 </option>
 
 
-<option value="Inactivo">
+<option>
 
 🔴 Inactivo
 
@@ -869,7 +1289,8 @@ Abrir
 
 
 
-<button class="circle-btn">
+
+<button class="round-btn">
 
 ➕
 
@@ -887,12 +1308,7 @@ Abrir
 
 
 
-<!-- STAFF REGISTRADO -->
-
-
-<div class="staff-card">
-
-
+<div class="staff-box">
 
 
 
@@ -904,7 +1320,9 @@ Abrir
 
 </b>
 
+
 <br>
+
 
 <span>
 
@@ -912,7 +1330,9 @@ CristhianYSuga
 
 </span>
 
+
 </div>
+
 
 
 
@@ -927,7 +1347,9 @@ CristhianYSuga
 
 </b>
 
+
 <br>
+
 
 <span>
 
@@ -935,7 +1357,9 @@ OWNER
 
 </span>
 
+
 </div>
+
 
 
 
@@ -950,7 +1374,9 @@ OWNER
 
 </b>
 
+
 <br>
+
 
 <span>
 
@@ -958,7 +1384,9 @@ OWNER
 
 </span>
 
+
 </div>
+
 
 
 
@@ -974,13 +1402,16 @@ OWNER
 
 </b>
 
+
 <br>
 
-<span style="color:#22c55e">
+
+<span class="active">
 
 🟢 Activo
 
 </span>
+
 
 </div>
 
@@ -990,11 +1421,11 @@ OWNER
 
 
 
-<div class="staff-buttons">
+<div class="actions">
 
 
 
-<button class="circle-btn">
+<button class="round-btn">
 
 ✏️
 
@@ -1002,8 +1433,7 @@ OWNER
 
 
 
-
-<button class="circle-btn danger">
+<button class="round-btn delete">
 
 🗑️
 
@@ -1016,7 +1446,9 @@ OWNER
 
 
 
+
 </div>
+
 
 
 
@@ -1035,81 +1467,44 @@ OWNER
 <style>
 
 
-.section{
+.premium-section{
 
 
 margin-top:30px;
 
 
-padding:25px;
+padding:30px;
+
+
+border-radius:28px;
 
 
 background:rgba(255,255,255,.08);
 
 
-border-radius:20px;
+border:1px solid rgba(255,255,255,.12);
 
 
-border:1px solid rgba(255,255,255,.15);
+backdrop-filter:blur(20px);
 
 
-backdrop-filter:blur(15px);
+box-shadow:0 20px 50px rgba(0,0,0,.3);
 
 
 }
 
 
 
-
-.section-title{
-
-
-color:#4DEDFF;
-
-
-font-size:22px;
-
-
-font-weight:900;
+.premium-section h2{
 
 
 margin-top:0;
 
 
-}
+font-size:25px;
 
 
-
-
-
-.section input{
-
-
-width:100%;
-
-
-padding:14px;
-
-
-margin:8px 0;
-
-
-border:none;
-
-
-outline:none;
-
-
-border-radius:12px;
-
-
-background:#0F172A;
-
-
-color:white;
-
-
-font-size:15px;
+color:#4DEDFF;
 
 
 }
@@ -1118,16 +1513,22 @@ font-size:15px;
 
 
 
-.section textarea{
+.premium-section input,
+
+
+.premium-section textarea,
+
+
+.premium-section select{
 
 
 width:100%;
-
-
-height:130px;
 
 
 padding:15px;
+
+
+margin:8px 0;
 
 
 border:none;
@@ -1145,9 +1546,6 @@ background:#0F172A;
 color:white;
 
 
-resize:none;
-
-
 font-size:15px;
 
 
@@ -1157,14 +1555,112 @@ font-size:15px;
 
 
 
+.premium-section textarea{
 
-.add-staff{
+
+height:140px;
+
+
+resize:none;
+
+
+}
+
+
+
+
+
+.section-buttons{
 
 
 display:flex;
 
 
-gap:10px;
+gap:15px;
+
+
+margin-top:15px;
+
+
+}
+
+
+
+
+
+.premium-btn{
+
+
+padding:13px 28px;
+
+
+border:none;
+
+
+border-radius:15px;
+
+
+background:linear-gradient(
+90deg,
+#00C6FF,
+#4DEDFF
+);
+
+
+font-weight:bold;
+
+
+cursor:pointer;
+
+
+color:#06121D;
+
+
+}
+
+
+
+
+
+.premium-delete{
+
+
+padding:13px 28px;
+
+
+border:none;
+
+
+border-radius:15px;
+
+
+background:#ef4444;
+
+
+color:white;
+
+
+font-weight:bold;
+
+
+cursor:pointer;
+
+
+}
+
+
+
+
+
+
+
+.staff-add{
+
+
+display:flex;
+
+
+gap:12px;
 
 
 flex-wrap:wrap;
@@ -1179,30 +1675,28 @@ margin-bottom:25px;
 
 
 
-
-
-.staff-card{
+.staff-box{
 
 
 display:flex;
 
 
-justify-content:space-between;
-
-
 align-items:center;
 
 
-gap:20px;
+justify-content:space-between;
+
+
+gap:25px;
+
+
+padding:20px;
+
+
+border-radius:22px;
 
 
 background:rgba(255,255,255,.05);
-
-
-padding:18px;
-
-
-border-radius:18px;
 
 
 border:1px solid rgba(255,255,255,.1);
@@ -1214,7 +1708,7 @@ border:1px solid rgba(255,255,255,.1);
 
 
 
-.staff-card b{
+.staff-box b{
 
 
 color:#4DEDFF;
@@ -1228,13 +1722,11 @@ font-size:14px;
 
 
 
-.staff-card span{
+
+.staff-box span{
 
 
 color:#CBD5E1;
-
-
-font-size:14px;
 
 
 }
@@ -1243,7 +1735,19 @@ font-size:14px;
 
 
 
-.staff-buttons{
+.active{
+
+
+color:#22c55e!important;
+
+
+}
+
+
+
+
+
+.actions{
 
 
 display:flex;
@@ -1258,15 +1762,13 @@ gap:12px;
 
 
 
+.round-btn{
 
 
-.circle-btn{
+width:45px;
 
 
-width:42px;
-
-
-height:42px;
+height:45px;
 
 
 border:none;
@@ -1278,7 +1780,7 @@ border-radius:50%;
 cursor:pointer;
 
 
-font-size:16px;
+font-size:17px;
 
 
 display:flex;
@@ -1300,7 +1802,7 @@ background:linear-gradient(
 color:#06121D;
 
 
-transition:.25s;
+transition:.3s;
 
 
 }
@@ -1309,13 +1811,13 @@ transition:.25s;
 
 
 
-.circle-btn:hover{
+.round-btn:hover{
 
 
 transform:scale(1.1);
 
 
-box-shadow:0 0 20px rgba(77,237,255,.5);
+box-shadow:0 0 25px rgba(77,237,255,.5);
 
 
 }
@@ -1324,7 +1826,7 @@ box-shadow:0 0 20px rgba(77,237,255,.5);
 
 
 
-.circle-btn.danger{
+.round-btn.delete{
 
 
 background:#ef4444;
@@ -1340,28 +1842,115 @@ color:white;
 
 
 
-
-select{
-
-
-padding:14px;
+</style>
 
 
-border:none;
 
 
-outline:none;
 
 
-border-radius:12px;
 
 
-background:#0F172A;
+<script>
 
 
-color:white;
+async function login(){
+
+
+let usuario=document.getElementById("user").value;
+
+let contraseña=document.getElementById("pass").value;
+
+
+
+try{
+
+
+let respuesta=await fetch("/login",{
+
+method:"POST",
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify({
+
+
+usuario:usuario,
+
+contraseña:contraseña
+
+
+})
+
+
+});
+
+
+
+
+let datos=await respuesta.json();
+
+
+
+
+
+if(datos.success){
+
+
+document.getElementById("loginBox").style.display="none";
+
+
+document.getElementById("panel").classList.remove("hidden");
+
+
+}else{
+
+
+document.getElementById("error").innerHTML="❌ Usuario o contraseña incorrectos";
 
 
 }
 
-</style>
+
+
+}catch(e){
+
+
+document.getElementById("error").innerHTML="❌ Error conectando al servidor";
+
+
+}
+
+
+}
+
+
+
+
+
+function logout(){
+
+
+document.getElementById("panel").classList.add("hidden");
+
+
+document.getElementById("loginBox").style.display="flex";
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
