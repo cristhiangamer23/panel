@@ -15,6 +15,7 @@ box-sizing:border-box;
 font-family:"Segoe UI",sans-serif;
 }
 
+
 body{
 
 margin:0;
@@ -27,6 +28,8 @@ radial-gradient(circle at top,#17365F,#0B1220,#070B14);
 color:white;
 
 }
+
+
 
 /* LOGIN */
 
@@ -43,6 +46,7 @@ align-items:center;
 padding:20px;
 
 }
+
 
 
 .login-box{
@@ -67,6 +71,7 @@ text-align:center;
 }
 
 
+
 /* LOGO */
 
 .logo{
@@ -81,18 +86,13 @@ border-radius:50%;
 
 overflow:hidden;
 
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
 border:2px solid rgba(77,237,255,.5);
 
 box-shadow:
 0 0 25px rgba(77,237,255,.45);
 
 }
+
 
 
 .logo img{
@@ -104,6 +104,7 @@ height:100%;
 object-fit:cover;
 
 }
+
 
 
 /* TITULO */
@@ -123,23 +124,66 @@ white,
 #4DEDFF
 );
 
+background-size:200%;
+
 -webkit-background-clip:text;
 
 -webkit-text-fill-color:transparent;
 
+animation:shine 4s linear infinite;
+
 }
 
+
+
+@keyframes shine{
+
+0%{
+
+background-position:0%;
+
+}
+
+100%{
+
+background-position:200%;
+
+}
+
+}
+
+
+
+/* TEXTO DEBAJO */
 
 .subtitle{
 
 margin:12px 0 25px;
 
-color:#94A3B8;
+font-size:18px;
+
+font-weight:700;
+
+background:linear-gradient(
+90deg,
+#4DEDFF,
+white,
+#4DEDFF
+);
+
+background-size:200%;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+animation:shine 4s linear infinite;
 
 }
 
 
-/* INPUTS */
+
+/* INPUT */
 
 input{
 
@@ -164,12 +208,15 @@ font-size:15px;
 }
 
 
+
 input:focus{
 
 box-shadow:
+
 0 0 15px rgba(77,237,255,.35);
 
 }
+
 
 
 /* BOTON LOGIN */
@@ -195,6 +242,7 @@ font-size:16px;
 color:#06121D;
 
 background:
+
 linear-gradient(
 90deg,
 #00C6FF,
@@ -206,15 +254,20 @@ transition:.25s;
 }
 
 
+
 .login-btn:hover{
 
 transform:translateY(-3px);
 
 box-shadow:
+
 0 0 25px rgba(77,237,255,.45);
 
 }
 
+
+
+/* ERROR */
 
 #error{
 
@@ -224,6 +277,9 @@ margin-top:15px;
 
 }
 
+
+
+/* FOOTER */
 
 .footer{
 
@@ -236,7 +292,8 @@ color:#64748B;
 }
 
 
-/* GENERAL */
+
+/* OCULTO */
 
 .hidden{
 
@@ -259,11 +316,13 @@ display:none;
 <div class="login-box">
 
 
+
 <div class="logo">
 
-<img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a5542f9&is=6a53f179&hm=41331dc1ae4d44f399e1f1d48918c1333f686632b24f94e1da4f6901f1b7b91f&=&format=webp&quality=lossless&width=930&height=930" alt="Buenos Aires RP">
+<img src="AQUI_TU_LINK_DEL_LOGO" alt="Buenos Aires RP">
 
 </div>
+
 
 
 <h1>
@@ -273,17 +332,21 @@ Buenos Aires RP
 </h1>
 
 
+
 <p class="subtitle">
 
-Panel de Recursos Humanos
+Buenos Aires RP | Panel Administrativo
 
 </p>
+
 
 
 <input id="user" placeholder="👤 Usuario">
 
 
+
 <input id="pass" type="password" placeholder="🔒 Contraseña">
+
 
 
 <button class="login-btn" onclick="login()">
@@ -293,7 +356,9 @@ Iniciar Sesión
 </button>
 
 
+
 <p id="error"></p>
+
 
 
 <div class="footer">
@@ -303,10 +368,12 @@ Iniciar Sesión
 </div>
 
 
+
 </div>
 
 
 </div>
+
 <!-- PANEL PRINCIPAL -->
 
 <div id="panel" class="hidden">
