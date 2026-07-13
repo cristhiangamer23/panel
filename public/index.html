@@ -274,6 +274,110 @@ width:100%;
 
 }
 
+  .topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:25px;
+
+background:#111827;
+
+border-bottom:1px solid #293548;
+
+}
+
+.topbar h2{
+
+margin:0;
+
+font-size:28px;
+
+color:#4DEDFF;
+
+}
+
+#welcome{
+
+color:#94A3B8;
+
+}
+
+#roleBadge{
+
+background:#4DEDFF;
+
+color:#07131F;
+
+padding:8px 16px;
+
+border-radius:25px;
+
+font-weight:bold;
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:20px;
+
+padding:25px;
+
+}
+
+.stat-card{
+
+background:#111827;
+
+padding:25px;
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+transition:.25s;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.stat-card h3{
+
+font-size:34px;
+
+margin:0;
+
+color:#4DEDFF;
+
+}
+
+.stat-card p{
+
+margin-top:10px;
+
+color:#94A3B8;
+
+}
+
+.green h3{
+
+color:#22C55E;
+
+}
+  
 </style>
 
 </head>
@@ -310,15 +414,73 @@ Entrar
 
 <div id="panel" class="hidden">
 
+<header class="topbar">
+
+<div>
+
+<h2>Buenos Aires RP</h2>
+
+<span id="welcome"></span>
+
+</div>
+
+<div>
+
+<span id="roleBadge"></span>
+
+</div>
+
+</header>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<h3 id="staffCount">0</h3>
+
+<p>👥 Personal</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="postCount">0</h3>
+
+<p>📢 Actualizaciones</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="adminCount">0</h3>
+
+<p>👑 Administradores</p>
+
+</div>
+
+<div class="stat-card green">
+
+<h3>ONLINE</h3>
+
+<p>Sistema</p>
+
+</div>
+
+</div>
+
 <div class="nav">
 
-<div class="tab" onclick="show('updates')">
-📢 Actualizaciones
-</div>
+<button class="tab active" onclick="show('updates')">
 
-<div class="tab" onclick="show('staff')">
+📢 Actualizaciones
+
+</button>
+
+<button class="tab" onclick="show('staff')">
+
 👥 Staff
-</div>
+
+</button>
 
 </div>
 
@@ -484,8 +646,17 @@ render();
 
 function render(){
 
+welcome.innerText="Conectado como "+currentUser.username;
 
+roleBadge.innerText=currentUser.role;
 
+staffCount.innerText=USERS.length;
+
+postCount.innerText=POSTS.length;
+
+adminCount.innerText=USERS.filter(x=>x.role==="Dueño").length;
+
+  
 // ======================
 
 // ACTUALIZACIONES
