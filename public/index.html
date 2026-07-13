@@ -13,8 +13,11 @@
 <style>
 
 *{
+
 box-sizing:border-box;
+
 font-family:"Segoe UI",sans-serif;
+
 }
 
 
@@ -23,6 +26,7 @@ body{
 margin:0;
 
 background:
+
 radial-gradient(circle at top,#17365F,#0B1220,#070B14);
 
 color:white;
@@ -86,6 +90,7 @@ text-align:center;
 
 
 
+
 .logo{
 
 
@@ -114,6 +119,7 @@ box-shadow:0 0 25px rgba(77,237,255,.45);
 
 
 
+
 .logo img{
 
 width:100%;
@@ -123,6 +129,7 @@ height:100%;
 object-fit:cover;
 
 }
+
 
 
 
@@ -139,12 +146,16 @@ font-size:32px;
 font-weight:900;
 
 
-background:linear-gradient(
+
+background:
+
+linear-gradient(
 90deg,
 #4DEDFF,
 #FFFFFF,
 #4DEDFF
 );
+
 
 
 -webkit-background-clip:text;
@@ -154,6 +165,8 @@ background:linear-gradient(
 
 
 }
+
+
 
 
 
@@ -174,8 +187,8 @@ color:#4DEDFF;
 
 
 
-input,
-select{
+
+input{
 
 
 width:100%;
@@ -218,6 +231,7 @@ box-shadow:0 0 15px rgba(77,237,255,.35);
 
 
 }
+
 
 
 
@@ -284,6 +298,8 @@ box-shadow:0 0 25px rgba(77,237,255,.45);
 
 
 
+
+
 #error{
 
 color:#ef4444;
@@ -312,6 +328,7 @@ color:#94A3B8;
 
 
 
+
 .hidden{
 
 display:none;
@@ -331,6 +348,7 @@ display:none;
 
 
 
+
 <!-- LOGIN -->
 
 
@@ -341,11 +359,17 @@ display:none;
 
 
 
+
+
 <div class="logo">
+
 
 <img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?format=webp&quality=lossless">
 
+
 </div>
+
+
 
 
 
@@ -354,6 +378,9 @@ display:none;
 Buenos Aires RP
 
 </h1>
+
+
+
 
 
 
@@ -366,7 +393,12 @@ Panel de Recursos Humanos
 
 
 
+
+
 <input id="user" placeholder="👤 Usuario">
+
+
+
 
 
 <input id="pass" type="password" placeholder="🔒 Contraseña">
@@ -384,7 +416,10 @@ Iniciar Sesión
 
 
 
+
 <p id="error"></p>
+
+
 
 
 
@@ -400,6 +435,77 @@ Iniciar Sesión
 
 
 </div>
+
+
+
+
+
+<script>
+
+
+async function login(){
+
+
+let usuario=document.getElementById("user").value;
+
+let contraseña=document.getElementById("pass").value;
+
+
+
+let respuesta = await fetch("/login",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+usuario:usuario,
+
+contraseña:contraseña
+
+})
+
+});
+
+
+
+let datos = await respuesta.json();
+
+
+
+
+
+if(datos.success){
+
+
+document.getElementById("loginBox").style.display="none";
+
+
+document.getElementById("panel").classList.remove("hidden");
+
+
+}else{
+
+
+document.getElementById("error").innerHTML="❌ Usuario o contraseña incorrectos";
+
+
+}
+
+
+
+}
+
+
+
+
+
+</script>
 
 <!-- PANEL PRINCIPAL -->
 
