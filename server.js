@@ -1,156 +1,155 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
-const { Pool } = require("pg");
+const session = require("express-session");
+const fs = require("fs");
 
 
 const app = express();
 
 
+const PORT = process.env.PORT || 10000;
+
+
+
+// ================= CONFIG =================
+
+
 app.use(cors());
 
+
 app.use(express.json());
+
+
+app.use(express.urlencoded({
+    extended:true
+}));
+
+
+
+app.use(session({
+
+    secret:"BuenosAiresRP-Panel-2026",
+
+    resave:false,
+
+    saveUninitialized:false,
+
+    cookie:{
+        maxAge:1000*60*60*24
+    }
+
+}));
+
+
+
+// Archivos públicos
 
 app.use(express.static("public"));
 
 
 
-// =========================
-// POSTGRESQL
-// =========================
 
-const pool = new Pool({
-
-    connectionString: process.env.DATABASE_URL,
-
-    ssl:{
-        rejectUnauthorized:false
-    }
-
-});
+// ================= FUNCIONES =================
 
 
-
-async function iniciar(){
-
-    await pool.query(`
-
-    CREATE TABLE IF NOT EXISTS users(
-
-        id SERIAL PRIMARY KEY,
-
-        username TEXT NOT NULL,
-
-        role TEXT NOT NULL
-
-    );
+function readJSON(file){
 
 
-    CREATE TABLE IF NOT EXISTS posts(
+    if(!fs.existsSync(file)){
 
-        id SERIAL PRIMARY KEY,
-
-        titulo TEXT NOT NULL,
-
-        mensaje TEXT NOT NULL,
-
-        fecha TEXT NOT NULL
-
-    );
-
-    `);
-
-
-
-    // Usuarios principales
-
-    let usuarios = await pool.query(
-        "SELECT * FROM users"
-    );
-
-
-    if(usuarios.rows.length === 0){
-
-        await pool.query(`
-
-        INSERT INTO users(username,role)
-
-        VALUES
-
-        ('Cristhian','Dueño'),
-
-        ('Zarl','Owner 2'),
-
-        ('Alan','Mod 1')
-
-        `);
+        fs.writeFileSync(
+            file,
+            "[]"
+        );
 
     }
 
 
-    console.log("Base de datos lista");
+    return JSON.parse(
+        fs.readFileSync(file,"utf8")
+    );
+
 
 }
 
 
-iniciar();
+
+
+function saveJSON(file,data){
+
+
+    fs.writeFileSync(
+
+        file,
+
+        JSON.stringify(
+            data,
+            null,
+            2
+        )
+
+    );
+
+
+}
 
 
 
 
-// =========================
-// LOGIN
-// =========================
 
-
-app.post("/api/login", async(req,res)=>{
-
-
-    const {user,pass}=req.body;
+// ================= LOGIN =================
 
 
 
-    // Accesos fijos
+app.post("/api/login",(req,res)=>{
 
-    const accesos=[
 
-        {
-            user:"Cristhian",
-            pass:"2040@",
-            role:"Dueño"
-        },
-
-        {
-            user:"Zarl",
-            pass:"2050@",
-            role:"Owner 2"
-        },
-
-        {
-            user:"Alan",
-            pass:"2060@",
-            role:"Mod 1"
-        }
-
-    ];
+    const {
+        user,
+        pass
+    } = req.body;
 
 
 
-    const encontrado =
-    accesos.find(x=>
+    let users =
+    readJSON("usuarios.json");
+
+
+
+    let account =
+    users.find(
+        x =>
         x.user===user &&
         x.pass===pass
     );
 
 
 
-    if(!encontrado){
+    if(!account){
+
 
         return res.json({
-            success:false
+
+            success:false,
+
+            message:"Usuario o contraseña incorrectos"
+
         });
 
+
     }
+
+
+
+    req.session.user={
+
+        user:account.user,
+
+        role:account.role,
+
+        activity:account.activity
+
+    };
 
 
 
@@ -158,85 +157,46 @@ app.post("/api/login", async(req,res)=>{
 
         success:true,
 
-        user:{
-
-            username:encontrado.user,
-
-            role:encontrado.role,
-
-            password:encontrado.pass
-
-        }
+        user:req.session.user
 
     });
 
 
-});
-
-
-
-
-// =========================
-// USUARIOS
-// =========================
-
-
-// Ver usuarios
-
-app.get("/api/users", async(req,res)=>{
-
-
-    let data=await pool.query(
-
-        "SELECT * FROM users ORDER BY id"
-
-    );
-
-
-    res.json(data.rows);
-
 
 });
 
 
 
 
-// Crear usuario STAFF
-
-app.post("/api/users",async(req,res)=>{
-
-
-    const {user,role}=req.body;
 
 
 
-    if(!role){
+// ================= VERIFICAR SESION =================
+
+
+
+app.get("/api/session",(req,res)=>{
+
+
+    if(!req.session.user){
+
 
         return res.json({
 
-            success:false,
-
-            message:"Rango obligatorio"
+            logged:false
 
         });
+
 
     }
 
 
 
-    await pool.query(
-
-        "INSERT INTO users(username,role) VALUES($1,$2)",
-
-        [user || "Sin nombre",role]
-
-    );
-
-
-
     res.json({
 
-        success:true
+        logged:true,
+
+        user:req.session.user
 
     });
 
@@ -248,52 +208,13 @@ app.post("/api/users",async(req,res)=>{
 
 
 
-// Editar usuario
-
-app.put("/api/users/:id",async(req,res)=>{
+// ================= CERRAR SESION =================
 
 
-    const id=req.params.id;
+app.post("/api/logout",(req,res)=>{
 
 
-    const {user,role}=req.body;
-
-
-
-    if(!role){
-
-        return res.json({
-
-            success:false,
-
-            message:"Rango obligatorio"
-
-        });
-
-    }
-
-
-
-    await pool.query(
-
-        `UPDATE users
-
-        SET username=$1, role=$2
-
-        WHERE id=$3`,
-
-        [
-
-            user || "Sin nombre",
-
-            role,
-
-            id
-
-        ]
-
-    );
-
+    req.session.destroy();
 
 
     res.json({
@@ -309,237 +230,17 @@ app.put("/api/users/:id",async(req,res)=>{
 
 
 
-// Eliminar usuario
 
-app.delete("/api/users/:id",async(req,res)=>{
-
-
-    await pool.query(
-
-        "DELETE FROM users WHERE id=$1",
-
-        [req.params.id]
-
-    );
-
-
-
-    res.json({
-
-        success:true
-
-    });
-
-
-});
-
-
-
-
-// =========================
-// ACTUALIZACIONES
-// =========================
-
-
-app.get("/api/posts",async(req,res)=>{
-
-
-    let data=await pool.query(
-
-        "SELECT * FROM posts ORDER BY id DESC"
-
-    );
-
-
-    res.json(data.rows);
-
-
-});
-
-
-
-
-
-app.post("/api/posts",async(req,res)=>{
-
-
-    const {titulo,mensaje}=req.body;
-
-
-
-    let fecha =
-    new Date().toLocaleString();
-
-
-
-    await pool.query(
-
-        `INSERT INTO posts
-
-        (titulo,mensaje,fecha)
-
-        VALUES($1,$2,$3)`,
-
-        [
-
-            titulo,
-
-            mensaje,
-
-            fecha
-
-        ]
-
-    );
-
-
-
-    res.json({
-
-        success:true
-
-    });
-
-
-
-});
-
-
-
-
-
-app.delete("/api/posts/:id",async(req,res)=>{
-
-
-    await pool.query(
-
-        "DELETE FROM posts WHERE id=$1",
-
-        [req.params.id]
-
-    );
-
-
-    res.json({
-
-        success:true
-
-    });
-
-
-
-});
-
-
-
-
-// =========================
-// WEBHOOK DISCORD
-// =========================
-
-
-app.post("/api/webhook",async(req,res)=>{
-
-
-    const post=req.body;
-
-
-
-    await fetch(process.env.WEBHOOK_URL,{
-
-        method:"POST",
-
-        headers:{
-
-            "Content-Type":"application/json"
-
-        },
-
-
-        body:JSON.stringify({
-
-            username:"ACTUALIZACION | WEB",
-
-
-            embeds:[{
-
-                title:"📢 ACTUALIZACIÓN OFICIAL",
-
-                description:
-
-                "**"+post.titulo+"**\n\n"+post.mensaje,
-
-
-                color:0x2b2d31,
-
-
-                footer:{
-
-                    text:
-
-                    "Buenos Aires RP • "+post.fecha
-
-                }
-
-            }]
-
-
-        })
-
-    });
-
-
-
-    res.json({
-
-        success:true
-
-    });
-
-
-});
-
-
-
-
-// =========================
-// INDEX
-// =========================
-
-
-app.get("/*splat",(req,res)=>{
-
-
-    res.sendFile(
-
-        path.join(
-
-            __dirname,
-
-            "public",
-
-            "index.html"
-
-        )
-
-    );
-
-
-});
-
-
-
-
-
-const PORT =
-process.env.PORT || 10000;
+// ================= INICIAR SERVIDOR =================
 
 
 
 app.listen(PORT,()=>{
 
-    console.log(
-        "Servidor activo en puerto "+PORT
-    );
+
+console.log(
+`Servidor Buenos Aires RP activo en puerto ${PORT}`
+);
+
 
 });
