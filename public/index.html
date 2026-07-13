@@ -9,63 +9,94 @@
 
 <title>Buenos Aires RP | Panel</title>
 
-
 <style>
 
 *{
 box-sizing:border-box;
 }
 
-
 body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#0b1220,#0f172a);
+color:white;
+}
+
+.login{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.login-box{
+width:360px;
+max-width:100%;
+padding:30px;
+border-radius:16px;
+background:rgba(17,24,39,.95);
+text-align:center;
+box-shadow:0 0 30px rgba(0,0,0,.35);
+}
+
+.logo-title{
 
 margin:0;
 
-font-family:Arial, sans-serif;
+font-size:34px;
 
-background:linear-gradient(135deg,#0b1220,#0f172a);
+font-weight:900;
 
-color:white;
+letter-spacing:1.5px;
 
-}
+font-family:
+"Segoe UI",
+"Trebuchet MS",
+Arial,
+sans-serif;
 
+background:linear-gradient(
+90deg,
+#4DEDFF,
+#FFFFFF,
+#4DEDFF
+);
 
+background-size:200% auto;
 
-.login{
+-webkit-background-clip:text;
 
-height:100vh;
+-webkit-text-fill-color:transparent;
 
-display:flex;
+text-shadow:
+0 0 12px rgba(77,237,255,.45);
 
-justify-content:center;
-
-align-items:center;
-
-padding:20px;
-
-}
-
-
-
-.login-box{
-
-width:360px;
-
-max-width:100%;
-
-padding:30px;
-
-border-radius:16px;
-
-background:rgba(17,24,39,.95);
-
-text-align:center;
+animation:shine 4s linear infinite;
 
 }
 
+@keyframes shine{
 
+0%{
+background-position:0% center;
+}
 
-input,textarea{
+100%{
+background-position:200% center;
+}
+
+}
+
+.login-box p{
+color:#cbd5e1;
+margin-top:8px;
+margin-bottom:22px;
+font-size:15px;
+}
+
+input,
+textarea{
 
 width:100%;
 
@@ -83,9 +114,18 @@ background:#0f172a;
 
 color:white;
 
+transition:.25s;
+
 }
 
+input:focus,
+textarea:focus{
 
+border:1px solid #4DEDFF;
+
+box-shadow:0 0 12px rgba(77,237,255,.25);
+
+}
 
 textarea{
 
@@ -94,8 +134,6 @@ height:120px;
 resize:none;
 
 }
-
-
 
 button{
 
@@ -109,342 +147,196 @@ cursor:pointer;
 
 font-weight:bold;
 
+transition:.2s;
+
 }
 
+button:hover{
 
+transform:translateY(-2px);
+
+}
 
 .green{
-
 background:#22c55e;
-
 color:white;
-
 }
-
-
 
 .red{
-
 background:#ef4444;
-
 color:white;
-
 }
-
-
 
 .blue{
-
 background:#2563eb;
-
 color:white;
-
 }
-
-
 
 .hidden{
-
 display:none;
-
 }
-
-
 
 .nav{
-
 display:flex;
-
 justify-content:center;
-
 gap:10px;
-
 padding:20px;
-
 flex-wrap:wrap;
-
 }
-
-
 
 .tab{
-
 background:#1f2937;
-
 padding:12px 18px;
-
 border-radius:10px;
-
 cursor:pointer;
-
+transition:.2s;
 }
 
-
+.tab:hover{
+background:#334155;
+}
 
 .container{
-
 max-width:900px;
-
 margin:auto;
-
 padding:20px;
-
 }
-
-
 
 .card{
-
 background:rgba(17,24,39,.9);
-
 padding:20px;
-
 border-radius:14px;
-
 margin-top:15px;
-
 }
-
-
 
 .user{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 gap:10px;
-
 }
-
-
 
 .badge{
-
 background:#334155;
-
 padding:5px 10px;
-
 border-radius:8px;
-
 font-size:12px;
-
 }
-
-
 
 .actions{
-
 display:flex;
-
 gap:8px;
-
 }
-
-
 
 .modal{
-
 position:fixed;
-
 top:0;
-
 left:0;
-
 width:100%;
-
 height:100%;
-
 background:rgba(0,0,0,.7);
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 padding:20px;
-
 }
-
-
 
 .modal-box{
-
 background:#111827;
-
 width:350px;
-
 max-width:100%;
-
 padding:25px;
-
 border-radius:15px;
-
 }
-
-
 
 @media(max-width:600px){
 
+.logo-title{
+font-size:28px;
+}
 
 .nav{
-
 flex-direction:column;
-
 }
-
-
 
 .tab{
-
 text-align:center;
-
 }
-
-
 
 .user{
-
 flex-direction:column;
-
 align-items:stretch;
-
 }
-
-
 
 .actions button{
-
 width:100%;
-
 }
 
-
-
 }
-
-
 
 </style>
-.logo-title{
-    font-family: 'Trebuchet MS', 'Arial Rounded MT Bold', sans-serif;
-    font-size: 32px;
-    font-weight: 900;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg,#4DEDFF,#ffffff,#4DEDFF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px rgba(77,237,255,0.5);
-}
 
 </head>
 
-
 <body>
-
 
 <!-- LOGIN -->
 
 <div id="loginBox" class="login">
 
-
 <div class="login-box">
 
-
-<h2 class="logo-title">🇦🇷 Buenos Aires RP</h2>
-
+<h2 class="logo-title">
+🇦🇷 Buenos Aires RP
+</h2>
 
 <p>Panel Staff</p>
 
-
-
 <input id="user" placeholder="Usuario">
-
 
 <input id="pass" type="password" placeholder="Contraseña">
 
-
 <button class="green" onclick="login()">
-
 Entrar
-
 </button>
-
-
 
 <p id="error" style="color:red;"></p>
 
-
-
 </div>
 
-
 </div>
-
-
-
-
 
 <!-- PANEL -->
 
-
 <div id="panel" class="hidden">
-
-
 
 <div class="nav">
 
-
 <div class="tab" onclick="show('updates')">
-
 📢 Actualizaciones
-
 </div>
-
-
 
 <div class="tab" onclick="show('staff')">
-
 👥 Staff
-
 </div>
 
-
-
 </div>
-
-
-
-
 
 <div class="container">
 
-
 <div id="updates"></div>
-
 
 <div id="staff" class="hidden"></div>
 
-
-
 </div>
 
-
 </div>
-
-
 
 <script>
 
-
 let currentUser=null;
 
-
 let USERS=[];
-
 
 let POSTS=[];
 
