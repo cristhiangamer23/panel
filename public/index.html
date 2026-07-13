@@ -40,7 +40,7 @@ linear-gradient(
 
 color:white;
 
-overflow:hidden;
+overflow-x:hidden;
 
 }
 
@@ -51,17 +51,24 @@ overflow:hidden;
 
 .login-container{
 
+
 height:100vh;
+
 
 display:flex;
 
+
 align-items:center;
+
 
 justify-content:center;
 
+
 padding:20px;
 
+
 }
+
 
 
 
@@ -106,7 +113,9 @@ animation:entrada .8s ease;
 
 
 
+
 @keyframes entrada{
+
 
 from{
 
@@ -116,6 +125,7 @@ transform:translateY(40px);
 
 }
 
+
 to{
 
 opacity:1;
@@ -124,8 +134,8 @@ transform:translateY(0);
 
 }
 
-}
 
+}
 
 
 
@@ -168,6 +178,8 @@ box-shadow:
 
 
 }
+
+
 
 
 
@@ -235,16 +247,17 @@ color:#94A3B8;
 margin-bottom:30px;
 
 
+font-size:15px;
+
+
 }
 
 
 
 
 
+
 .input-box{
-
-
-position:relative;
 
 
 margin-bottom:15px;
@@ -366,6 +379,8 @@ box-shadow:
 
 
 
+
+
 #error{
 
 
@@ -376,6 +391,7 @@ margin-top:15px;
 
 
 }
+
 
 
 
@@ -397,9 +413,13 @@ color:#64748B;
 
 
 
+
+
 .hidden{
 
+
 display:none;
+
 
 }
 
@@ -415,10 +435,18 @@ display:none;
 
 
 
+
+
+<!-- LOGIN -->
+
+
+
 <div id="loginBox" class="login-container">
 
 
+
 <div class="login-card">
+
 
 
 
@@ -436,11 +464,14 @@ display:none;
 
 
 
+
 <h1>
 
 Buenos Aires RP
 
 </h1>
+
+
 
 
 
@@ -457,10 +488,11 @@ Panel Administrativo Premium
 
 
 
-
 <div class="input-box">
 
+
 <input id="user" placeholder="👤 Usuario">
+
 
 </div>
 
@@ -468,9 +500,12 @@ Panel Administrativo Premium
 
 
 
+
 <div class="input-box">
 
+
 <input id="pass" type="password" placeholder="🔒 Contraseña">
+
 
 </div>
 
@@ -481,9 +516,13 @@ Panel Administrativo Premium
 
 <button class="login-btn" onclick="login()">
 
+
 🚀 Ingresar al Panel
 
+
 </button>
+
+
 
 
 
@@ -509,7 +548,149 @@ Panel Administrativo Premium
 
 </div>
 
+
 </div>
+
+
+
+
+
+
+
+<script>
+
+
+async function login(){
+
+
+
+let user=document.getElementById("user").value;
+
+
+let pass=document.getElementById("pass").value;
+
+
+
+
+
+try{
+
+
+
+let respuesta=await fetch("/api/login",{
+
+
+
+method:"POST",
+
+
+
+headers:{
+
+
+
+"Content-Type":"application/json"
+
+
+
+},
+
+
+
+body:JSON.stringify({
+
+
+
+user:user,
+
+pass:pass
+
+
+
+})
+
+
+
+});
+
+
+
+
+
+let datos=await respuesta.json();
+
+
+
+
+
+
+if(datos.success){
+
+
+
+document.getElementById("loginBox").style.display="none";
+
+
+document.getElementById("panel").classList.remove("hidden");
+
+
+
+}else{
+
+
+
+document.getElementById("error").innerHTML="❌ Usuario o contraseña incorrectos";
+
+
+
+}
+
+
+
+
+
+}catch(error){
+
+
+
+document.getElementById("error").innerHTML="❌ Error de conexión con el servidor";
+
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+function logout(){
+
+
+
+document.getElementById("panel").classList.add("hidden");
+
+
+document.getElementById("loginBox").style.display="flex";
+
+
+document.getElementById("user").value="";
+
+
+document.getElementById("pass").value="";
+
+
+
+}
+
+
+
+</script>
 <!-- PANEL PREMIUM -->
 
 
