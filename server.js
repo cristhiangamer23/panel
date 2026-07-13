@@ -9,7 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 
-// ================= POSTGRESQL =================
+
+// ================= DATABASE =================
 
 
 const pool = new Pool({
@@ -24,15 +25,17 @@ const pool = new Pool({
 
 
 
+
 // ================= CREAR TABLAS =================
 
 
-async function setupDatabase(){
+async function iniciarBaseDatos(){
 
 try{
 
 
 await pool.query(`
+
 
 CREATE TABLE IF NOT EXISTS usuarios (
 
@@ -62,13 +65,15 @@ fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
+
 `);
 
 
 
 // Crear usuario principal
 
-const existe =
+
+let existe =
 await pool.query(
 
 "SELECT * FROM usuarios WHERE user='Cristhian'"
@@ -85,6 +90,7 @@ await pool.query(
 `
 
 INSERT INTO usuarios
+
 (user,pass,role,activity)
 
 VALUES($1,$2,$3,$4)
@@ -107,24 +113,21 @@ VALUES($1,$2,$3,$4)
 );
 
 
-console.log("Usuario Dueño creado");
+console.log("👑 Usuario Dueño creado");
 
 
 }
 
 
 
-console.log("✅ Base de datos conectada");
+console.log("✅ PostgreSQL conectado");
 
 
 }
 
 catch(error){
 
-console.log(
-"Error DB:",
-error
-);
+console.log(error);
 
 }
 
@@ -132,13 +135,15 @@ error
 }
 
 
-setupDatabase();
+iniciarBaseDatos();
 
 
 
 
 
-// ================= MIDDLEWARE =================
+
+// ================= CONFIG =================
+
 
 
 app.use(cors({
@@ -160,14 +165,14 @@ extended:true
 }));
 
 
-
 app.use(session({
 
-secret:"BuenosAiresRP-Panel",
+secret:"BuenosAiresRP2026",
 
 resave:false,
 
 saveUninitialized:false,
+
 
 cookie:{
 
@@ -175,10 +180,55 @@ maxAge:1000*60*60*24
 
 }
 
+
 }));
 
 
+
 app.use(express.static("public"));
+
+
+
+
+
+
+
+// ================= FUNCIONES PERMISOS =================
+
+
+
+function esDueno(usuario){
+
+return usuario &&
+usuario.role==="Dueño";
+
+}
+
+
+
+function puedeGestionarStaff(usuario){
+
+return usuario &&
+(
+usuario.role==="Dueño" ||
+usuario.role==="Director Recursos Humanos"
+);
+
+}
+
+
+
+function puedeCrearActualizacion(usuario){
+
+return usuario &&
+(
+usuario.role==="Dueño" ||
+usuario.role==="Owner 2"
+);
+
+}
+
+
 
 
 
@@ -196,13 +246,18 @@ try{
 
 
 const {
+
 user,
+
 pass
+
 }=req.body;
 
 
 
+
 const result =
+
 await pool.query(
 
 `
@@ -231,9 +286,7 @@ if(result.rows.length===0){
 
 return res.json({
 
-success:false,
-
-message:"Datos incorrectos"
+success:false
 
 });
 
@@ -242,12 +295,12 @@ message:"Datos incorrectos"
 
 
 
-const usuario =
-result.rows[0];
+const usuario=result.rows[0];
 
 
 
 req.session.user={
+
 
 id:usuario.id,
 
@@ -256,6 +309,7 @@ user:usuario.user,
 role:usuario.role,
 
 activity:usuario.activity
+
 
 };
 
@@ -270,10 +324,12 @@ user:req.session.user
 });
 
 
-
 }
 
+
+
 catch(error){
+
 
 res.status(500).json({
 
@@ -281,11 +337,11 @@ error:"Error servidor"
 
 });
 
+
 }
 
 
 });
-
 
 
 
@@ -302,11 +358,13 @@ app.get("/api/session",(req,res)=>{
 
 if(!req.session.user){
 
+
 return res.json({
 
 logged:false
 
 });
+
 
 }
 
@@ -328,32 +386,6 @@ user:req.session.user
 
 
 
-// ================= LOGOUT =================
-
-
-
-app.post("/api/logout",(req,res)=>{
-
-
-req.session.destroy();
-
-
-res.json({
-
-success:true
-
-});
-
-
-});
-
-
-
-
-
-
-
-
 
 // ================= STAFF =================
 
@@ -362,7 +394,8 @@ success:true
 app.get("/api/staff",async(req,res)=>{
 
 
-const result =
+const result=
+
 await pool.query(
 
 `
@@ -389,14 +422,16 @@ res.json(result.rows);
 
 
 
-// CREAR STAFF
+
+
+// AGREGAR STAFF
+
 
 
 app.post("/api/staff",async(req,res)=>{
 
 
-if(!req.session.user ||
-req.session.user.role!=="Dueño"){
+if(!esDueno(req.session.user)){
 
 
 return res.status(403).json({
@@ -418,9 +453,7 @@ INSERT INTO usuarios
 
 (user,pass,role,activity)
 
-VALUES
-
-($1,$2,$3,$4)
+VALUES($1,$2,$3,$4)
 
 `,
 
@@ -463,8 +496,7 @@ success:true
 app.put("/api/staff/:id",async(req,res)=>{
 
 
-if(!req.session.user ||
-req.session.user.role!=="Dueño"){
+if(!puedeGestionarStaff(req.session.user)){
 
 
 return res.status(403).json({
@@ -475,7 +507,6 @@ error:"Sin permisos"
 
 
 }
-
 
 
 
@@ -529,6 +560,7 @@ success:true
 
 
 
+
 // ELIMINAR STAFF
 
 
@@ -536,8 +568,7 @@ success:true
 app.delete("/api/staff/:id",async(req,res)=>{
 
 
-if(!req.session.user ||
-req.session.user.role!=="Dueño"){
+if(!esDueno(req.session.user)){
 
 
 return res.status(403).json({
@@ -561,7 +592,11 @@ WHERE id=$1
 
 `,
 
-[req.params.id]
+[
+
+req.params.id
+
+]
 
 );
 
@@ -588,12 +623,11 @@ success:true
 
 
 
-
-
 app.get("/api/posts",async(req,res)=>{
 
 
-const result =
+const result=
+
 await pool.query(
 
 `
@@ -621,11 +655,11 @@ res.json(result.rows);
 
 
 
+
 app.post("/api/posts",async(req,res)=>{
 
 
-if(!req.session.user ||
-req.session.user.role!=="Dueño"){
+if(!puedeCrearActualizacion(req.session.user)){
 
 
 return res.status(403).json({
@@ -640,8 +674,8 @@ error:"Sin permisos"
 
 
 
+const result=
 
-const result =
 await pool.query(
 
 `
@@ -650,9 +684,7 @@ INSERT INTO actualizaciones
 
 (titulo,mensaje)
 
-VALUES
-
-($1,$2)
+VALUES($1,$2)
 
 RETURNING *
 
@@ -665,6 +697,7 @@ req.body.titulo,
 req.body.mensaje
 
 ]
+
 
 );
 
@@ -687,11 +720,11 @@ post:result.rows[0]
 
 
 
+
 app.delete("/api/posts/:id",async(req,res)=>{
 
 
-if(!req.session.user ||
-req.session.user.role!=="Dueño"){
+if(!esDueno(req.session.user)){
 
 
 return res.status(403).json({
@@ -715,7 +748,11 @@ WHERE id=$1
 
 `,
 
-[req.params.id]
+[
+
+req.params.id
+
+]
 
 );
 
@@ -747,7 +784,7 @@ app.listen(PORT,()=>{
 
 console.log(
 
-`🚀 Buenos Aires RP Panel funcionando en puerto ${PORT}`
+`🚀 Buenos Aires RP funcionando en puerto ${PORT}`
 
 );
 
