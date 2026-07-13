@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Buenos Aires RP | Panel</title>
+<title>Buenos Aires RP | Panel administrativo </title>
 
 <style>
 
@@ -327,7 +327,7 @@ display:none;
 
 <h1>
 
-Buenos Aires RP
+BUENOS AIRES RP
 
 </h1>
 
@@ -374,7 +374,7 @@ Iniciar Sesión
 
 </div>
 
-<!-- PANEL PRINCIPAL -->
+  <!-- PANEL PRINCIPAL -->
 
 <div id="panel" class="hidden">
 
@@ -384,9 +384,7 @@ Iniciar Sesión
 <div>
 
 <h2>
-
 Buenos Aires RP
-
 </h2>
 
 <span id="welcome"></span>
@@ -400,12 +398,12 @@ Buenos Aires RP
 
 </div>
 
-
 </header>
 
 
 
-<!-- ESTADISTICAS -->
+
+<!-- ESTADÍSTICAS -->
 
 <div class="stats">
 
@@ -451,7 +449,7 @@ Actualizaciones
 
 
 
-<!-- BOTONES -->
+<!-- PESTAÑAS -->
 
 <div class="nav">
 
@@ -461,6 +459,7 @@ Actualizaciones
 📢 Actualizaciones
 
 </button>
+
 
 
 <button class="tab" onclick="show('staff')">
@@ -476,47 +475,25 @@ Actualizaciones
 
 
 
-
 <div class="container">
 
 
-<!-- ACTUALIZACIONES -->
+<div id="updates"></div>
 
 
-<div id="updates">
-
-
-</div>
-
-
-
-
-
-<!-- STAFF -->
-
-
-<div id="staff" class="hidden">
+<div id="staff" class="hidden"></div>
 
 
 </div>
 
 
-
 </div>
-
-
-
-</div>
-
 
 
 
 
 
 <style>
-
-
-/* PANEL */
 
 
 .topbar{
@@ -529,20 +506,21 @@ align-items:center;
 
 padding:25px;
 
-background:rgba(17,24,39,.85);
+background:rgba(17,24,39,.9);
+
+border-bottom:1px solid rgba(77,237,255,.25);
 
 backdrop-filter:blur(15px);
 
-border-bottom:1px solid rgba(77,237,255,.15);
-
 }
+
 
 
 .topbar h2{
 
 margin:0;
 
-font-size:28px;
+font-size:30px;
 
 color:#4DEDFF;
 
@@ -566,7 +544,7 @@ background:linear-gradient(
 #4DEDFF
 );
 
-color:#06121D;
+color:#07131F;
 
 padding:8px 18px;
 
@@ -577,10 +555,6 @@ font-weight:bold;
 }
 
 
-
-
-
-/* ESTADISTICAS */
 
 
 .stats{
@@ -639,7 +613,7 @@ box-shadow:
 
 .stat-icon{
 
-font-size:35px;
+font-size:40px;
 
 }
 
@@ -647,9 +621,9 @@ font-size:35px;
 
 .stat-card h3{
 
-font-size:38px;
-
 margin:10px 0;
+
+font-size:38px;
 
 color:#4DEDFF;
 
@@ -661,14 +635,9 @@ color:#4DEDFF;
 
 color:#94A3B8;
 
-margin:0;
-
 }
 
 
-
-
-/* NAVEGACION */
 
 
 .nav{
@@ -687,10 +656,6 @@ padding:20px;
 
 .tab{
 
-background:#2563EB;
-
-color:white;
-
 padding:13px 25px;
 
 border:none;
@@ -701,6 +666,10 @@ cursor:pointer;
 
 font-weight:bold;
 
+background:#2563EB;
+
+color:white;
+
 transition:.25s;
 
 }
@@ -709,9 +678,9 @@ transition:.25s;
 
 .tab:hover{
 
-background:#1D4ED8;
-
 transform:translateY(-3px);
+
+background:#1D4ED8;
 
 }
 
@@ -721,7 +690,7 @@ transform:translateY(-3px);
 
 background:#4DEDFF;
 
-color:#06121D;
+color:#07131F;
 
 box-shadow:
 
@@ -730,10 +699,6 @@ box-shadow:
 }
 
 
-
-
-
-/* CONTENEDOR */
 
 
 .container{
@@ -748,10 +713,10 @@ padding:20px;
 
 
 
+
 .card{
 
 background:
-
 linear-gradient(
 180deg,
 #182435,
@@ -770,9 +735,7 @@ box-shadow:
 
 0 10px 25px rgba(0,0,0,.3);
 
-transition:.25s;
-
-animation:showCard .35s ease;
+animation:show .35s ease;
 
 }
 
@@ -788,8 +751,7 @@ transform:translateY(-3px);
 
 
 
-
-@keyframes showCard{
+@keyframes show{
 
 from{
 
@@ -811,10 +773,88 @@ transform:translateY(0);
 
 
 
+.badge{
+
+background:#4DEDFF;
+
+color:#07131F;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:bold;
+
+}
+
+
+
+.staff-actions{
+
+display:flex;
+
+gap:10px;
+
+margin-top:15px;
+
+}
+
+
+
+.edit-btn,
+.delete-btn{
+
+width:45px;
+
+height:45px;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+font-size:18px;
+
+transition:.25s;
+
+}
+
+
+
+.edit-btn{
+
+background:#F59E0B;
+
+color:white;
+
+}
+
+
+
+.delete-btn{
+
+background:#EF4444;
+
+color:white;
+
+}
+
+
+
+.edit-btn:hover,
+.delete-btn:hover{
+
+transform:scale(1.12);
+
+}
+
+
 
 
 @media(max-width:600px){
-
 
 .topbar{
 
@@ -825,7 +865,6 @@ gap:15px;
 text-align:center;
 
 }
-
 
 
 .nav{
@@ -841,8 +880,8 @@ width:100%;
 
 }
 
-
 }
+
 
 </style>
 <script>
@@ -854,12 +893,13 @@ let USERS = [];
 let POSTS = [];
 
 
-// LOGIN
+
+
 
 async function login(){
 
 
-let respuesta = await fetch("/api/login",{
+const respuesta = await fetch("/api/login",{
 
 method:"POST",
 
@@ -880,32 +920,40 @@ pass:pass.value
 });
 
 
-let data = await respuesta.json();
+
+const data = await respuesta.json();
+
 
 
 if(!data.success){
 
-error.innerText="❌ Usuario o contraseña incorrecta";
+
+error.innerHTML="❌ Usuario o contraseña incorrecta";
+
 
 return;
 
+
 }
+
 
 
 currentUser=data.user;
 
 
+
 loginBox.style.display="none";
+
 
 panel.classList.remove("hidden");
 
 
-welcome.innerText=
-"Bienvenido, "+currentUser.username;
+
+welcome.innerHTML="Bienvenido "+currentUser.username;
 
 
-roleBadge.innerText=
-currentUser.role;
+roleBadge.innerHTML=currentUser.role;
+
 
 
 await loadAll();
@@ -919,9 +967,15 @@ show("updates");
 
 
 
+
+
+
+
 function isOwner(){
 
+
 return currentUser && currentUser.role==="Dueño";
+
 
 }
 
@@ -929,7 +983,9 @@ return currentUser && currentUser.role==="Dueño";
 
 
 
-// CAMBIO DE PESTAÑA
+
+
+
 
 function show(tab){
 
@@ -939,30 +995,8 @@ updates.classList.add("hidden");
 staff.classList.add("hidden");
 
 
-document.getElementById(tab)
-.classList.remove("hidden");
 
-
-
-document.querySelectorAll(".tab")
-.forEach(btn=>{
-
-btn.classList.remove("active");
-
-});
-
-
-if(tab==="updates"){
-
-document.querySelectorAll(".tab")[0]
-.classList.add("active");
-
-}else{
-
-document.querySelectorAll(".tab")[1]
-.classList.add("active");
-
-}
+document.getElementById(tab).classList.remove("hidden");
 
 
 }
@@ -971,36 +1005,27 @@ document.querySelectorAll(".tab")[1]
 
 
 
-// CARGAR DATOS
+
+
+
 
 
 async function loadAll(){
 
 
-let usuarios =
-await fetch("/api/users");
+
+const usuarios = await fetch("/api/users");
 
 
-USERS =
-await usuarios.json();
-
-
-
-let publicaciones =
-await fetch("/api/posts");
-
-
-POSTS =
-await publicaciones.json();
+USERS = await usuarios.json();
 
 
 
-document.getElementById("staffCount")
-.innerText=USERS.length;
+
+const publicaciones = await fetch("/api/posts");
 
 
-document.getElementById("postCount")
-.innerText=POSTS.length;
+POSTS = await publicaciones.json();
 
 
 
@@ -1013,13 +1038,34 @@ render();
 
 
 
+
+
+
+
+
 function render(){
+
+
+
+/* ESTADISTICAS */
+
+
+document.getElementById("staffCount").innerHTML = USERS.length;
+
+
+document.getElementById("postCount").innerHTML = POSTS.length;
+
+
+
+
+
 
 
 /* ACTUALIZACIONES */
 
 
 updates.innerHTML="";
+
 
 
 if(isOwner()){
@@ -1029,19 +1075,20 @@ updates.innerHTML+=`
 
 <div class="card">
 
-<h3>📢 Crear actualización</h3>
+
+<h3>
+📢 Crear Actualización
+</h3>
 
 
-<input id="titulo"
-placeholder="Título">
+<input id="titulo" placeholder="Título">
 
 
-<textarea id="mensaje"
-placeholder="Mensaje"></textarea>
+<textarea id="mensaje" placeholder="Mensaje"></textarea>
 
 
-<button class="login-btn"
-onclick="crearPost()">
+
+<button class="green" onclick="crearPost()">
 
 Publicar
 
@@ -1049,6 +1096,7 @@ Publicar
 
 
 </div>
+
 
 `;
 
@@ -1065,25 +1113,35 @@ updates.innerHTML+=`
 
 
 <h3>
-🚀 ${post.titulo}
+
+📢 ${post.titulo}
+
 </h3>
 
 
 <p>
+
 ${post.mensaje}
+
 </p>
 
 
 <small>
+
 ${post.fecha}
+
 </small>
+
+
 
 
 ${isOwner()?`
 
-<br>
+<br><br>
+
 
 <button class="blue"
+
 onclick="sendDiscord(${post.id})">
 
 🔔 Discord
@@ -1091,10 +1149,12 @@ onclick="sendDiscord(${post.id})">
 </button>
 
 
-<button class="red"
+
+<button class="delete-btn"
+
 onclick="deletePost(${post.id})">
 
-🗑 Eliminar
+🗑 Borrar
 
 </button>
 
@@ -1102,12 +1162,14 @@ onclick="deletePost(${post.id})">
 `:''}
 
 
-</div>
 
+</div>
 
 `;
 
 });
+
+
 
 
 
@@ -1121,6 +1183,7 @@ onclick="deletePost(${post.id})">
 staff.innerHTML="";
 
 
+
 if(isOwner()){
 
 
@@ -1130,20 +1193,21 @@ staff.innerHTML+=`
 
 
 <h3>
+
 👥 Agregar Staff
+
 </h3>
 
 
-<input id="newUser"
-placeholder="Nombre">
+
+<input id="newUser" placeholder="Usuario">
 
 
-<input id="newRole"
-placeholder="Rango">
+<input id="newRole" placeholder="Rango">
 
 
-<button class="login-btn"
-onclick="addUser()">
+
+<button class="green" onclick="addUser()">
 
 Agregar
 
@@ -1166,9 +1230,14 @@ staff.innerHTML+=`
 <div class="card">
 
 
+
 <h3>
 
 👤 ${u.username}
+
+</h3>
+
+
 
 <span class="badge">
 
@@ -1177,28 +1246,33 @@ ${u.role}
 </span>
 
 
-</h3>
-
 
 
 ${isOwner()?`
 
-<button class="blue"
+<div class="staff-actions">
+
+
+<button class="edit-btn"
 
 onclick="editUser(${u.id},'${u.username}','${u.role}')">
 
-✏️ Editar
+✏️
 
 </button>
 
 
-<button class="red"
+
+<button class="delete-btn"
 
 onclick="deleteUser(${u.id})">
 
-🗑 Eliminar
+🗑
 
 </button>
+
+
+</div>
 
 
 `:''}
@@ -1207,9 +1281,11 @@ onclick="deleteUser(${u.id})">
 
 </div>
 
+
 `;
 
 });
+
 
 
 }
@@ -1220,7 +1296,6 @@ onclick="deleteUser(${u.id})">
 
 
 
-// AGREGAR STAFF
 
 
 async function addUser(){
@@ -1257,6 +1332,7 @@ role:newRole.value
 });
 
 
+
 loadAll();
 
 
@@ -1268,26 +1344,60 @@ loadAll();
 
 
 
-// EDITAR STAFF
+
 
 
 function editUser(id,nombre,rango){
 
 
-let nuevoNombre=
-prompt("Nombre:",nombre);
+let modal=document.createElement("div");
 
 
-let nuevoRango=
-prompt("Rango:",rango);
-
-
-
-if(!nuevoRango)return;
+modal.className="modal";
 
 
 
-saveEdit(id,nuevoNombre,nuevoRango);
+modal.innerHTML=`
+
+<div class="modal-box">
+
+
+<h3>
+✏️ Editar Staff
+</h3>
+
+
+
+<input id="editName" value="${nombre}">
+
+
+<input id="editRole" value="${rango}">
+
+
+
+<button class="green" onclick="saveEdit(${id})">
+
+Guardar
+
+</button>
+
+
+
+<button class="red" onclick="this.parentElement.parentElement.remove()">
+
+Cancelar
+
+</button>
+
+
+
+</div>
+
+`;
+
+
+
+document.body.appendChild(modal);
 
 
 }
@@ -1296,7 +1406,12 @@ saveEdit(id,nuevoNombre,nuevoRango);
 
 
 
-async function saveEdit(id,nombre,rango){
+
+
+
+
+
+async function saveEdit(id){
 
 
 await fetch("/api/users/"+id,{
@@ -1311,13 +1426,18 @@ headers:{
 
 body:JSON.stringify({
 
-user:nombre,
+user:editName.value,
 
-role:rango
+role:editRole.value
 
 })
 
 });
+
+
+
+document.querySelector(".modal").remove();
+
 
 
 loadAll();
@@ -1331,13 +1451,14 @@ loadAll();
 
 
 
-// ELIMINAR STAFF
 
 
 async function deleteUser(id){
 
 
+
 if(!confirm("¿Eliminar usuario?"))
+
 return;
 
 
@@ -1349,6 +1470,7 @@ method:"DELETE"
 });
 
 
+
 loadAll();
 
 
@@ -1360,10 +1482,10 @@ loadAll();
 
 
 
-// CREAR ACTUALIZACION
 
 
 async function crearPost(){
+
 
 
 await fetch("/api/posts",{
@@ -1387,6 +1509,7 @@ mensaje:mensaje.value
 });
 
 
+
 loadAll();
 
 
@@ -1398,13 +1521,14 @@ loadAll();
 
 
 
-// ELIMINAR ACTUALIZACION
 
 
 async function deletePost(id){
 
 
+
 if(!confirm("¿Eliminar actualización?"))
+
 return;
 
 
@@ -1416,6 +1540,7 @@ method:"DELETE"
 });
 
 
+
 loadAll();
 
 
@@ -1427,14 +1552,13 @@ loadAll();
 
 
 
-// ENVIAR A DISCORD
 
 
 async function sendDiscord(id){
 
 
-let post =
-POSTS.find(x=>x.id===id);
+
+const post=POSTS.find(x=>x.id===id);
 
 
 
@@ -1451,6 +1575,7 @@ headers:{
 body:JSON.stringify(post)
 
 });
+
 
 
 alert("✅ Actualización enviada a Discord");
