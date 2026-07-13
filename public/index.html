@@ -10,9 +10,9 @@
 
 <style>
 
-
 *{
 box-sizing:border-box;
+font-family:'Segoe UI',Arial,sans-serif;
 }
 
 
@@ -20,10 +20,10 @@ body{
 
 margin:0;
 
-font-family:'Segoe UI',Arial,sans-serif;
+min-height:100vh;
 
 background:
-radial-gradient(circle at top,#1e40af,#020617 55%);
+radial-gradient(circle at top,#1d4ed8,#020617 60%);
 
 color:white;
 
@@ -31,67 +31,52 @@ color:white;
 
 
 
-/* ================= LOGIN PREMIUM ================= */
+/* ================= LOGIN ================= */
 
 
-.login{
+#loginBox{
 
 height:100vh;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
 
-padding:20px;
+justify-content:center;
 
 }
 
 
 
-.login-box{
+.login-card{
 
 
 width:420px;
 
-padding:45px 40px;
+
+padding:40px;
 
 
 background:
 
-linear-gradient(
-
-145deg,
-
-rgba(30,41,59,.95),
-
-rgba(15,23,42,.95)
-
-);
+rgba(15,23,42,.95);
 
 
+border-radius:25px;
 
-border-radius:30px;
 
+border:1px solid rgba(255,255,255,.1);
 
 
 box-shadow:
 
-0 0 40px rgba(59,130,246,.35),
-
-0 25px 80px rgba(0,0,0,.8);
-
+0 20px 60px rgba(0,0,0,.7);
 
 
 text-align:center;
 
 
-border:1px solid rgba(255,255,255,.08);
-
-
 }
-
 
 
 
@@ -109,13 +94,12 @@ border-radius:50%;
 object-fit:cover;
 
 
-border:5px solid #38bdf8;
-
+border:4px solid #38bdf8;
 
 
 box-shadow:
 
-0 0 30px #38bdf8;
+0 0 35px #38bdf8;
 
 
 margin-bottom:20px;
@@ -126,20 +110,30 @@ margin-bottom:20px;
 
 
 
-.login-box h1{
+.login-card h1{
 
 
 font-size:32px;
+
 
 margin:10px 0;
 
 
 background:
 
-linear-gradient(90deg,#38bdf8,#818cf8);
+linear-gradient(
+
+90deg,
+
+#38bdf8,
+
+#818cf8
+
+);
 
 
 -webkit-background-clip:text;
+
 
 color:transparent;
 
@@ -148,7 +142,8 @@ color:transparent;
 
 
 
-.login-box p{
+
+.login-card p{
 
 
 color:#94a3b8;
@@ -160,19 +155,21 @@ color:#94a3b8;
 
 
 
-input{
+input,
+textarea,
+select{
 
 
 width:100%;
 
 
-padding:15px;
+padding:14px;
 
 
-margin:10px 0;
+margin:8px 0;
 
 
-border-radius:15px;
+border-radius:12px;
 
 
 border:1px solid #334155;
@@ -184,17 +181,19 @@ background:#020617;
 color:white;
 
 
-font-size:15px;
-
-
 outline:none;
+
+
+font-size:15px;
 
 
 }
 
 
 
-input:focus{
+input:focus,
+textarea:focus,
+select:focus{
 
 
 border-color:#38bdf8;
@@ -210,7 +209,6 @@ box-shadow:
 
 
 
-
 .login-btn{
 
 
@@ -220,7 +218,7 @@ width:100%;
 padding:15px;
 
 
-margin-top:20px;
+margin-top:15px;
 
 
 border-radius:15px;
@@ -229,17 +227,16 @@ border-radius:15px;
 border:none;
 
 
-font-size:16px;
+cursor:pointer;
 
 
 font-weight:bold;
 
 
-cursor:pointer;
+font-size:16px;
 
 
 color:white;
-
 
 
 background:
@@ -261,7 +258,6 @@ box-shadow:
 0 10px 30px rgba(37,99,235,.5);
 
 
-
 transition:.3s;
 
 
@@ -269,15 +265,11 @@ transition:.3s;
 
 
 
+
 .login-btn:hover{
 
 
 transform:translateY(-3px);
-
-
-box-shadow:
-
-0 15px 40px rgba(56,189,248,.7);
 
 
 }
@@ -298,18 +290,15 @@ margin-top:15px;
 
 
 
-
-
-
 /* ================= PANEL ================= */
+
 
 
 .hidden{
 
-display:none;
+display:none!important;
 
 }
-
 
 
 
@@ -322,7 +311,7 @@ display:flex;
 justify-content:center;
 
 
-gap:15px;
+gap:20px;
 
 
 padding:25px;
@@ -338,12 +327,10 @@ padding:25px;
 padding:15px 35px;
 
 
-background:
-
-rgba(30,41,59,.9);
-
-
 border-radius:15px;
+
+
+background:#1e293b;
 
 
 cursor:pointer;
@@ -377,7 +364,6 @@ transform:translateY(-3px);
 
 
 
-
 .container{
 
 
@@ -403,14 +389,13 @@ background:
 rgba(15,23,42,.95);
 
 
+border-radius:20px;
+
+
 padding:25px;
 
 
-border-radius:22px;
-
-
 margin-bottom:20px;
-
 
 
 box-shadow:
@@ -426,9 +411,21 @@ border:1px solid rgba(255,255,255,.06);
 
 
 
+button{
 
 
-/* BOTONES */
+cursor:pointer;
+
+
+border:none;
+
+
+font-weight:bold;
+
+
+}
+
+
 
 
 .btn{
@@ -438,15 +435,6 @@ padding:12px 20px;
 
 
 border-radius:12px;
-
-
-border:none;
-
-
-cursor:pointer;
-
-
-font-weight:bold;
 
 
 }
@@ -508,17 +496,33 @@ justify-content:center;
 font-size:18px;
 
 
-border:none;
-
-
-cursor:pointer;
-
-
 margin:5px;
+
+
+color:white;
 
 
 }
 
+
+
+
+.badge{
+
+
+padding:6px 12px;
+
+
+border-radius:10px;
+
+
+background:#334155;
+
+
+font-size:13px;
+
+
+}
 
 
 </style>
@@ -527,31 +531,22 @@ margin:5px;
 </head>
 
 
-
 <body>
-
-
 
 
 
 <!-- LOGIN -->
 
 
-<div id="loginBox" class="login">
+<div id="loginBox">
 
 
-<div class="login-box">
+<div class="login-card">
 
 
-
-<img
-
-class="logo"
+<img class="logo"
 
 src="TU_LOGO_AQUI">
-
-
-
 
 
 <h1>
@@ -559,7 +554,6 @@ src="TU_LOGO_AQUI">
 Buenos Aires RP
 
 </h1>
-
 
 
 <p>
@@ -570,21 +564,13 @@ Panel Administrativo Staff
 
 
 
-
-
-<input
-
-id="username"
+<input id="username"
 
 placeholder="👤 Usuario">
 
 
 
-
-
-<input
-
-id="password"
+<input id="password"
 
 type="password"
 
@@ -592,35 +578,24 @@ placeholder="🔒 Contraseña">
 
 
 
-
-
-
-<button
-
-class="login-btn"
+<button class="login-btn"
 
 onclick="login()">
 
 
-🚀 Ingresar al Panel
+🚀 Ingresar
 
 
 </button>
 
 
-
-
 <p id="error"></p>
 
 
-
 </div>
 
 
 </div>
-
-
-
 
 
 
@@ -632,38 +607,28 @@ onclick="login()">
 <div id="panel" class="hidden">
 
 
-
 <div class="nav">
-
 
 
 <div class="tab"
 
 onclick="openTab('staff')">
 
-
 👥 Staff
 
-
 </div>
-
-
 
 
 <div class="tab"
 
 onclick="openTab('updates')">
 
-
 📢 Actualizaciones
 
-
 </div>
 
 
-
 </div>
-
 
 
 
@@ -679,12 +644,8 @@ onclick="openTab('updates')">
 </div>
 
 
-
 </div>
 <script>
-
-
-// ================= VARIABLES =================
 
 
 let currentUser = null;
@@ -700,14 +661,13 @@ let currentUser = null;
 async function login(){
 
 
-
 let user = username.value;
 
 let pass = password.value;
 
 
 
-let res = await fetch("/api/login",{
+let response = await fetch("/api/login",{
 
 
 method:"POST",
@@ -718,18 +678,14 @@ headers:{
 
 "Content-Type":"application/json"
 
-
 },
 
 
 body:JSON.stringify({
 
-
 user:user,
 
-
 pass:pass
-
 
 })
 
@@ -738,7 +694,8 @@ pass:pass
 
 
 
-let data = await res.json();
+
+let data = await response.json();
 
 
 
@@ -780,13 +737,11 @@ openTab("staff");
 
 
 
-
-// ================= CAMBIO DE PESTAÑA =================
-
+// ================= PESTAÑAS =================
 
 
-function openTab(tab){
 
+function openTab(nombre){
 
 
 staff.classList.add("hidden");
@@ -796,23 +751,28 @@ updates.classList.add("hidden");
 
 
 
-document.getElementById(tab).classList.remove("hidden");
+document.getElementById(nombre).classList.remove("hidden");
 
 
 
-if(tab==="staff"){
+if(nombre==="staff"){
 
-loadStaff();
+
+cargarStaff();
+
 
 }
 
 
 
-if(tab==="updates"){
+if(nombre==="updates"){
 
-loadUpdates();
+
+cargarActualizaciones();
+
 
 }
+
 
 
 }
@@ -829,29 +789,17 @@ loadUpdates();
 
 
 
-async function loadStaff(){
-
+async function cargarStaff(){
 
 
 let res = await fetch("/api/staff");
 
 
-
-let lista = await res.json();
-
+let usuarios = await res.json();
 
 
 
-staff.innerHTML="";
-
-
-
-
-
-// CONTADOR AUTOMATICO
-
-
-staff.innerHTML += `
+staff.innerHTML=`
 
 
 <div class="card">
@@ -870,7 +818,7 @@ Total Staff:
 
 <span style="color:#38bdf8">
 
-${lista.length}
+${usuarios.length}
 
 </span>
 
@@ -881,21 +829,11 @@ ${lista.length}
 </div>
 
 
-`;
-
-
-
-
-
-
-
-staff.innerHTML += `
-
 
 <div class="card">
 
 
-<div style="display:grid;grid-template-columns:2fr 1fr 1fr 100px;gap:10px;font-weight:bold;">
+<div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 120px;gap:10px;font-weight:bold;">
 
 
 <div>
@@ -945,13 +883,16 @@ Acciones
 
 
 
-lista.forEach((u)=>{
+usuarios.forEach(u=>{
 
 
 
-let botones="";
+let acciones="";
 
 
+
+
+// Dueño y RRHH pueden editar
 
 
 if(
@@ -963,57 +904,53 @@ currentUser.role==="Director Recursos Humanos"
 ){
 
 
-botones=`
+acciones+=`
 
 
-<button
-
-class="circle blue"
+<button class="circle blue"
 
 onclick="editarStaff(${u.id},'${u.username}','${u.role}','${u.activity}')">
 
 
 ✏️
 
-
 </button>
 
 
 `;
 
+
 }
 
+
+
+
+// Solo Dueño elimina
 
 
 if(currentUser.role==="Dueño"){
 
 
-botones += `
+acciones+=`
 
 
-<button
-
-class="circle red"
+<button class="circle red"
 
 onclick="eliminarStaff(${u.id})">
 
 
 🗑️
 
-
 </button>
 
 
 `;
 
-
 }
 
 
 
-
-
-let estado =
+let actividad =
 
 u.activity==="Activo"
 
@@ -1029,16 +966,13 @@ u.activity==="Activo"
 
 
 
-
-
-staff.innerHTML += `
-
+staff.innerHTML+=`
 
 
 <div class="card">
 
 
-<div style="display:grid;grid-template-columns:2fr 1fr 1fr 100px;align-items:center;gap:10px;">
+<div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 120px;gap:10px;align-items:center;">
 
 
 
@@ -1047,6 +981,7 @@ staff.innerHTML += `
 👤 ${u.username}
 
 </div>
+
 
 
 
@@ -1064,7 +999,7 @@ ${u.role}
 
 <div>
 
-${estado}
+${actividad}
 
 </div>
 
@@ -1073,10 +1008,9 @@ ${estado}
 
 <div>
 
-${botones}
+${acciones}
 
 </div>
-
 
 
 
@@ -1094,8 +1028,12 @@ ${botones}
 
 
 
-
 }
+
+
+
+
+
 
 
 
@@ -1103,13 +1041,14 @@ ${botones}
 // ================= EDITAR STAFF =================
 
 
+
 async function editarStaff(id,user,role,activity){
 
 
 
-let nuevoUser = prompt(
+let nuevoUsuario=prompt(
 
-"Usuario",
+"Usuario:",
 
 user
 
@@ -1117,9 +1056,9 @@ user
 
 
 
-let nuevoRole = prompt(
+let nuevoRango=prompt(
 
-"Rango",
+"Rango:",
 
 role
 
@@ -1127,9 +1066,9 @@ role
 
 
 
-let nuevaActividad = prompt(
+let nuevaActividad=prompt(
 
-"Actividad (Activo/Inactivo)",
+"Actividad (Activo/Inactivo):",
 
 activity
 
@@ -1137,8 +1076,7 @@ activity
 
 
 
-
-if(!nuevoUser) return;
+if(!nuevoUsuario)return;
 
 
 
@@ -1154,17 +1092,16 @@ headers:{
 
 "Content-Type":"application/json"
 
-
 },
 
 
 body:JSON.stringify({
 
 
-user:nuevoUser,
+user:nuevoUsuario,
 
 
-role:nuevoRole,
+role:nuevoRango,
 
 
 activity:nuevaActividad
@@ -1177,8 +1114,7 @@ activity:nuevaActividad
 
 
 
-loadStaff();
-
+cargarStaff();
 
 
 }
@@ -1198,8 +1134,7 @@ loadStaff();
 async function eliminarStaff(id){
 
 
-
-if(!confirm("¿Eliminar usuario del Staff?"))
+if(!confirm("¿Eliminar este miembro del Staff?"))
 
 return;
 
@@ -1215,17 +1150,12 @@ method:"DELETE"
 
 
 
-loadStaff();
+cargarStaff();
 
 
 
 }
-
-
-
-
-</script>
-// ================= ACTUALIZACIONES =================
+  // ================= ACTUALIZACIONES =================
 
 
 const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDXN9Vg2QrqOp4HyvZwbMP6rAYyZ8hxNqKTebgzDWeYM36N7MV2AaLKkffEfq";
@@ -1234,7 +1164,7 @@ const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDX
 
 
 
-async function loadUpdates(){
+async function cargarActualizaciones(){
 
 
 
@@ -1246,6 +1176,7 @@ let posts = await res.json();
 
 
 updates.innerHTML="";
+
 
 
 
@@ -1263,7 +1194,7 @@ currentUser.role==="Owner 2"
 ){
 
 
-updates.innerHTML += `
+updates.innerHTML+=`
 
 
 <div class="card">
@@ -1271,7 +1202,7 @@ updates.innerHTML += `
 
 <h2>
 
-📢 Nueva actualización
+📢 Crear actualización
 
 </h2>
 
@@ -1285,13 +1216,11 @@ placeholder="Título de la actualización">
 
 
 
-
-
 <textarea
 
 id="mensajeUpdate"
 
-placeholder="Escribe el mensaje">
+placeholder="Mensaje de la actualización">
 
 </textarea>
 
@@ -1320,6 +1249,7 @@ onclick="crearActualizacion()">
 
 
 }
+
 
 
 
@@ -1355,6 +1285,7 @@ onclick='enviarDiscord(${JSON.stringify(post)})'>
 
 
 
+
 <button
 
 class="circle red"
@@ -1377,7 +1308,7 @@ onclick="eliminarActualizacion(${post.id})">
 
 
 
-updates.innerHTML += `
+updates.innerHTML+=`
 
 
 <div class="card">
@@ -1407,12 +1338,11 @@ ${post.mensaje}
 
 
 
+<br><br>
 
-<div>
 
 ${botones}
 
-</div>
 
 
 </div>
@@ -1455,7 +1385,6 @@ headers:{
 
 "Content-Type":"application/json"
 
-
 },
 
 
@@ -1479,8 +1408,7 @@ mensajeUpdate.value
 
 
 
-loadUpdates();
-
+cargarActualizaciones();
 
 
 }
@@ -1517,7 +1445,7 @@ method:"DELETE"
 
 
 
-loadUpdates();
+cargarActualizaciones();
 
 
 
@@ -1531,7 +1459,7 @@ loadUpdates();
 
 
 
-// ================= ENVIAR A DISCORD =================
+// ================= ENVIAR DISCORD =================
 
 
 
@@ -1550,12 +1478,10 @@ headers:{
 
 "Content-Type":"application/json"
 
-
 },
 
 
 body:JSON.stringify({
-
 
 
 username:
@@ -1576,16 +1502,17 @@ title:
 description:
 
 `
+
 **${post.titulo}**
 
+
 ${post.mensaje}
+
 `,
 
 
 
-color:
-
-5793266,
+color:0x2563eb,
 
 
 
@@ -1636,8 +1563,6 @@ timestamp:
 new Date()
 
 
-
-
 }]
 
 
@@ -1648,7 +1573,19 @@ new Date()
 
 
 
-alert("✅ Actualización enviada a Discord");
+alert("✅ Enviado correctamente a Discord");
 
 
 }
+
+
+
+
+
+</script>
+
+
+</body>
+
+
+</html>
