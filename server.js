@@ -1,7 +1,7 @@
 const express = require("express");
-const cors = require("cors");
 const session = require("express-session");
-const fs = require("fs");
+const cors = require("cors");
+const { Pool } = require("pg");
 
 
 const app = express();
@@ -9,13 +9,144 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 
+// ================= POSTGRESQL =================
 
-// ================= CONFIG =================
+
+const pool = new Pool({
+
+    connectionString: process.env.DATABASE_URL,
+
+    ssl:{
+        rejectUnauthorized:false
+    }
+
+});
+
+
+
+// ================= CREAR TABLAS =================
+
+
+async function setupDatabase(){
+
+try{
+
+
+await pool.query(`
+
+CREATE TABLE IF NOT EXISTS usuarios (
+
+id SERIAL PRIMARY KEY,
+
+user VARCHAR(50) UNIQUE NOT NULL,
+
+pass VARCHAR(100) NOT NULL,
+
+role VARCHAR(50) NOT NULL,
+
+activity VARCHAR(20) DEFAULT 'Inactivo'
+
+);
+
+
+
+CREATE TABLE IF NOT EXISTS actualizaciones (
+
+id SERIAL PRIMARY KEY,
+
+titulo TEXT NOT NULL,
+
+mensaje TEXT NOT NULL,
+
+fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);
+
+`);
+
+
+
+// Crear usuario principal
+
+const existe =
+await pool.query(
+
+"SELECT * FROM usuarios WHERE user='Cristhian'"
+
+);
+
+
+
+if(existe.rows.length===0){
+
+
+await pool.query(
+
+`
+
+INSERT INTO usuarios
+(user,pass,role,activity)
+
+VALUES($1,$2,$3,$4)
+
+`,
+
+[
+
+"Cristhian",
+
+"2040@",
+
+"Dueño",
+
+"Activo"
+
+]
+
+
+);
+
+
+console.log("Usuario Dueño creado");
+
+
+}
+
+
+
+console.log("✅ Base de datos conectada");
+
+
+}
+
+catch(error){
+
+console.log(
+"Error DB:",
+error
+);
+
+}
+
+
+}
+
+
+setupDatabase();
+
+
+
+
+
+// ================= MIDDLEWARE =================
 
 
 app.use(cors({
-    origin:true,
-    credentials:true
+
+origin:true,
+
+credentials:true
+
 }));
 
 
@@ -23,25 +154,28 @@ app.use(express.json());
 
 
 app.use(express.urlencoded({
-    extended:true
+
+extended:true
+
 }));
 
 
 
 app.use(session({
 
-    secret:"BuenosAiresRP-Panel-2026",
+secret:"BuenosAiresRP-Panel",
 
-    resave:false,
+resave:false,
 
-    saveUninitialized:false,
+saveUninitialized:false,
 
-    cookie:{
-        maxAge:1000 * 60 * 60 * 24
-    }
+cookie:{
+
+maxAge:1000*60*60*24
+
+}
 
 }));
-
 
 
 app.use(express.static("public"));
@@ -49,116 +183,111 @@ app.use(express.static("public"));
 
 
 
-// ================= ARCHIVOS =================
-
-
-function readJSON(file){
-
-
-    if(!fs.existsSync(file)){
-
-        fs.writeFileSync(
-            file,
-            "[]"
-        );
-
-    }
-
-
-    return JSON.parse(
-        fs.readFileSync(file,"utf8")
-    );
-
-
-}
-
-
-
-function saveJSON(file,data){
-
-
-    fs.writeFileSync(
-
-        file,
-
-        JSON.stringify(
-            data,
-            null,
-            2
-        )
-
-    );
-
-
-}
-
 
 
 // ================= LOGIN =================
 
 
-app.post("/api/login",(req,res)=>{
+
+app.post("/api/login",async(req,res)=>{
 
 
-    const {
-        user,
-        pass
-    } = req.body;
+try{
 
 
-
-    let users =
-    readJSON("usuarios.json");
-
-
-
-    let account =
-    users.find(
-        x =>
-        x.user === user &&
-        x.pass === pass
-    );
+const {
+user,
+pass
+}=req.body;
 
 
 
-    if(!account){
+const result =
+await pool.query(
 
-        return res.json({
+`
 
-            success:false,
+SELECT *
 
-            message:"Usuario o contraseña incorrectos"
+FROM usuarios
 
-        });
+WHERE user=$1
 
-    }
+AND pass=$2
 
+`,
 
+[
+user,
+pass
+]
 
-    req.session.user={
-
-        id:account.id,
-
-        user:account.user,
-
-        role:account.role,
-
-        activity:account.activity
-
-    };
+);
 
 
 
-    res.json({
+if(result.rows.length===0){
 
-        success:true,
 
-        user:req.session.user
+return res.json({
 
-    });
+success:false,
+
+message:"Datos incorrectos"
+
+});
+
+
+}
+
+
+
+const usuario =
+result.rows[0];
+
+
+
+req.session.user={
+
+id:usuario.id,
+
+user:usuario.user,
+
+role:usuario.role,
+
+activity:usuario.activity
+
+};
+
+
+
+res.json({
+
+success:true,
+
+user:req.session.user
+
+});
+
+
+
+}
+
+catch(error){
+
+res.status(500).json({
+
+error:"Error servidor"
+
+});
+
+}
 
 
 });
+
+
+
 
 
 
@@ -167,31 +296,34 @@ app.post("/api/login",(req,res)=>{
 // ================= SESION =================
 
 
+
 app.get("/api/session",(req,res)=>{
 
 
-    if(!req.session.user){
+if(!req.session.user){
 
-        return res.json({
+return res.json({
 
-            logged:false
+logged:false
 
-        });
+});
 
-    }
+}
 
 
 
-    res.json({
+res.json({
 
-        logged:true,
+logged:true,
 
-        user:req.session.user
+user:req.session.user
 
-    });
+});
 
 
 });
+
+
 
 
 
@@ -199,20 +331,25 @@ app.get("/api/session",(req,res)=>{
 // ================= LOGOUT =================
 
 
+
 app.post("/api/logout",(req,res)=>{
 
 
-    req.session.destroy();
+req.session.destroy();
 
 
-    res.json({
+res.json({
 
-        success:true
+success:true
 
-    });
+});
 
 
 });
+
+
+
+
 
 
 
@@ -221,93 +358,99 @@ app.post("/api/logout",(req,res)=>{
 // ================= STAFF =================
 
 
-// VER STAFF
 
-app.get("/api/staff",(req,res)=>{
-
-
-    if(!req.session.user){
-
-        return res.status(401).json({
-
-            error:"No autorizado"
-
-        });
-
-    }
+app.get("/api/staff",async(req,res)=>{
 
 
+const result =
+await pool.query(
 
-    res.json(
-        readJSON("usuarios.json")
-    );
+`
+
+SELECT *
+
+FROM usuarios
+
+ORDER BY id ASC
+
+`
+
+);
+
+
+
+res.json(result.rows);
+
+
+});
+
+
+
+
+
+
+// CREAR STAFF
+
+
+app.post("/api/staff",async(req,res)=>{
+
+
+if(!req.session.user ||
+req.session.user.role!=="Dueño"){
+
+
+return res.status(403).json({
+
+error:"Sin permisos"
+
+});
+
+
+}
+
+
+
+await pool.query(
+
+`
+
+INSERT INTO usuarios
+
+(user,pass,role,activity)
+
+VALUES
+
+($1,$2,$3,$4)
+
+`,
+
+[
+
+req.body.user,
+
+"1234",
+
+req.body.role,
+
+req.body.activity
+
+]
+
+
+);
+
+
+
+res.json({
+
+success:true
+
+});
 
 
 });
 
 
-
-
-
-// AGREGAR STAFF
-
-
-app.post("/api/staff",(req,res)=>{
-
-
-    if(!req.session.user ||
-       req.session.user.role!=="Dueño"){
-
-        return res.status(403).json({
-
-            error:"Sin permisos"
-
-        });
-
-    }
-
-
-
-    let users =
-    readJSON("usuarios.json");
-
-
-
-    let nuevo={
-
-        id:Date.now(),
-
-        user:req.body.user,
-
-        pass:req.body.pass,
-
-        role:req.body.role,
-
-        activity:req.body.activity || "Inactivo"
-
-    };
-
-
-
-    users.push(nuevo);
-
-
-
-    saveJSON(
-        "usuarios.json",
-        users
-    );
-
-
-
-    res.json({
-
-        success:true
-
-    });
-
-
-});
 
 
 
@@ -316,82 +459,71 @@ app.post("/api/staff",(req,res)=>{
 // EDITAR STAFF
 
 
-app.put("/api/staff/:id",(req,res)=>{
+
+app.put("/api/staff/:id",async(req,res)=>{
 
 
-    if(!req.session.user ||
-       req.session.user.role!=="Dueño"){
-
-        return res.status(403).json({
-
-            error:"Sin permisos"
-
-        });
-
-    }
+if(!req.session.user ||
+req.session.user.role!=="Dueño"){
 
 
+return res.status(403).json({
 
-    let users =
-    readJSON("usuarios.json");
+error:"Sin permisos"
+
+});
 
 
-
-    let user =
-    users.find(
-        x=>x.id==req.params.id
-    );
+}
 
 
 
-    if(!user){
 
-        return res.json({
+await pool.query(
 
-            error:"No encontrado"
+`
 
-        });
+UPDATE usuarios
 
-    }
+SET
+
+user=$1,
+
+role=$2,
+
+activity=$3
+
+WHERE id=$4
+
+`,
+
+[
+
+req.body.user,
+
+req.body.role,
+
+req.body.activity,
+
+req.params.id
+
+]
 
 
-
-    user.user =
-    req.body.user || user.user;
-
-
-    user.role =
-    req.body.role || user.role;
-
-
-    user.activity =
-    req.body.activity || user.activity;
-
-
-
-    if(req.body.pass){
-
-        user.pass=req.body.pass;
-
-    }
-
-
-
-    saveJSON(
-        "usuarios.json",
-        users
-    );
+);
 
 
 
-    res.json({
+res.json({
 
-        success:true
+success:true
 
-    });
+});
 
 
 });
+
+
 
 
 
@@ -400,46 +532,46 @@ app.put("/api/staff/:id",(req,res)=>{
 // ELIMINAR STAFF
 
 
-app.delete("/api/staff/:id",(req,res)=>{
+
+app.delete("/api/staff/:id",async(req,res)=>{
 
 
-    if(!req.session.user ||
-       req.session.user.role!=="Dueño"){
-
-        return res.status(403).json({
-
-            error:"Sin permisos"
-
-        });
-
-    }
+if(!req.session.user ||
+req.session.user.role!=="Dueño"){
 
 
+return res.status(403).json({
 
-    let users =
-    readJSON("usuarios.json");
+error:"Sin permisos"
+
+});
 
 
-
-    users =
-    users.filter(
-        x=>x.id!=req.params.id
-    );
+}
 
 
 
-    saveJSON(
-        "usuarios.json",
-        users
-    );
+await pool.query(
+
+`
+
+DELETE FROM usuarios
+
+WHERE id=$1
+
+`,
+
+[req.params.id]
+
+);
 
 
 
-    res.json({
+res.json({
 
-        success:true
+success:true
 
-    });
+});
 
 
 });
@@ -447,61 +579,6 @@ app.delete("/api/staff/:id",(req,res)=>{
 
 
 
-
-// CAMBIAR ACTIVIDAD
-
-
-app.put("/api/staff/activity/:id",(req,res)=>{
-
-
-    if(!req.session.user ||
-       req.session.user.role!=="Dueño"){
-
-        return res.status(403).json({
-
-            error:"Sin permisos"
-
-        });
-
-    }
-
-
-
-    let users =
-    readJSON("usuarios.json");
-
-
-
-    let user =
-    users.find(
-        x=>x.id==req.params.id
-    );
-
-
-
-    if(user){
-
-        user.activity=req.body.activity;
-
-    }
-
-
-
-    saveJSON(
-        "usuarios.json",
-        users
-    );
-
-
-
-    res.json({
-
-        success:true
-
-    });
-
-
-});
 
 
 
@@ -511,73 +588,29 @@ app.put("/api/staff/activity/:id",(req,res)=>{
 
 
 
-app.get("/api/posts",(req,res)=>{
 
 
-    res.json(
-        readJSON("posts.json")
-    );
+app.get("/api/posts",async(req,res)=>{
 
 
-});
+const result =
+await pool.query(
 
+`
 
+SELECT *
 
+FROM actualizaciones
 
+ORDER BY id DESC
 
-app.post("/api/posts",(req,res)=>{
+`
 
-
-    if(!req.session.user ||
-       req.session.user.role!=="Dueño"){
-
-        return res.status(403).json({
-
-            error:"Sin permisos"
-
-        });
-
-    }
+);
 
 
 
-    let posts =
-    readJSON("posts.json");
-
-
-
-    let post={
-
-        id:Date.now(),
-
-        titulo:req.body.titulo,
-
-        mensaje:req.body.mensaje,
-
-        fecha:new Date().toLocaleString()
-
-    };
-
-
-
-    posts.push(post);
-
-
-
-    saveJSON(
-        "posts.json",
-        posts
-    );
-
-
-
-    res.json({
-
-        success:true,
-
-        post
-
-    });
+res.json(result.rows);
 
 
 });
@@ -586,46 +619,64 @@ app.post("/api/posts",(req,res)=>{
 
 
 
-app.delete("/api/posts/:id",(req,res)=>{
 
 
-    if(!req.session.user ||
-       req.session.user.role!=="Dueño"){
-
-        return res.status(403).json({
-
-            error:"Sin permisos"
-
-        });
-
-    }
+app.post("/api/posts",async(req,res)=>{
 
 
-
-    let posts =
-    readJSON("posts.json");
-
+if(!req.session.user ||
+req.session.user.role!=="Dueño"){
 
 
-    posts =
-    posts.filter(
-        x=>x.id!=req.params.id
-    );
+return res.status(403).json({
+
+error:"Sin permisos"
+
+});
+
+
+}
 
 
 
-    saveJSON(
-        "posts.json",
-        posts
-    );
+
+
+const result =
+await pool.query(
+
+`
+
+INSERT INTO actualizaciones
+
+(titulo,mensaje)
+
+VALUES
+
+($1,$2)
+
+RETURNING *
+
+`,
+
+[
+
+req.body.titulo,
+
+req.body.mensaje
+
+]
+
+);
 
 
 
-    res.json({
+res.json({
 
-        success:true
+success:true,
 
-    });
+post:result.rows[0]
+
+});
 
 
 });
@@ -633,14 +684,71 @@ app.delete("/api/posts/:id",(req,res)=>{
 
 
 
-// ================= INICIO =================
+
+
+
+app.delete("/api/posts/:id",async(req,res)=>{
+
+
+if(!req.session.user ||
+req.session.user.role!=="Dueño"){
+
+
+return res.status(403).json({
+
+error:"Sin permisos"
+
+});
+
+
+}
+
+
+
+await pool.query(
+
+`
+
+DELETE FROM actualizaciones
+
+WHERE id=$1
+
+`,
+
+[req.params.id]
+
+);
+
+
+
+res.json({
+
+success:true
+
+});
+
+
+});
+
+
+
+
+
+
+
+
+
+// ================= SERVIDOR =================
+
 
 
 app.listen(PORT,()=>{
 
 
 console.log(
-`🚀 Buenos Aires RP Panel activo en puerto ${PORT}`
+
+`🚀 Buenos Aires RP Panel funcionando en puerto ${PORT}`
+
 );
 
 
