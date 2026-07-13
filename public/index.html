@@ -10,6 +10,7 @@
 
 <style>
 
+
 *{
 box-sizing:border-box;
 }
@@ -22,7 +23,7 @@ margin:0;
 font-family:'Segoe UI',Arial,sans-serif;
 
 background:
-linear-gradient(135deg,#020617,#0f172a);
+radial-gradient(circle at top,#1e40af,#020617 55%);
 
 color:white;
 
@@ -30,7 +31,7 @@ color:white;
 
 
 
-/* ================= LOGIN ================= */
+/* ================= LOGIN PREMIUM ================= */
 
 
 .login{
@@ -43,6 +44,8 @@ justify-content:center;
 
 align-items:center;
 
+padding:20px;
+
 }
 
 
@@ -50,27 +53,41 @@ align-items:center;
 .login-box{
 
 
-width:400px;
+width:420px;
 
-padding:35px;
+padding:45px 40px;
 
 
 background:
 
-rgba(15,23,42,.95);
+linear-gradient(
+
+145deg,
+
+rgba(30,41,59,.95),
+
+rgba(15,23,42,.95)
+
+);
 
 
 
-border-radius:25px;
+border-radius:30px;
+
 
 
 box-shadow:
 
-0 20px 60px rgba(0,0,0,.6);
+0 0 40px rgba(59,130,246,.35),
+
+0 25px 80px rgba(0,0,0,.8);
 
 
 
 text-align:center;
+
+
+border:1px solid rgba(255,255,255,.08);
 
 
 }
@@ -81,9 +98,9 @@ text-align:center;
 .logo{
 
 
-width:130px;
+width:140px;
 
-height:130px;
+height:140px;
 
 
 border-radius:50%;
@@ -92,10 +109,16 @@ border-radius:50%;
 object-fit:cover;
 
 
-border:4px solid #38bdf8;
+border:5px solid #38bdf8;
 
 
-margin-bottom:15px;
+
+box-shadow:
+
+0 0 30px #38bdf8;
+
+
+margin-bottom:20px;
 
 
 }
@@ -105,7 +128,21 @@ margin-bottom:15px;
 
 .login-box h1{
 
-margin:5px;
+
+font-size:32px;
+
+margin:10px 0;
+
+
+background:
+
+linear-gradient(90deg,#38bdf8,#818cf8);
+
+
+-webkit-background-clip:text;
+
+color:transparent;
+
 
 }
 
@@ -113,33 +150,32 @@ margin:5px;
 
 .login-box p{
 
+
 color:#94a3b8;
+
 
 }
 
 
 
-input,
-textarea,
-select{
+
+
+input{
 
 
 width:100%;
 
 
-padding:14px;
+padding:15px;
 
 
-margin:8px 0;
+margin:10px 0;
 
 
-border-radius:12px;
+border-radius:15px;
 
 
-border:none;
-
-
-outline:none;
+border:1px solid #334155;
 
 
 background:#020617;
@@ -151,103 +187,100 @@ color:white;
 font-size:15px;
 
 
+outline:none;
+
+
+}
+
+
+
+input:focus{
+
+
+border-color:#38bdf8;
+
+
+box-shadow:
+
+0 0 10px rgba(56,189,248,.4);
+
+
 }
 
 
 
 
 
-button{
+.login-btn{
+
+
+width:100%;
+
+
+padding:15px;
+
+
+margin-top:20px;
+
+
+border-radius:15px;
 
 
 border:none;
 
 
-cursor:pointer;
+font-size:16px;
 
 
 font-weight:bold;
 
 
-transition:.2s;
-
-
-}
-
-
-
-
-button:hover{
-
-
-transform:scale(1.05);
-
-
-}
-
-
-
-.btn{
-
-
-padding:12px 20px;
-
-
-border-radius:12px;
-
-
-}
-
-
-
-.green{
-
-
-background:#22c55e;
+cursor:pointer;
 
 
 color:white;
 
 
-}
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#2563eb,
+
+#38bdf8
+
+);
 
 
 
-.blue{
+box-shadow:
 
-
-background:#2563eb;
-
-
-color:white;
-
-
-}
+0 10px 30px rgba(37,99,235,.5);
 
 
 
-.red{
-
-
-background:#ef4444;
-
-
-color:white;
-
-
-}
-
-
-
-
-.hidden{
-
-
-display:none;
+transition:.3s;
 
 
 }
 
+
+
+.login-btn:hover{
+
+
+transform:translateY(-3px);
+
+
+box-shadow:
+
+0 15px 40px rgba(56,189,248,.7);
+
+
+}
 
 
 
@@ -258,7 +291,7 @@ display:none;
 color:#f87171;
 
 
-margin-top:10px;
+margin-top:15px;
 
 
 }
@@ -268,8 +301,16 @@ margin-top:10px;
 
 
 
-
 /* ================= PANEL ================= */
+
+
+.hidden{
+
+display:none;
+
+}
+
+
 
 
 .nav{
@@ -294,10 +335,12 @@ padding:25px;
 .tab{
 
 
-background:#1e293b;
+padding:15px 35px;
 
 
-padding:14px 30px;
+background:
+
+rgba(30,41,59,.9);
 
 
 border-radius:15px;
@@ -306,7 +349,13 @@ border-radius:15px;
 cursor:pointer;
 
 
-transition:.2s;
+font-weight:bold;
+
+
+border:1px solid rgba(255,255,255,.08);
+
+
+transition:.3s;
 
 
 }
@@ -316,10 +365,15 @@ transition:.2s;
 .tab:hover{
 
 
-background:#334155;
+background:#2563eb;
+
+
+transform:translateY(-3px);
 
 
 }
+
+
 
 
 
@@ -341,27 +395,30 @@ padding:20px;
 
 
 
-
 .card{
 
 
 background:
 
-rgba(15,23,42,.9);
+rgba(15,23,42,.95);
 
 
 padding:25px;
 
 
-border-radius:20px;
+border-radius:22px;
 
 
 margin-bottom:20px;
 
 
+
 box-shadow:
 
-0 10px 30px rgba(0,0,0,.3);
+0 15px 40px rgba(0,0,0,.4);
+
+
+border:1px solid rgba(255,255,255,.06);
 
 
 }
@@ -370,13 +427,70 @@ box-shadow:
 
 
 
+
+/* BOTONES */
+
+
+.btn{
+
+
+padding:12px 20px;
+
+
+border-radius:12px;
+
+
+border:none;
+
+
+cursor:pointer;
+
+
+font-weight:bold;
+
+
+}
+
+
+
+.green{
+
+background:#22c55e;
+
+color:white;
+
+}
+
+
+
+.blue{
+
+background:#2563eb;
+
+color:white;
+
+}
+
+
+
+.red{
+
+background:#ef4444;
+
+color:white;
+
+}
+
+
+
+
 .circle{
 
 
-width:42px;
+width:45px;
 
 
-height:42px;
+height:45px;
 
 
 border-radius:50%;
@@ -391,10 +505,16 @@ align-items:center;
 justify-content:center;
 
 
-color:white;
+font-size:18px;
 
 
-margin-left:5px;
+border:none;
+
+
+cursor:pointer;
+
+
+margin:5px;
 
 
 }
@@ -407,25 +527,30 @@ margin-left:5px;
 </head>
 
 
+
 <body>
 
 
 
 
-<!-- ================= LOGIN ================= -->
+
+<!-- LOGIN -->
 
 
 <div id="loginBox" class="login">
-
 
 
 <div class="login-box">
 
 
 
-<img class="logo"
+<img
+
+class="logo"
 
 src="TU_LOGO_AQUI">
+
+
 
 
 
@@ -446,11 +571,12 @@ Panel Administrativo Staff
 
 
 
+
 <input
 
 id="username"
 
-placeholder="Usuario">
+placeholder="👤 Usuario">
 
 
 
@@ -462,7 +588,7 @@ id="password"
 
 type="password"
 
-placeholder="Contraseña">
+placeholder="🔒 Contraseña">
 
 
 
@@ -471,16 +597,15 @@ placeholder="Contraseña">
 
 <button
 
-class="btn green"
+class="login-btn"
 
 onclick="login()">
 
 
-Ingresar
+🚀 Ingresar al Panel
 
 
 </button>
-
 
 
 
@@ -500,7 +625,8 @@ Ingresar
 
 
 
-<!-- ================= PANEL ================= -->
+
+<!-- PANEL -->
 
 
 <div id="panel" class="hidden">
@@ -508,6 +634,7 @@ Ingresar
 
 
 <div class="nav">
+
 
 
 <div class="tab"
@@ -519,6 +646,7 @@ onclick="openTab('staff')">
 
 
 </div>
+
 
 
 
@@ -548,7 +676,6 @@ onclick="openTab('updates')">
 <div id="updates" class="hidden"></div>
 
 
-
 </div>
 
 
@@ -556,33 +683,56 @@ onclick="openTab('updates')">
 </div>
 <script>
 
+
+// ================= VARIABLES =================
+
+
 let currentUser = null;
+
+
 
 
 
 // ================= LOGIN =================
 
 
+
 async function login(){
+
+
+
+let user = username.value;
+
+let pass = password.value;
+
 
 
 let res = await fetch("/api/login",{
 
+
 method:"POST",
+
 
 headers:{
 
+
 "Content-Type":"application/json"
+
 
 },
 
+
 body:JSON.stringify({
 
-user:username.value,
 
-pass:password.value
+user:user,
+
+
+pass:pass
+
 
 })
+
 
 });
 
@@ -592,15 +742,18 @@ let data = await res.json();
 
 
 
+
 if(!data.success){
 
 
 error.innerHTML="❌ Usuario o contraseña incorrectos";
 
+
 return;
 
 
 }
+
 
 
 
@@ -625,21 +778,25 @@ openTab("staff");
 
 
 
-// ================= NAVEGACION =================
+
+
+
+// ================= CAMBIO DE PESTAÑA =================
+
 
 
 function openTab(tab){
 
 
+
 staff.classList.add("hidden");
+
 
 updates.classList.add("hidden");
 
 
 
-document
-.getElementById(tab)
-.classList.remove("hidden");
+document.getElementById(tab).classList.remove("hidden");
 
 
 
@@ -658,8 +815,8 @@ loadUpdates();
 }
 
 
-
 }
+
 
 
 
@@ -675,10 +832,13 @@ loadUpdates();
 async function loadStaff(){
 
 
+
 let res = await fetch("/api/staff");
 
 
-let users = await res.json();
+
+let lista = await res.json();
+
 
 
 
@@ -687,87 +847,55 @@ staff.innerHTML="";
 
 
 
-// Solo Dueño agrega Staff
+
+// CONTADOR AUTOMATICO
 
 
-if(currentUser.role==="Dueño"){
+staff.innerHTML += `
 
-
-staff.innerHTML+=`
 
 <div class="card">
 
 
 <h2>
-➕ Agregar Staff
+
+👥 Equipo Staff
+
 </h2>
 
 
+<h3>
 
-<input id="newUser"
+Total Staff:
 
-placeholder="Usuario">
+<span style="color:#38bdf8">
 
+${lista.length}
 
-<input id="newRole"
-
-placeholder="Rango">
-
-
-
-<select id="newActivity">
+</span>
 
 
-<option value="Activo">
-
-🟢 Activo
-
-</option>
-
-
-<option value="Inactivo">
-
-🔴 Inactivo
-
-</option>
-
-
-</select>
-
-
-
-
-<button class="btn green"
-
-onclick="addStaff()">
-
-
-Agregar Staff
-
-
-</button>
-
+</h3>
 
 
 </div>
 
+
 `;
 
-}
 
 
 
 
 
-staff.innerHTML+=`
+
+staff.innerHTML += `
+
 
 <div class="card">
 
 
-<div style="display:grid;
-grid-template-columns:1fr 1fr 220px;
-font-weight:bold;
-padding:15px;">
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr 100px;gap:10px;font-weight:bold;">
 
 
 <div>
@@ -794,11 +922,18 @@ Actividad
 
 
 
+<div>
+
+Acciones
+
 </div>
 
 
+</div>
+
 
 </div>
+
 
 `;
 
@@ -807,61 +942,42 @@ Actividad
 
 
 
-users.forEach(u=>{
+
+
+
+lista.forEach((u)=>{
+
 
 
 let botones="";
 
 
 
-// Dueño puede todo
 
-if(currentUser.role==="Dueño"){
+if(
 
+currentUser.role==="Dueño" ||
 
-botones=`
-
-<button class="circle blue"
-
-onclick="editStaff(${u.id})">
-
-✏️
-
-</button>
-
-
-
-<button class="circle red"
-
-onclick="deleteStaff(${u.id})">
-
-🗑️
-
-</button>
-
-
-`;
-
-}
-
-
-
-// Director RRHH puede cambiar actividad
-
-else if(
 currentUser.role==="Director Recursos Humanos"
+
 ){
 
 
 botones=`
 
-<button class="circle blue"
 
-onclick="changeActivity(${u.id})">
+<button
 
-🔄
+class="circle blue"
+
+onclick="editarStaff(${u.id},'${u.username}','${u.role}','${u.activity}')">
+
+
+✏️
+
 
 </button>
+
 
 `;
 
@@ -869,30 +985,87 @@ onclick="changeActivity(${u.id})">
 
 
 
+if(currentUser.role==="Dueño"){
 
-staff.innerHTML+=`
+
+botones += `
+
+
+<button
+
+class="circle red"
+
+onclick="eliminarStaff(${u.id})">
+
+
+🗑️
+
+
+</button>
+
+
+`;
+
+
+}
+
+
+
+
+
+let estado =
+
+u.activity==="Activo"
+
+?
+
+"🟢 Activo"
+
+:
+
+"🔴 Inactivo";
+
+
+
+
+
+
+
+staff.innerHTML += `
+
+
 
 <div class="card">
 
 
-<div style="display:grid;
-grid-template-columns:1fr 1fr 220px;
-align-items:center;">
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr 100px;align-items:center;gap:10px;">
 
 
 
 <div>
 
-👤 ${u.user}
+👤 ${u.username}
 
 </div>
 
 
 
 <div>
+
+<span class="badge">
 
 ${u.role}
 
+</span>
+
+</div>
+
+
+
+<div>
+
+${estado}
+
 </div>
 
 
@@ -900,43 +1073,18 @@ ${u.role}
 
 <div>
 
-
-<span style="
-
-padding:8px 15px;
-
-border-radius:20px;
-
-background:${u.activity==="Activo"?
-"#14532d":"#7f1d1d"};
-
-color:white;
-
-">
-
-${u.activity==="Activo"?
-
-"🟢 Activo":
-
-"🔴 Inactivo"}
-
-</span>
-
-
-
 ${botones}
 
+</div>
+
+
 
 
 </div>
 
 
-
 </div>
 
-
-
-</div>
 
 `;
 
@@ -945,65 +1093,9 @@ ${botones}
 });
 
 
-}
-
-
-
-
-
-
-
-// ================= AGREGAR STAFF =================
-
-
-
-async function addStaff(){
-
-
-
-await fetch("/api/staff",{
-
-
-method:"POST",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify({
-
-
-user:newUser.value,
-
-
-role:newRole.value,
-
-
-activity:newActivity.value
-
-
-})
-
-
-});
-
-
-
-loadStaff();
-
 
 
 }
-
-
-
-
 
 
 
@@ -1011,108 +1103,43 @@ loadStaff();
 // ================= EDITAR STAFF =================
 
 
-
-async function editStaff(id){
-
-
-
-let usuario =
-prompt("Nuevo usuario");
+async function editarStaff(id,user,role,activity){
 
 
 
-let rango =
-prompt("Nuevo rango");
+let nuevoUser = prompt(
 
+"Usuario",
 
-
-if(!usuario || !rango)
-return;
-
-
-
-await fetch("/api/staff/"+id,{
-
-
-method:"PUT",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-},
-
-
-body:JSON.stringify({
-
-
-user:usuario,
-
-
-role:rango,
-
-
-activity:"Activo"
-
-
-})
-
-
-});
-
-
-
-loadStaff();
-
-
-
-}
-
-
-
-
-
-
-
-// ================= CAMBIAR ACTIVIDAD =================
-
-
-
-async function changeActivity(id){
-
-
-
-let actividad =
-prompt(
-
-"Escribe: Activo o Inactivo"
+user
 
 );
 
 
 
-if(
-actividad!=="Activo" &&
-actividad!=="Inactivo"
-)
-return;
+let nuevoRole = prompt(
+
+"Rango",
+
+role
+
+);
 
 
 
-let res =
-await fetch("/api/staff");
+let nuevaActividad = prompt(
+
+"Actividad (Activo/Inactivo)",
+
+activity
+
+);
 
 
 
-let users =
-await res.json();
 
+if(!nuevoUser) return;
 
-
-let usuario =
-users.find(x=>x.id===id);
 
 
 
@@ -1134,13 +1161,13 @@ headers:{
 body:JSON.stringify({
 
 
-user:usuario.user,
+user:nuevoUser,
 
 
-role:usuario.role,
+role:nuevoRole,
 
 
-activity:actividad
+activity:nuevaActividad
 
 
 })
@@ -1153,7 +1180,9 @@ activity:actividad
 loadStaff();
 
 
+
 }
+
 
 
 
@@ -1166,10 +1195,11 @@ loadStaff();
 
 
 
-async function deleteStaff(id){
+async function eliminarStaff(id){
 
 
-if(!confirm("¿Eliminar este Staff?"))
+
+if(!confirm("¿Eliminar usuario del Staff?"))
 
 return;
 
@@ -1177,7 +1207,9 @@ return;
 
 await fetch("/api/staff/"+id,{
 
+
 method:"DELETE"
+
 
 });
 
@@ -1186,17 +1218,24 @@ method:"DELETE"
 loadStaff();
 
 
+
 }
-  // ================= ACTUALIZACIONES =================
 
 
-const WEBHOOK = "TU_WEBHOOK_DISCORD_AQUI";
+
+
+</script>
+// ================= ACTUALIZACIONES =================
+
+
+const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDXN9Vg2QrqOp4HyvZwbMP6rAYyZ8hxNqKTebgzDWeYM36N7MV2AaLKkffEfq";
 
 
 
 
 
 async function loadUpdates(){
+
 
 
 let res = await fetch("/api/posts");
@@ -1211,45 +1250,59 @@ updates.innerHTML="";
 
 
 
-// Dueño y Owner 2 pueden crear actualizaciones
+
+// Crear actualización
 
 
 if(
+
 currentUser.role==="Dueño" ||
+
 currentUser.role==="Owner 2"
+
 ){
 
 
-updates.innerHTML+=`
+updates.innerHTML += `
+
 
 <div class="card">
 
 
 <h2>
 
-📢 Crear actualización oficial
+📢 Nueva actualización
 
 </h2>
 
 
 
-<input id="postTitle"
+<input
+
+id="tituloUpdate"
 
 placeholder="Título de la actualización">
 
 
 
-<textarea id="postMessage"
 
-placeholder="Mensaje">
+
+<textarea
+
+id="mensajeUpdate"
+
+placeholder="Escribe el mensaje">
 
 </textarea>
 
 
 
-<button class="btn green"
 
-onclick="createPost()">
+<button
+
+class="btn green"
+
+onclick="crearActualizacion()">
 
 
 📤 Publicar
@@ -1261,21 +1314,25 @@ onclick="createPost()">
 
 </div>
 
+
 `;
+
+
 
 }
 
 
 
 
-posts.forEach(p=>{
+
+
+posts.forEach(post=>{
+
 
 
 let botones="";
 
 
-
-// Solo Dueño puede enviar y eliminar
 
 
 if(currentUser.role==="Dueño"){
@@ -1283,12 +1340,12 @@ if(currentUser.role==="Dueño"){
 
 botones=`
 
-<br><br>
 
+<button
 
-<button class="circle blue"
+class="circle blue"
 
-onclick='sendDiscord(${JSON.stringify(p)})'>
+onclick='enviarDiscord(${JSON.stringify(post)})'>
 
 
 📨
@@ -1298,9 +1355,11 @@ onclick='sendDiscord(${JSON.stringify(p)})'>
 
 
 
-<button class="circle red"
+<button
 
-onclick="deletePost(${p.id})">
+class="circle red"
+
+onclick="eliminarActualizacion(${post.id})">
 
 
 🗑️
@@ -1311,19 +1370,22 @@ onclick="deletePost(${p.id})">
 
 `;
 
+
 }
 
 
 
 
-updates.innerHTML+=`
+
+updates.innerHTML += `
+
 
 <div class="card">
 
 
 <h2>
 
-📢 ${p.titulo}
+📢 ${post.titulo}
 
 </h2>
 
@@ -1331,7 +1393,7 @@ updates.innerHTML+=`
 
 <p>
 
-${p.mensaje}
+${post.mensaje}
 
 </p>
 
@@ -1339,17 +1401,22 @@ ${p.mensaje}
 
 <small>
 
-📅 ${new Date(p.fecha).toLocaleString()}
+📅 ${new Date(post.fecha).toLocaleString()}
 
 </small>
 
 
 
+
+<div>
+
 ${botones}
 
+</div>
 
 
 </div>
+
 
 `;
 
@@ -1367,11 +1434,13 @@ ${botones}
 
 
 
-// ================= CREAR POST =================
+
+
+// ================= CREAR ACTUALIZACION =================
 
 
 
-async function createPost(){
+async function crearActualizacion(){
 
 
 
@@ -1393,10 +1462,14 @@ headers:{
 body:JSON.stringify({
 
 
-titulo:postTitle.value,
+titulo:
+
+tituloUpdate.value,
 
 
-mensaje:postMessage.value
+mensaje:
+
+mensajeUpdate.value
 
 
 })
@@ -1419,11 +1492,12 @@ loadUpdates();
 
 
 
-// ================= ELIMINAR POST =================
+
+// ================= ELIMINAR ACTUALIZACION =================
 
 
 
-async function deletePost(id){
+async function eliminarActualizacion(id){
 
 
 
@@ -1456,11 +1530,12 @@ loadUpdates();
 
 
 
-// ================= ENVIAR DISCORD =================
+
+// ================= ENVIAR A DISCORD =================
 
 
 
-async function sendDiscord(post){
+async function enviarDiscord(post){
 
 
 
@@ -1485,8 +1560,7 @@ body:JSON.stringify({
 
 username:
 
-"Buenos Aires RP | Noticias",
-
+"Buenos Aires RP | Actualizaciones",
 
 
 
@@ -1516,7 +1590,6 @@ color:
 
 
 fields:[
-
 
 
 {
@@ -1554,8 +1627,6 @@ text:
 
 "Buenos Aires RP • Panel Staff"
 
-
-
 },
 
 
@@ -1565,8 +1636,9 @@ timestamp:
 new Date()
 
 
-}]
 
+
+}]
 
 
 })
@@ -1576,20 +1648,7 @@ new Date()
 
 
 
-
 alert("✅ Actualización enviada a Discord");
 
 
 }
-
-
-
-
-
-
-</script>
-
-
-</body>
-
-</html>
