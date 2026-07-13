@@ -39,8 +39,6 @@ overflow-x:hidden;
 
 
 
-
-
 /* =====================
 LOGIN
 ===================== */
@@ -68,25 +66,33 @@ padding:20px;
 
 width:390px;
 
+
 padding:45px;
+
 
 border-radius:25px;
 
+
 background:rgba(255,255,255,.08);
+
 
 backdrop-filter:blur(20px);
 
+
 border:1px solid rgba(255,255,255,.15);
+
+
 
 box-shadow:
 
 0 25px 60px rgba(0,0,0,.45);
 
+
+
 text-align:center;
 
 
 }
-
 
 
 
@@ -100,16 +106,24 @@ text-align:center;
 
 width:100px;
 
+
 height:100px;
+
 
 margin:auto auto 20px;
 
+
 border-radius:50%;
+
 
 overflow:hidden;
 
 
-border:2px solid rgba(77,237,255,.5);
+
+border:
+
+2px solid rgba(77,237,255,.5);
+
 
 
 box-shadow:
@@ -126,6 +140,7 @@ box-shadow:
 
 width:100%;
 
+
 height:100%;
 
 
@@ -133,7 +148,6 @@ object-fit:cover;
 
 
 }
-
 
 
 
@@ -149,7 +163,9 @@ h1{
 
 margin:0;
 
+
 font-size:32px;
+
 
 font-weight:900;
 
@@ -160,7 +176,7 @@ background:
 linear-gradient(
 90deg,
 #4DEDFF,
-white,
+#FFFFFF,
 #4DEDFF
 );
 
@@ -169,9 +185,12 @@ white,
 background-size:200%;
 
 
+
 -webkit-background-clip:text;
 
+
 -webkit-text-fill-color:transparent;
+
 
 
 animation:shine 4s linear infinite;
@@ -186,14 +205,14 @@ animation:shine 4s linear infinite;
 
 0%{
 
-background-position:0%;
+background-position:0% center;
 
 }
 
 
 100%{
 
-background-position:200%;
+background-position:200% center;
 
 }
 
@@ -204,8 +223,6 @@ background-position:200%;
 
 
 
-
-/* TEXTO ABAJO */
 
 
 .subtitle{
@@ -214,10 +231,11 @@ background-position:200%;
 margin:12px 0 25px;
 
 
-font-size:17px;
+font-size:16px;
 
 
 font-weight:bold;
+
 
 
 background:
@@ -225,18 +243,21 @@ background:
 linear-gradient(
 90deg,
 #4DEDFF,
-white,
+#FFFFFF,
 #4DEDFF
 );
 
 
+
 background-size:200%;
+
 
 
 -webkit-background-clip:text;
 
 
 -webkit-text-fill-color:transparent;
+
 
 
 animation:shine 4s linear infinite;
@@ -248,6 +269,9 @@ animation:shine 4s linear infinite;
 
 
 
+
+
+/* INPUTS */
 
 
 input{
@@ -271,13 +295,16 @@ outline:none;
 border-radius:12px;
 
 
+
 background:#0F172A;
+
 
 
 color:white;
 
 
 font-size:15px;
+
 
 
 }
@@ -300,6 +327,10 @@ box-shadow:
 
 
 
+
+/* BOTON LOGIN */
+
+
 .login-btn{
 
 
@@ -309,7 +340,8 @@ width:100%;
 padding:15px;
 
 
-margin-top:15px;
+margin-top:18px;
+
 
 
 border:none;
@@ -318,13 +350,16 @@ border:none;
 border-radius:14px;
 
 
-cursor:pointer;
-
 
 font-size:16px;
 
 
 font-weight:bold;
+
+
+
+cursor:pointer;
+
 
 
 color:#06121D;
@@ -354,13 +389,13 @@ transition:.25s;
 transform:translateY(-3px);
 
 
+
 box-shadow:
 
 0 0 25px rgba(77,237,255,.45);
 
 
 }
-
 
 
 
@@ -387,11 +422,10 @@ margin-top:25px;
 font-size:12px;
 
 
-color:#64748B;
+color:#94A3B8;
 
 
 }
-
 
 
 
@@ -408,13 +442,18 @@ display:none;
 
 
 
+
+
+
 </style>
 
 
 </head>
 
 
+
 <body>
+
 
 
 
@@ -430,12 +469,10 @@ display:none;
 
 
 
-
-
 <div class="logo">
 
 
-<img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a5542f9&is=6a53f179&hm=41331dc1ae4d44f399e1f1d48918c1333f686632b24f94e1da4f6901f1b7b91f&=&format=webp&quality=lossless&width=930&height=930"
+<img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?format=webp&quality=lossless"
 
 alt="Buenos Aires RP">
 
@@ -458,9 +495,10 @@ Buenos Aires RP
 
 <p class="subtitle">
 
-Buenos Aires RP | Panel Administrativo
+Panel de Recursos Humanos
 
 </p>
+
 
 
 
@@ -470,7 +508,10 @@ Buenos Aires RP | Panel Administrativo
 
 
 
+
+
 <input id="pass" type="password" placeholder="🔒 Contraseña">
+
 
 
 
@@ -506,114 +547,718 @@ Iniciar Sesión
 
 </div>
 
-<!-- PANEL -->
+<!-- PANEL PRINCIPAL -->
 
 <div id="panel" class="hidden">
 
 
-<header class="topbar">
+<style>
 
 
-<div>
+/* =====================
+PANEL
+===================== */
+
+
+.panel-container{
+
+min-height:100vh;
+
+padding:30px;
+
+}
+
+
+
+.header-panel{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:rgba(255,255,255,.08);
+
+padding:20px 25px;
+
+border-radius:20px;
+
+border:1px solid rgba(255,255,255,.15);
+
+backdrop-filter:blur(15px);
+
+box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+margin-bottom:25px;
+
+}
+
+
+
+.header-title h2{
+
+margin:0;
+
+font-size:28px;
+
+font-weight:900;
+
+
+background:
+
+linear-gradient(
+90deg,
+#4DEDFF,
+#FFFFFF,
+#4DEDFF
+);
+
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+
+
+.header-title span{
+
+color:#94A3B8;
+
+font-size:14px;
+
+}
+
+
+
+
+
+.logout{
+
+
+padding:12px 22px;
+
+
+border:none;
+
+
+border-radius:12px;
+
+
+cursor:pointer;
+
+
+font-weight:bold;
+
+
+color:white;
+
+
+background:#ef4444;
+
+
+transition:.25s;
+
+
+}
+
+
+
+.logout:hover{
+
+
+transform:translateY(-3px);
+
+
+box-shadow:0 0 20px rgba(239,68,68,.5);
+
+
+}
+
+
+
+
+
+
+/* TARJETAS */
+
+
+.cards{
+
+
+display:grid;
+
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+
+gap:20px;
+
+
+}
+
+
+
+
+.card{
+
+
+background:rgba(255,255,255,.08);
+
+
+border:1px solid rgba(255,255,255,.15);
+
+
+padding:25px;
+
+
+border-radius:20px;
+
+
+backdrop-filter:blur(15px);
+
+
+transition:.3s;
+
+
+}
+
+
+
+.card:hover{
+
+
+transform:translateY(-5px);
+
+
+box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+
+}
+
+
+
+.card h3{
+
+
+margin:0 0 10px;
+
+
+font-size:20px;
+
+
+color:#4DEDFF;
+
+
+}
+
+
+
+.card p{
+
+
+color:#CBD5E1;
+
+
+font-size:14px;
+
+
+}
+
+
+
+
+
+
+/* SECCIONES */
+
+
+.section{
+
+
+margin-top:30px;
+
+
+background:rgba(255,255,255,.08);
+
+
+border-radius:20px;
+
+
+padding:25px;
+
+
+border:1px solid rgba(255,255,255,.15);
+
+
+backdrop-filter:blur(15px);
+
+
+}
+
+
+
+.section-title{
+
+
+font-size:22px;
+
+
+font-weight:900;
+
+
+margin-bottom:20px;
+
+
+
+background:
+
+linear-gradient(
+90deg,
+#4DEDFF,
+#FFFFFF
+);
+
+
+
+-webkit-background-clip:text;
+
+
+-webkit-text-fill-color:transparent;
+
+
+}
+
+
+
+
+
+/* BOTONES */
+
+
+.action-btn{
+
+
+padding:12px 20px;
+
+
+border:none;
+
+
+border-radius:12px;
+
+
+cursor:pointer;
+
+
+font-weight:bold;
+
+
+margin-right:10px;
+
+
+background:
+
+linear-gradient(
+90deg,
+#00C6FF,
+#4DEDFF
+);
+
+
+color:#06121D;
+
+
+transition:.25s;
+
+
+}
+
+
+
+.action-btn:hover{
+
+
+transform:translateY(-3px);
+
+
+box-shadow:0 0 20px rgba(77,237,255,.4);
+
+
+}
+
+
+
+
+
+.delete-btn{
+
+
+background:#ef4444;
+
+
+color:white;
+
+
+}
+
+
+
+.delete-btn:hover{
+
+
+box-shadow:0 0 20px rgba(239,68,68,.5);
+
+
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+<div class="panel-container">
+
+
+
+
+
+<div class="header-panel">
+
+
+<div class="header-title">
+
 
 <h2>
 
-Buenos Aires RP
+Panel Buenos Aires RP
 
 </h2>
 
 
-<span id="welcome">
+<span>
+
+Gestión del equipo administrativo
 
 </span>
 
 
 </div>
+
+
+
+
+<button class="logout" onclick="logout()">
+
+Cerrar Sesión
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+
+<h3>
+
+📢 Actualizaciones
+
+</h3>
+
+
+<p>
+
+Publica novedades del servidor y envíalas a Discord.
+
+</p>
+
+
+<button class="action-btn">
+
+Abrir
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+👥 Staff
+
+</h3>
+
+
+<p>
+
+Gestiona miembros del equipo, rangos y actividad.
+
+</p>
+
+
+<button class="action-btn">
+
+Abrir
+
+</button>
+
+
+</div>
+
+
+
+
+</div>
+
+<!-- CONTENIDO ACTUALIZACIONES -->
+
+<div class="section">
+
+
+<div class="section-title">
+
+📢 Escribe el mensaje
+
+</div>
+
+
+
+<textarea id="mensajeUpdate" placeholder="Escribe la actualización del servidor..." 
+style="
+width:100%;
+height:130px;
+padding:15px;
+border-radius:15px;
+border:none;
+outline:none;
+background:#0F172A;
+color:white;
+resize:none;
+font-size:15px;
+"></textarea>
+
+
+
+
+<br><br>
+
+
+
+<button class="action-btn">
+
+🚀 Publicar Actualización
+
+</button>
+
+
+
+<button class="action-btn delete-btn">
+
+🗑️ Eliminar
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- STAFF -->
+
+<div class="section">
+
+
+
+<div class="section-title">
+
+👥 STAFF
+
+</div>
+
+
+
+
+
+
+<!-- AGREGAR STAFF -->
+
+<div style="
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:25px;
+">
+
+
+
+<input id="staffUser" placeholder="👤 Usuario">
+
+
+
+<input id="staffRol" placeholder="⭐ Rango">
+
+
+
+<select id="staffEstado">
+
+
+<option value="Activo">
+
+🟢 Activo
+
+</option>
+
+
+<option value="Inactivo">
+
+🔴 Inactivo
+
+</option>
+
+
+</select>
+
+
+
+
+
+<button class="circle-btn">
+
+➕
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- STAFF REGISTRADO -->
+
+
+<div class="staff-card">
 
 
 
 <div>
 
-<span id="roleBadge">
+<b>
+👤 Usuario
+</b>
+
+<br>
+
+<span>
+CristhianYSuga
+</span>
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+<b>
+⭐ Rango
+</b>
+
+<br>
+
+<span>
+OWNER
+</span>
+
+</div>
+
+
+
+
+
+
+
+
+<div>
+
+<b>
+📊 Actividad
+</b>
+
+<br>
+
+<span>
+100%
+</span>
+
+</div>
+
+
+
+
+
+
+
+
+<div>
+
+<b>
+📌 Estado
+</b>
+
+<br>
+
+<span style="color:#22c55e;">
+
+🟢 Activo
 
 </span>
 
-
-</div>
-
-
-
-</header>
-
-
-
-
-
-<!-- ESTADISTICAS -->
-
-
-<div class="stats">
-
-
-
-<div class="stat-card">
-
-
-<div class="stat-icon">
-
-👥
-
-</div>
-
-
-<h3 id="staffCount">
-
-0
-
-</h3>
-
-
-<p>
-
-Personal
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="stat-card">
-
-
-<div class="stat-icon">
-
-📢
-
-</div>
-
-
-<h3 id="postCount">
-
-0
-
-</h3>
-
-
-<p>
-
-Actualizaciones
-
-</p>
-
-
-</div>
-
-
-
 </div>
 
 
@@ -622,25 +1267,22 @@ Actualizaciones
 
 
 
-<!-- BOTONES -->
+
+<div class="staff-buttons">
 
 
-<div class="nav">
+<button class="circle-btn">
 
-
-
-<button class="tab active" onclick="show('updates')">
-
-📢 Actualizaciones
+✏️
 
 </button>
 
 
 
 
-<button class="tab" onclick="show('staff')">
+<button class="circle-btn danger">
 
-👥 Staff
+🗑️
 
 </button>
 
@@ -653,28 +1295,12 @@ Actualizaciones
 
 
 
-<div class="container">
-
-
-
-<div id="updates">
-
 </div>
 
 
 
 
-<div id="staff" class="hidden">
-
 </div>
-
-
-
-</div>
-
-
-</div>
-
 
 
 
@@ -686,13 +1312,10 @@ Actualizaciones
 <style>
 
 
-
-/* =====================
-TOPBAR
-===================== */
+/* STAFF DISEÑO */
 
 
-.topbar{
+.staff-card{
 
 
 display:flex;
@@ -704,109 +1327,19 @@ justify-content:space-between;
 align-items:center;
 
 
-padding:25px;
-
-
-
-background:rgba(17,24,39,.85);
-
-
-
-backdrop-filter:blur(15px);
-
-
-
-border-bottom:
-
-1px solid rgba(77,237,255,.25);
-
-
-}
-
-
-
-
-
-.topbar h2{
-
-
-margin:0;
-
-
-font-size:30px;
-
-
-color:#4DEDFF;
-
-
-}
-
-
-
-
-#welcome{
-
-
-color:#94A3B8;
-
-
-}
-
-
-
-
-#roleBadge{
-
-
-background:
-
-linear-gradient(
-90deg,
-#00C6FF,
-#4DEDFF
-);
-
-
-
-color:#06121D;
-
-
-padding:8px 18px;
-
-
-border-radius:25px;
-
-
-font-weight:bold;
-
-
-}
-
-
-
-
-
-
-/* =====================
-ESTADISTICAS
-===================== */
-
-
-.stats{
-
-
-display:grid;
-
-
-grid-template-columns:
-
-repeat(auto-fit,minmax(220px,1fr));
-
-
 gap:20px;
 
 
-padding:25px;
+background:rgba(255,255,255,.05);
+
+
+padding:18px;
+
+
+border-radius:18px;
+
+
+border:1px solid rgba(255,255,255,.1);
 
 
 }
@@ -814,131 +1347,41 @@ padding:25px;
 
 
 
-.stat-card{
-
-
-background:
-
-linear-gradient(
-145deg,
-#182435,
-#111827
-);
-
-
-
-padding:25px;
-
-
-border-radius:20px;
-
-
-
-text-align:center;
-
-
-
-border:
-
-1px solid rgba(77,237,255,.15);
-
-
-
-box-shadow:
-
-0 10px 30px rgba(0,0,0,.35);
-
-
-
-transition:.3s;
-
-
-}
-
-
-
-
-.stat-card:hover{
-
-
-transform:translateY(-5px);
-
-
-border-color:#4DEDFF;
-
-
-box-shadow:
-
-0 0 25px rgba(77,237,255,.3);
-
-
-}
-
-
-
-
-
-.stat-icon{
-
-
-font-size:40px;
-
-
-}
-
-
-
-
-
-.stat-card h3{
-
-
-font-size:38px;
-
-
-margin:10px 0;
+.staff-card b{
 
 
 color:#4DEDFF;
 
 
-}
-
-
-
-
-.stat-card p{
-
-
-color:#94A3B8;
+font-size:14px;
 
 
 }
 
 
 
+.staff-card span{
+
+
+color:#CBD5E1;
+
+
+font-size:14px;
+
+
+}
 
 
 
 
-/* =====================
-BOTONES NAVEGACION
-===================== */
 
-
-.nav{
+.staff-buttons{
 
 
 display:flex;
 
 
-justify-content:center;
-
-
-gap:15px;
-
-
-padding:20px;
+gap:12px;
 
 
 }
@@ -947,104 +1390,53 @@ padding:20px;
 
 
 
-.tab{
+/* BOTONES CIRCULARES */
 
 
-padding:14px 28px;
+.circle-btn{
+
+
+width:42px;
+
+
+height:42px;
 
 
 border:none;
 
 
-border-radius:14px;
+border-radius:50%;
 
 
 cursor:pointer;
 
 
-font-weight:bold;
+font-size:16px;
 
 
-font-size:15px;
+display:flex;
 
 
-color:white;
+align-items:center;
 
 
-
-background:#2563EB;
-
+justify-content:center;
 
 
-transition:.25s;
-
-
-}
-
-
-
-
-.tab:hover{
-
-
-transform:translateY(-3px);
-
-
-box-shadow:
-
-0 0 20px rgba(37,99,235,.5);
-
-
-}
-
-
-
-
-.tab.active{
-
-
-background:
-
-linear-gradient(
-90deg,
+background:linear-gradient(
+135deg,
 #00C6FF,
 #4DEDFF
 );
-
 
 
 color:#06121D;
 
 
-
-box-shadow:
-
-0 0 20px rgba(77,237,255,.45);
+transition:.25s;
 
 
-}
-
-
-
-
-
-
-
-/* =====================
-CONTENEDOR
-===================== */
-
-
-.container{
-
-
-max-width:950px;
-
-
-margin:auto;
-
-
-padding:20px;
+padding:0;
 
 
 }
@@ -1053,57 +1445,13 @@ padding:20px;
 
 
 
+.circle-btn:hover{
 
 
-/* TARJETAS DE ACTUALIZACION Y STAFF */
+transform:scale(1.1);
 
 
-.card{
-
-
-position:relative;
-
-
-
-background:
-
-linear-gradient(
-145deg,
-rgba(30,41,59,.95),
-rgba(15,23,42,.95)
-);
-
-
-
-padding:25px;
-
-
-
-border-radius:22px;
-
-
-
-margin-top:18px;
-
-
-
-border:
-
-1px solid rgba(77,237,255,.18);
-
-
-
-box-shadow:
-
-0 15px 35px rgba(0,0,0,.35);
-
-
-
-overflow:hidden;
-
-
-
-transition:.3s;
+box-shadow:0 0 20px rgba(77,237,255,.5);
 
 
 }
@@ -1112,956 +1460,64 @@ transition:.3s;
 
 
 
-.card::before{
+.circle-btn.danger{
 
 
-content:"";
+background:#ef4444;
 
 
-position:absolute;
+color:white;
 
 
-top:0;
+}
 
 
-left:0;
 
 
-height:3px;
+.circle-btn.danger:hover{
+
+
+box-shadow:0 0 20px rgba(239,68,68,.5);
+
+
+}
+
+
+
+
+
+select{
 
 
 width:100%;
 
 
-
-background:
-
-linear-gradient(
-90deg,
-#00C6FF,
-#4DEDFF
-);
+padding:14px;
 
 
-
-}
-
+margin:8px 0;
 
 
+border:none;
 
 
-.card:hover{
+outline:none;
 
 
-transform:translateY(-5px);
+border-radius:12px;
 
 
-border-color:#4DEDFF;
+background:#0F172A;
 
 
-box-shadow:
+color:white;
 
-0 0 30px rgba(77,237,255,.25);
+
+font-size:15px;
 
 
 }
 
 
-
-
-
-/* RESPONSIVE */
-
-
-@media(max-width:600px){
-
-
-
-.topbar{
-
-
-flex-direction:column;
-
-
-gap:15px;
-
-
-text-align:center;
-
-
-}
-
-
-
-
-.nav{
-
-
-flex-direction:column;
-
-
-}
-
-
-
-.tab{
-
-
-width:100%;
-
-
-}
-
-
-}
 
 </style>
-
-<script>
-
-let currentUser = null;
-
-let USERS = [];
-
-let POSTS = [];
-
-
-
-
-
-async function login(){
-
-
-let respuesta = await fetch("/api/login",{
-
-
-method:"POST",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify({
-
-
-user:user.value,
-
-
-pass:pass.value
-
-
-})
-
-
-});
-
-
-
-let data = await respuesta.json();
-
-
-
-
-if(!data.success){
-
-
-error.innerHTML="❌ Usuario o contraseña incorrecta";
-
-
-return;
-
-
-}
-
-
-
-
-currentUser=data.user;
-
-
-
-loginBox.style.display="none";
-
-
-panel.classList.remove("hidden");
-
-
-
-welcome.innerHTML="Bienvenido "+currentUser.username;
-
-
-roleBadge.innerHTML=currentUser.role;
-
-
-
-await loadAll();
-
-
-
-show("updates");
-
-
-}
-
-
-
-
-
-
-
-
-
-function isOwner(){
-
-
-return currentUser && currentUser.role==="Dueño";
-
-
-}
-
-
-
-
-
-
-
-
-
-function show(tab){
-
-
-updates.classList.add("hidden");
-
-
-staff.classList.add("hidden");
-
-
-
-document.getElementById(tab).classList.remove("hidden");
-
-
-}
-
-
-
-
-
-
-
-
-
-async function loadAll(){
-
-
-
-let usuarios = await fetch("/api/users");
-
-
-USERS = await usuarios.json();
-
-
-
-
-let publicaciones = await fetch("/api/posts");
-
-
-POSTS = await publicaciones.json();
-
-
-
-
-render();
-
-
-}
-
-
-
-
-
-
-
-
-
-function render(){
-
-
-
-/* CONTADORES */
-
-
-document.getElementById("staffCount").innerHTML = USERS.length;
-
-
-document.getElementById("postCount").innerHTML = POSTS.length;
-
-
-
-
-
-
-
-
-/* =====================
-ACTUALIZACIONES
-===================== */
-
-
-updates.innerHTML="";
-
-
-
-if(isOwner()){
-
-
-updates.innerHTML+=`
-
-
-<div class="card">
-
-
-<h3>
-
-📢 Crear actualización
-
-</h3>
-
-
-
-<input id="titulo" placeholder="Título de actualización">
-
-
-<textarea id="mensaje" placeholder="Escribe el mensaje..."></textarea>
-
-
-
-
-<button class="login-btn" onclick="crearPost()">
-
-Publicar
-
-</button>
-
-
-
-</div>
-
-
-`;
-
-}
-
-
-
-POSTS.forEach(post=>{
-
-
-
-updates.innerHTML+=`
-
-
-<div class="card">
-
-
-<div class="update-header">
-
-
-<h3>
-
-📢 ${post.titulo}
-
-</h3>
-
-
-
-<span class="status">
-
-NUEVO
-
-</span>
-
-
-
-</div>
-
-
-
-
-<p>
-
-${post.mensaje}
-
-</p>
-
-
-
-
-<div class="update-footer">
-
-🕒 ${post.fecha}
-
-</div>
-
-
-
-
-
-
-${isOwner()?`
-
-
-<div class="update-actions">
-
-
-
-<button class="discord-btn"
-
-onclick="sendDiscord(${post.id})">
-
-🔔 Discord
-
-</button>
-
-
-
-
-<button class="delete-btn"
-
-onclick="deletePost(${post.id})">
-
-🗑
-
-</button>
-
-
-
-</div>
-
-
-
-`:''}
-
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-
-
-
-
-
-
-/* =====================
-STAFF
-===================== */
-
-
-staff.innerHTML="";
-
-
-
-if(isOwner()){
-
-
-staff.innerHTML+=`
-
-
-<div class="card">
-
-
-<h3>
-
-👥 Añadir nuevo Staff
-
-</h3>
-
-
-
-
-<input id="newUser" placeholder="Nombre del usuario">
-
-
-<input id="newRole" placeholder="Rango">
-
-
-
-
-
-<button class="login-btn" onclick="addUser()">
-
-Agregar Staff
-
-</button>
-
-
-
-</div>
-
-
-`;
-
-}
-
-
-
-USERS.forEach(u=>{
-
-
-
-staff.innerHTML+=`
-
-
-
-<div class="card staff-card">
-
-
-
-<div class="staff-profile">
-
-
-<div class="staff-avatar">
-
-👤
-
-</div>
-
-
-
-<div>
-
-
-<h3>
-
-${u.username}
-
-</h3>
-
-
-
-<span class="badge">
-
-${u.role}
-
-</span>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-${isOwner()?`
-
-
-<div class="staff-actions">
-
-
-
-<button class="edit-btn"
-
-onclick="editUser(${u.id},'${u.username}','${u.role}')">
-
-✏️
-
-</button>
-
-
-
-
-
-<button class="delete-btn"
-
-onclick="deleteUser(${u.id})">
-
-🗑
-
-</button>
-
-
-
-
-</div>
-
-
-
-`:''}
-
-
-
-</div>
-
-
-
-`;
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
-async function addUser(){
-
-
-if(!newRole.value){
-
-
-alert("El rango es obligatorio");
-
-
-return;
-
-
-}
-
-
-
-
-await fetch("/api/users",{
-
-
-method:"POST",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify({
-
-
-user:newUser.value,
-
-
-role:newRole.value
-
-
-})
-
-
-});
-
-
-
-loadAll();
-
-
-}
-
-
-
-
-
-
-
-
-
-function editUser(id,nombre,rango){
-
-
-
-let modal=document.createElement("div");
-
-
-
-modal.className="modal";
-
-
-
-modal.innerHTML=`
-
-
-<div class="modal-box">
-
-
-<h3>
-
-✏️ Editar Staff
-
-</h3>
-
-
-
-<input id="editName" value="${nombre}">
-
-
-
-<input id="editRole" value="${rango}">
-
-
-
-
-
-<button class="login-btn"
-
-onclick="saveEdit(${id})">
-
-Guardar
-
-</button>
-
-
-
-
-
-</div>
-
-
-`;
-
-
-
-document.body.appendChild(modal);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-async function saveEdit(id){
-
-
-
-await fetch("/api/users/"+id,{
-
-
-method:"PUT",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify({
-
-
-user:editName.value,
-
-
-role:editRole.value
-
-
-})
-
-
-});
-
-
-
-document.querySelector(".modal").remove();
-
-
-
-loadAll();
-
-
-
-}
-
-
-
-
-
-
-
-
-
-async function deleteUser(id){
-
-
-
-if(!confirm("¿Eliminar Staff?")) return;
-
-
-
-await fetch("/api/users/"+id,{
-
-
-method:"DELETE"
-
-
-});
-
-
-
-loadAll();
-
-
-
-}
-
-
-
-
-
-
-
-
-
-async function crearPost(){
-
-
-
-await fetch("/api/posts",{
-
-
-method:"POST",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify({
-
-
-titulo:titulo.value,
-
-
-mensaje:mensaje.value
-
-
-})
-
-
-});
-
-
-
-loadAll();
-
-
-}
-
-
-
-
-
-
-
-
-
-async function deletePost(id){
-
-
-
-if(!confirm("¿Eliminar actualización?")) return;
-
-
-
-await fetch("/api/posts/"+id,{
-
-
-method:"DELETE"
-
-
-});
-
-
-
-loadAll();
-
-
-}
-
-
-
-
-
-
-
-
-
-async function sendDiscord(id){
-
-
-
-let post = POSTS.find(x=>x.id===id);
-
-
-
-await fetch("/api/webhook",{
-
-
-method:"POST",
-
-
-headers:{
-
-
-"Content-Type":"application/json"
-
-
-},
-
-
-body:JSON.stringify(post)
-
-
-});
-
-
-
-alert("✅ Actualización enviada a Discord");
-
-
-}
-
-
-
-
-</script>
