@@ -248,15 +248,45 @@ flex-wrap:wrap;
 }
 
 .tab{
-background:#1f2937;
-padding:12px 18px;
-border-radius:10px;
+
+background:linear-gradient(135deg,#2563EB,#3B82F6);
+
+color:white;
+
+padding:13px 22px;
+
+border:none;
+
+border-radius:12px;
+
 cursor:pointer;
-transition:.2s;
+
+font-size:15px;
+
+font-weight:700;
+
+transition:.25s;
+
+box-shadow:0 8px 20px rgba(37,99,235,.30);
+
 }
 
 .tab:hover{
-background:#334155;
+
+transform:translateY(-2px);
+
+background:linear-gradient(135deg,#1D4ED8,#2563EB);
+
+}
+
+.tab.active{
+
+background:linear-gradient(135deg,#06B6D4,#4DEDFF);
+
+color:#06121D;
+
+box-shadow:0 0 18px rgba(77,237,255,.45);
+
 }
 
 .container{
@@ -502,7 +532,6 @@ Iniciar Sesión
 </div>
 
 <!-- PANEL -->
-
 <div id="panel" class="hidden">
 
 <header class="topbar">
@@ -541,36 +570,16 @@ Iniciar Sesión
 
 </div>
 
-<div class="stat-card">
-
-<h3 id="adminCount">0</h3>
-
-<p>👑 Administradores</p>
-
-</div>
-
-<div class="stat-card green">
-
-<h3>ONLINE</h3>
-
-<p>Sistema</p>
-
-</div>
-
 </div>
 
 <div class="nav">
 
 <button class="tab active" onclick="show('updates')">
-
 📢 Actualizaciones
-
 </button>
 
 <button class="tab" onclick="show('staff')">
-
 👥 Staff
-
 </button>
 
 </div>
