@@ -3,14 +3,12 @@ const session = require("express-session");
 const cors = require("cors");
 const { Pool } = require("pg");
 
-
 const app = express();
 
 const PORT = process.env.PORT || 10000;
 
 
 // ================= DATABASE =================
-
 
 const pool = new Pool({
 
@@ -70,14 +68,73 @@ fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 
 
-// Crear usuario principal
+
+// ================= USUARIOS INICIALES =================
+
+
+const usuariosIniciales = [
+
+
+{
+
+username:"Cristhian",
+
+pass:"2040@",
+
+role:"Dueño",
+
+activity:"Activo"
+
+},
+
+
+{
+
+username:"Zarl",
+
+pass:"2050@",
+
+role:"Owner 2",
+
+activity:"Activo"
+
+},
+
+
+{
+
+username:"Alan",
+
+pass:"2060@",
+
+role:"Director Recursos Humanos",
+
+activity:"Activo"
+
+}
+
+
+];
+
+
+
+
+
+for(const usuario of usuariosIniciales){
 
 
 let existe = await pool.query(
 
-"SELECT * FROM usuarios WHERE username='Cristhian'"
+"SELECT * FROM usuarios WHERE username=$1",
+
+[
+
+usuario.username
+
+]
 
 );
+
 
 
 
@@ -98,24 +155,32 @@ VALUES($1,$2,$3,$4)
 
 [
 
-"Cristhian",
+usuario.username,
 
-"2040@",
+usuario.pass,
 
-"Dueño",
+usuario.role,
 
-"Activo"
+usuario.activity
 
 ]
-
 
 );
 
 
-console.log("👑 Usuario Dueño creado");
+
+console.log(
+"✅ Usuario creado:",
+usuario.username
+);
+
 
 
 }
+
+
+}
+
 
 
 
@@ -145,7 +210,6 @@ iniciarBaseDatos();
 // ================= CONFIG =================
 
 
-
 app.use(cors({
 
 origin:true,
@@ -165,6 +229,7 @@ extended:true
 }));
 
 
+
 app.use(session({
 
 secret:"BuenosAiresRP2026",
@@ -173,13 +238,18 @@ resave:false,
 
 saveUninitialized:false,
 
+
 cookie:{
+
 
 maxAge:1000*60*60*24
 
+
 }
 
+
 }));
+
 
 
 app.use(express.static("public"));
@@ -235,7 +305,6 @@ usuario.role==="Owner 2"
 
 
 
-
 // ================= LOGIN =================
 
 
@@ -282,6 +351,7 @@ pass
 
 
 
+
 if(result.rows.length===0){
 
 
@@ -297,6 +367,7 @@ success:false
 
 
 const usuario=result.rows[0];
+
 
 
 
@@ -430,8 +501,7 @@ res.json(result.rows);
 
 
 
-
-// AGREGAR STAFF
+// ================= AGREGAR STAFF =================
 
 
 
@@ -476,7 +546,6 @@ req.body.activity
 
 ]
 
-
 );
 
 
@@ -498,7 +567,7 @@ success:true
 
 
 
-// EDITAR STAFF
+// ================= EDITAR STAFF =================
 
 
 
@@ -571,7 +640,7 @@ success:true
 
 
 
-// ELIMINAR STAFF
+// ================= ELIMINAR STAFF =================
 
 
 
@@ -678,6 +747,7 @@ error:"Sin permisos"
 
 
 }
+
 
 
 
