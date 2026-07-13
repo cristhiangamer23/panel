@@ -13,11 +13,8 @@
 <style>
 
 *{
-
 box-sizing:border-box;
-
 font-family:"Segoe UI",sans-serif;
-
 }
 
 
@@ -26,7 +23,6 @@ body{
 margin:0;
 
 background:
-
 radial-gradient(circle at top,#17365F,#0B1220,#070B14);
 
 color:white;
@@ -36,8 +32,6 @@ min-height:100vh;
 }
 
 
-
-/* LOGIN */
 
 
 .login{
@@ -58,31 +52,19 @@ padding:20px;
 
 .login-box{
 
-
 width:390px;
-
 
 padding:45px;
 
-
 border-radius:25px;
-
 
 background:rgba(255,255,255,.08);
 
-
 backdrop-filter:blur(20px);
-
 
 border:1px solid rgba(255,255,255,.15);
 
-
-
-box-shadow:
-
-0 25px 60px rgba(0,0,0,.45);
-
-
+box-shadow:0 25px 60px rgba(0,0,0,.45);
 
 text-align:center;
 
@@ -90,33 +72,21 @@ text-align:center;
 
 
 
-
 .logo{
-
 
 width:100px;
 
-
 height:100px;
-
 
 margin:auto auto 20px;
 
-
 border-radius:50%;
-
 
 overflow:hidden;
 
-
 border:2px solid rgba(77,237,255,.5);
 
-
-box-shadow:0 0 25px rgba(77,237,255,.45);
-
-
 }
-
 
 
 
@@ -133,136 +103,78 @@ object-fit:cover;
 
 
 
-
 h1{
-
 
 margin:0;
 
-
 font-size:32px;
-
 
 font-weight:900;
 
-
-
-background:
-
-linear-gradient(
+background:linear-gradient(
 90deg,
 #4DEDFF,
 #FFFFFF,
 #4DEDFF
 );
 
-
-
 -webkit-background-clip:text;
-
 
 -webkit-text-fill-color:transparent;
 
-
 }
-
-
 
 
 
 .subtitle{
 
-
 margin:12px 0 25px;
-
-
-font-weight:bold;
-
 
 color:#4DEDFF;
 
+font-weight:bold;
 
 }
-
-
 
 
 
 input{
 
-
 width:100%;
-
 
 padding:14px;
 
-
 margin:8px 0;
-
 
 border:none;
 
-
 outline:none;
-
 
 border-radius:12px;
 
-
 background:#0F172A;
-
 
 color:white;
 
-
-font-size:15px;
-
-
 }
-
-
-
-
-
-input:focus{
-
-
-box-shadow:0 0 15px rgba(77,237,255,.35);
-
-
-}
-
-
-
 
 
 
 .login-btn{
 
-
 width:100%;
-
 
 padding:15px;
 
-
 margin-top:18px;
-
 
 border:none;
 
-
 border-radius:14px;
-
-
-font-size:16px;
-
-
-font-weight:bold;
-
 
 cursor:pointer;
 
+font-weight:bold;
 
 background:linear-gradient(
 90deg,
@@ -270,33 +182,9 @@ background:linear-gradient(
 #4DEDFF
 );
 
-
 color:#06121D;
 
-
-transition:.25s;
-
-
 }
-
-
-
-
-
-.login-btn:hover{
-
-
-transform:translateY(-3px);
-
-
-box-shadow:0 0 25px rgba(77,237,255,.45);
-
-
-}
-
-
-
-
 
 
 
@@ -310,22 +198,15 @@ margin-top:15px;
 
 
 
-
 .footer{
-
 
 margin-top:25px;
 
-
 font-size:12px;
-
 
 color:#94A3B8;
 
-
 }
-
-
 
 
 
@@ -342,14 +223,8 @@ display:none;
 </head>
 
 
-
 <body>
 
-
-
-
-
-<!-- LOGIN -->
 
 
 <div id="loginBox" class="login">
@@ -359,17 +234,11 @@ display:none;
 
 
 
-
-
 <div class="logo">
 
-
-<img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?format=webp&quality=lossless">
-
+<img src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png">
 
 </div>
-
-
 
 
 
@@ -378,9 +247,6 @@ display:none;
 Buenos Aires RP
 
 </h1>
-
-
-
 
 
 
@@ -393,17 +259,10 @@ Panel de Recursos Humanos
 
 
 
-
-
 <input id="user" placeholder="👤 Usuario">
 
 
-
-
-
 <input id="pass" type="password" placeholder="🔒 Contraseña">
-
-
 
 
 
@@ -415,11 +274,7 @@ Iniciar Sesión
 
 
 
-
-
 <p id="error"></p>
-
-
 
 
 
@@ -435,78 +290,6 @@ Iniciar Sesión
 
 
 </div>
-
-
-
-
-
-<script>
-
-
-async function login(){
-
-
-let usuario=document.getElementById("user").value;
-
-let contraseña=document.getElementById("pass").value;
-
-
-
-let respuesta = await fetch("/login",{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-usuario:usuario,
-
-contraseña:contraseña
-
-})
-
-});
-
-
-
-let datos = await respuesta.json();
-
-
-
-
-
-if(datos.success){
-
-
-document.getElementById("loginBox").style.display="none";
-
-
-document.getElementById("panel").classList.remove("hidden");
-
-
-}else{
-
-
-document.getElementById("error").innerHTML="❌ Usuario o contraseña incorrectos";
-
-
-}
-
-
-
-}
-
-
-
-
-
-</script>
-
 <!-- PANEL PRINCIPAL -->
 
 
@@ -540,13 +323,13 @@ justify-content:space-between;
 align-items:center;
 
 
+background:rgba(255,255,255,.08);
+
+
 padding:20px 25px;
 
 
 border-radius:20px;
-
-
-background:rgba(255,255,255,.08);
 
 
 border:1px solid rgba(255,255,255,.15);
@@ -575,12 +358,14 @@ font-size:28px;
 font-weight:900;
 
 
+
 background:linear-gradient(
 90deg,
 #4DEDFF,
 #FFFFFF,
 #4DEDFF
 );
+
 
 
 -webkit-background-clip:text;
@@ -590,6 +375,8 @@ background:linear-gradient(
 
 
 }
+
+
 
 
 
@@ -603,6 +390,7 @@ font-size:14px;
 
 
 }
+
 
 
 
@@ -636,7 +424,6 @@ transition:.25s;
 
 
 }
-
 
 
 
@@ -709,6 +496,9 @@ transition:.3s;
 transform:translateY(-5px);
 
 
+box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+
 }
 
 
@@ -718,10 +508,13 @@ transform:translateY(-5px);
 .card h3{
 
 
+margin:0 0 10px;
+
+
 color:#4DEDFF;
 
 
-margin-top:0;
+font-size:20px;
 
 
 }
@@ -819,6 +612,7 @@ color:white;
 
 
 
+
 <div class="panel-container">
 
 
@@ -826,6 +620,7 @@ color:white;
 
 
 <div class="header-panel">
+
 
 
 <div class="header-title">
@@ -838,6 +633,7 @@ Panel Buenos Aires RP
 </h2>
 
 
+
 <span>
 
 Gestión del equipo administrativo
@@ -845,7 +641,9 @@ Gestión del equipo administrativo
 </span>
 
 
+
 </div>
+
 
 
 
@@ -859,7 +657,10 @@ Cerrar Sesión
 
 
 
+
 </div>
+
+
 
 
 
@@ -873,6 +674,7 @@ Cerrar Sesión
 
 
 
+
 <div class="card">
 
 
@@ -881,6 +683,7 @@ Cerrar Sesión
 📢 Actualizaciones
 
 </h3>
+
 
 
 <p>
@@ -901,6 +704,50 @@ Abrir
 
 </div>
 
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+
+👥 Staff
+
+</h3>
+
+
+
+<p>
+
+Administra miembros, rangos y actividad.
+
+</p>
+
+
+
+<button class="action-btn">
+
+Abrir
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
 <!-- ACTUALIZACIONES -->
 
 
@@ -922,18 +769,8 @@ Abrir
 
 
 
-<textarea id="mensajeUpdate" placeholder="💬 Escribe el mensaje de la actualización..."
-style="
-width:100%;
-height:130px;
-padding:15px;
-border:none;
-border-radius:15px;
-background:#0F172A;
-color:white;
-resize:none;
-font-size:15px;
-"></textarea>
+<textarea id="mensajeUpdate" placeholder="💬 Escribe el mensaje de la actualización"></textarea>
+
 
 
 
@@ -952,11 +789,13 @@ font-size:15px;
 
 
 
+
 <button class="action-btn delete-btn">
 
 🗑️ Eliminar
 
 </button>
+
 
 
 
@@ -977,7 +816,6 @@ font-size:15px;
 <div class="section">
 
 
-
 <h2 class="section-title">
 
 👥 STAFF
@@ -989,15 +827,12 @@ font-size:15px;
 
 
 
+
+
 <!-- AGREGAR STAFF -->
 
 
-<div style="
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:25px;
-">
+<div class="add-staff">
 
 
 
@@ -1042,7 +877,6 @@ margin-bottom:25px;
 
 
 
-
 </div>
 
 
@@ -1056,7 +890,6 @@ margin-bottom:25px;
 <!-- STAFF REGISTRADO -->
 
 
-
 <div class="staff-card">
 
 
@@ -1066,18 +899,20 @@ margin-bottom:25px;
 <div>
 
 <b>
+
 👤 Usuario
+
 </b>
 
 <br>
 
 <span>
+
 CristhianYSuga
+
 </span>
 
-
 </div>
-
 
 
 
@@ -1087,19 +922,20 @@ CristhianYSuga
 <div>
 
 <b>
+
 ⭐ Rango
+
 </b>
 
 <br>
 
 <span>
+
 OWNER
+
 </span>
 
-
 </div>
-
-
 
 
 
@@ -1109,18 +945,20 @@ OWNER
 <div>
 
 <b>
+
 📊 Actividad
+
 </b>
 
 <br>
 
 <span>
+
 100%
+
 </span>
 
-
 </div>
-
 
 
 
@@ -1131,7 +969,9 @@ OWNER
 <div>
 
 <b>
+
 📌 Estado
+
 </b>
 
 <br>
@@ -1142,9 +982,7 @@ OWNER
 
 </span>
 
-
 </div>
-
 
 
 
@@ -1165,7 +1003,6 @@ OWNER
 
 
 
-
 <button class="circle-btn danger">
 
 🗑️
@@ -1179,9 +1016,7 @@ OWNER
 
 
 
-
 </div>
-
 
 
 
@@ -1225,6 +1060,7 @@ backdrop-filter:blur(15px);
 
 
 
+
 .section-title{
 
 
@@ -1241,6 +1077,7 @@ margin-top:0;
 
 
 }
+
 
 
 
@@ -1281,6 +1118,68 @@ font-size:15px;
 
 
 
+.section textarea{
+
+
+width:100%;
+
+
+height:130px;
+
+
+padding:15px;
+
+
+border:none;
+
+
+outline:none;
+
+
+border-radius:15px;
+
+
+background:#0F172A;
+
+
+color:white;
+
+
+resize:none;
+
+
+font-size:15px;
+
+
+}
+
+
+
+
+
+
+.add-staff{
+
+
+display:flex;
+
+
+gap:10px;
+
+
+flex-wrap:wrap;
+
+
+margin-bottom:25px;
+
+
+}
+
+
+
+
+
+
 
 .staff-card{
 
@@ -1297,19 +1196,20 @@ align-items:center;
 gap:20px;
 
 
+background:rgba(255,255,255,.05);
+
+
 padding:18px;
 
 
 border-radius:18px;
 
 
-background:rgba(255,255,255,.05);
-
-
 border:1px solid rgba(255,255,255,.1);
 
 
 }
+
 
 
 
@@ -1328,7 +1228,6 @@ font-size:14px;
 
 
 
-
 .staff-card span{
 
 
@@ -1339,7 +1238,6 @@ font-size:14px;
 
 
 }
-
 
 
 
@@ -1441,6 +1339,8 @@ color:white;
 
 
 
+
+
 select{
 
 
@@ -1464,88 +1364,4 @@ color:white;
 
 }
 
-
-
-
-
-
-
 </style>
-
-
-
-
-
-
-
-
-
-<script>
-
-
-function login(){
-
-
-let usuario=document.getElementById("user").value;
-
-let contraseña=document.getElementById("pass").value;
-
-
-
-if(usuario==="admin" && contraseña==="1234"){
-
-
-document.getElementById("loginBox").style.display="none";
-
-
-document.getElementById("panel").classList.remove("hidden");
-
-
-}
-
-else{
-
-
-document.getElementById("error").innerHTML="❌ Usuario o contraseña incorrectos";
-
-
-}
-
-
-}
-
-
-
-
-
-
-function logout(){
-
-
-document.getElementById("panel").classList.add("hidden");
-
-
-document.getElementById("loginBox").style.display="flex";
-
-
-document.getElementById("user").value="";
-
-
-document.getElementById("pass").value="";
-
-
-}
-
-
-
-</script>
-
-
-</div>
-
-</div>
-
-
-</body>
-
-</html>
