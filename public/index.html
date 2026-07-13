@@ -795,48 +795,6 @@ Abrir
 
 </div>
 
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h3>
-
-👥 Staff
-
-</h3>
-
-
-<p>
-
-Administra miembros, rangos y actividad.
-
-</p>
-
-
-
-<button class="action-btn">
-
-Abrir
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-</div>
-
 <!-- ACTUALIZACIONES -->
 
 
@@ -845,13 +803,20 @@ Abrir
 
 <h2 class="section-title">
 
-📢 Escribe el mensaje
+📢 Escribe la actualización
 
 </h2>
 
 
 
-<textarea id="mensajeUpdate" placeholder="Escribe la actualización del servidor..."
+
+<input id="tituloUpdate" placeholder="📌 Título de la actualización">
+
+
+
+
+
+<textarea id="mensajeUpdate" placeholder="💬 Escribe el mensaje de la actualización..."
 style="
 width:100%;
 height:130px;
@@ -866,7 +831,9 @@ font-size:15px;
 
 
 
+
 <br><br>
+
 
 
 
@@ -878,11 +845,13 @@ font-size:15px;
 
 
 
+
 <button class="action-btn delete-btn">
 
 🗑️ Eliminar
 
 </button>
+
 
 
 
@@ -914,9 +883,8 @@ font-size:15px;
 
 
 
-
-
 <!-- AGREGAR STAFF -->
+
 
 <div style="
 display:flex;
@@ -927,27 +895,27 @@ margin-bottom:25px;
 
 
 
-<input placeholder="👤 Usuario">
+<input id="nuevoUsuario" placeholder="👤 Usuario">
 
 
 
-<input placeholder="⭐ Rango">
+<input id="nuevoRango" placeholder="⭐ Rango">
 
 
 
 
 
-<select>
+<select id="nuevoEstado">
 
 
-<option>
+<option value="Activo">
 
 🟢 Activo
 
 </option>
 
 
-<option>
+<option value="Inactivo">
 
 🔴 Inactivo
 
@@ -968,8 +936,8 @@ margin-bottom:25px;
 
 
 
-</div>
 
+</div>
 
 
 
@@ -982,7 +950,10 @@ margin-bottom:25px;
 <!-- STAFF REGISTRADO -->
 
 
+
 <div class="staff-card">
+
+
 
 
 
@@ -998,7 +969,10 @@ margin-bottom:25px;
 CristhianYSuga
 </span>
 
+
 </div>
+
+
 
 
 
@@ -1016,7 +990,10 @@ CristhianYSuga
 OWNER
 </span>
 
+
 </div>
+
+
 
 
 
@@ -1035,7 +1012,9 @@ OWNER
 100%
 </span>
 
+
 </div>
+
 
 
 
@@ -1057,6 +1036,7 @@ OWNER
 
 </span>
 
+
 </div>
 
 
@@ -1064,7 +1044,10 @@ OWNER
 
 
 
+
+
 <div class="staff-buttons">
+
 
 
 <button class="circle-btn">
@@ -1075,6 +1058,8 @@ OWNER
 
 
 
+
+
 <button class="circle-btn danger">
 
 🗑️
@@ -1082,14 +1067,15 @@ OWNER
 </button>
 
 
-</div>
-
-
-
-
-
 
 </div>
+
+
+
+
+
+</div>
+
 
 
 
@@ -1133,18 +1119,58 @@ backdrop-filter:blur(15px);
 
 
 
-
-
 .section-title{
 
 
 color:#4DEDFF;
 
 
+font-size:22px;
+
+
+font-weight:900;
+
+
 margin-top:0;
 
 
 }
+
+
+
+
+.section input{
+
+
+width:100%;
+
+
+padding:14px;
+
+
+margin:8px 0;
+
+
+border:none;
+
+
+outline:none;
+
+
+border-radius:12px;
+
+
+background:#0F172A;
+
+
+color:white;
+
+
+font-size:15px;
+
+
+}
+
 
 
 
@@ -1182,7 +1208,6 @@ border:1px solid rgba(255,255,255,.1);
 
 
 
-
 .staff-card b{
 
 
@@ -1193,6 +1218,7 @@ font-size:14px;
 
 
 }
+
 
 
 
@@ -1212,6 +1238,7 @@ font-size:14px;
 
 
 
+
 .staff-buttons{
 
 
@@ -1222,6 +1249,8 @@ gap:12px;
 
 
 }
+
+
 
 
 
@@ -1274,6 +1303,8 @@ transition:.25s;
 
 
 
+
+
 .circle-btn:hover{
 
 
@@ -1313,6 +1344,9 @@ padding:14px;
 border:none;
 
 
+outline:none;
+
+
 border-radius:12px;
 
 
@@ -1323,6 +1357,8 @@ color:white;
 
 
 }
+
+
 
 
 
@@ -1377,7 +1413,6 @@ document.getElementById("error").innerHTML="❌ Usuario o contraseña incorrecto
 
 
 
-
 function logout(){
 
 
@@ -1397,18 +1432,14 @@ document.getElementById("pass").value="";
 
 
 
-
 </script>
 
 
-
 </div>
-
 
 </div>
 
 
 </body>
-
 
 </html>
