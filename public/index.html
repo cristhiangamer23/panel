@@ -596,12 +596,7 @@ onclick="login()">
 
 
 </div>
-
-
-
-
-
-<!-- PANEL -->
+<!-- ================= PANEL ================= -->
 
 
 <div id="panel" class="hidden">
@@ -619,6 +614,7 @@ onclick="openTab('staff')">
 </div>
 
 
+
 <div class="tab"
 
 onclick="openTab('updates')">
@@ -629,6 +625,7 @@ onclick="openTab('updates')">
 
 
 </div>
+
 
 
 
@@ -645,6 +642,11 @@ onclick="openTab('updates')">
 
 
 </div>
+
+
+
+
+
 <script>
 
 
@@ -1155,10 +1157,13 @@ cargarStaff();
 
 
 }
-  // ================= ACTUALIZACIONES =================
+// ================= ACTUALIZACIONES =================
 
 
-const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDXN9Vg2QrqOp4HyvZwbMP6rAYyZ8hxNqKTebgzDWeYM36N7MV2AaLKkffEfq";
+const WEBHOOK = "TU_WEBHOOK_AQUI";
+
+
+const LOGO_BOT = "TU_LOGO_AQUI";
 
 
 
@@ -1182,6 +1187,7 @@ updates.innerHTML="";
 
 
 
+
 // Crear actualización
 
 
@@ -1194,7 +1200,9 @@ currentUser.role==="Owner 2"
 ){
 
 
+
 updates.innerHTML+=`
+
 
 
 <div class="card">
@@ -1227,6 +1235,7 @@ placeholder="Mensaje de la actualización">
 
 
 
+
 <button
 
 class="btn green"
@@ -1234,14 +1243,92 @@ class="btn green"
 onclick="crearActualizacion()">
 
 
-📤 Publicar
-
+📤 Guardar actualización
 
 </button>
 
 
 
 </div>
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+
+🤖 Crear Embed Discord
+
+</h2>
+
+
+
+<input
+
+id="embedAutor"
+
+placeholder="Nombre del Bot"
+
+value="Buenos Aires RP">
+
+
+
+<input
+
+id="embedTitulo"
+
+placeholder="Título del Embed">
+
+
+
+<textarea
+
+id="embedDescripcion"
+
+placeholder="Descripción del Embed">
+
+</textarea>
+
+
+
+
+<input
+
+id="embedColor"
+
+placeholder="Color HEX ejemplo: 38bdf8">
+
+
+
+<input
+
+id="embedFooter"
+
+placeholder="Footer del Embed">
+
+
+
+
+
+<button
+
+class="btn blue"
+
+onclick="enviarEmbedManual()">
+
+
+🚀 Enviar Embed
+
+</button>
+
+
+</div>
+
+
 
 
 `;
@@ -1268,7 +1355,9 @@ let botones="";
 if(currentUser.role==="Dueño"){
 
 
+
 botones=`
+
 
 
 <button
@@ -1280,8 +1369,8 @@ onclick='enviarDiscord(${JSON.stringify(post)})'>
 
 📨
 
-
 </button>
+
 
 
 
@@ -1295,11 +1384,12 @@ onclick="eliminarActualizacion(${post.id})">
 
 🗑️
 
-
 </button>
 
 
+
 `;
+
 
 
 }
@@ -1309,6 +1399,7 @@ onclick="eliminarActualizacion(${post.id})">
 
 
 updates.innerHTML+=`
+
 
 
 <div class="card">
@@ -1346,6 +1437,7 @@ ${botones}
 
 
 </div>
+
 
 
 `;
@@ -1459,7 +1551,135 @@ cargarActualizaciones();
 
 
 
-// ================= ENVIAR DISCORD =================
+// ================= EMBED MANUAL DISCORD =================
+
+
+
+async function enviarEmbedManual(){
+
+
+
+await fetch(WEBHOOK,{
+
+
+method:"POST",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+},
+
+
+body:JSON.stringify({
+
+
+
+username:
+
+embedAutor.value || "Buenos Aires RP",
+
+
+
+avatar_url:
+
+LOGO_BOT,
+
+
+
+embeds:[{
+
+
+author:{
+
+
+name:
+
+"Buenos Aires RP | Panel Staff",
+
+
+
+icon_url:
+
+LOGO_BOT
+
+
+},
+
+
+
+title:
+
+embedTitulo.value || "📢 ACTUALIZACIÓN OFICIAL",
+
+
+
+
+description:
+
+embedDescripcion.value || "Sin descripción",
+
+
+
+
+color:
+
+parseInt(
+
+(embedColor.value || "38bdf8").replace("#",""),
+
+16
+
+),
+
+
+
+
+footer:{
+
+
+text:
+
+embedFooter.value || "Buenos Aires RP • Panel Administrativo"
+
+
+},
+
+
+
+
+timestamp:
+
+new Date()
+
+
+}]
+
+
+
+})
+
+
+});
+
+
+
+alert("✅ Embed enviado correctamente");
+
+
+}
+
+
+
+
+
+
+
+
+
+// ================= EMBED DE ACTUALIZACIONES =================
 
 
 
@@ -1484,13 +1704,37 @@ headers:{
 body:JSON.stringify({
 
 
+
 username:
 
-"Buenos Aires RP | Actualizaciones",
+"Buenos Aires RP",
+
+
+
+avatar_url:
+
+LOGO_BOT,
 
 
 
 embeds:[{
+
+
+author:{
+
+
+name:
+
+"Buenos Aires RP | Actualizaciones",
+
+
+icon_url:
+
+LOGO_BOT
+
+
+},
+
 
 
 title:
@@ -1499,24 +1743,27 @@ title:
 
 
 
+
 description:
 
 `
-
 **${post.titulo}**
 
-
 ${post.mensaje}
-
 `,
 
 
 
-color:0x2563eb,
+
+color:
+
+0x38bdf8,
+
 
 
 
 fields:[
+
 
 
 {
@@ -1547,12 +1794,14 @@ inline:true
 
 
 
+
 footer:{
 
 
 text:
 
 "Buenos Aires RP • Panel Staff"
+
 
 },
 
@@ -1563,7 +1812,9 @@ timestamp:
 new Date()
 
 
+
 }]
+
 
 
 })
@@ -1573,7 +1824,39 @@ new Date()
 
 
 
-alert("✅ Enviado correctamente a Discord");
+alert("✅ Enviado a Discord");
+
+
+}
+
+
+// ================= ACTUALIZAR VISTA DEL EMBED =================
+
+
+function actualizarPreviewEmbed(){
+
+
+let titulo = document.getElementById("embedTitulo");
+
+let descripcion = document.getElementById("embedDescripcion");
+
+let autor = document.getElementById("embedAutor");
+
+let footer = document.getElementById("embedFooter");
+
+
+
+if(titulo){
+
+
+titulo.addEventListener("input",()=>{
+
+});
+
+
+}
+
+
 
 
 }
@@ -1582,10 +1865,27 @@ alert("✅ Enviado correctamente a Discord");
 
 
 
-</script>
+
+
+
+
+// ================= CARGAR PANEL =================
+
+
+window.onload=()=>{
+
+
+console.log(
+
+"Buenos Aires RP Panel cargado correctamente"
+
+);
+
+
+};
+  </script>
 
 
 </body>
-
 
 </html>
