@@ -3,20 +3,21 @@ const cors = require("cors");
 const path = require("path");
 const { Pool } = require("pg");
 
+
 const app = express();
 
+
 app.use(cors());
+
 app.use(express.json());
 
 app.use(express.static("public"));
 
 
-// ===============================
-// DATABASE RENDER POSTGRES
-// ===============================
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
-
+// =========================
+// POSTGRESQL
+// =========================
 
 const pool = new Pool({
 
@@ -30,10 +31,6 @@ const pool = new Pool({
 
 
 
-// ===============================
-// CREAR TABLAS
-// ===============================
-
 async function iniciar(){
 
     await pool.query(`
@@ -44,8 +41,6 @@ async function iniciar(){
 
         username TEXT NOT NULL,
 
-        password TEXT,
-
         role TEXT NOT NULL
 
     );
@@ -55,11 +50,11 @@ async function iniciar(){
 
         id SERIAL PRIMARY KEY,
 
-        titulo TEXT,
+        titulo TEXT NOT NULL,
 
-        mensaje TEXT,
+        mensaje TEXT NOT NULL,
 
-        fecha TEXT
+        fecha TEXT NOT NULL
 
     );
 
@@ -67,62 +62,33 @@ async function iniciar(){
 
 
 
-    // Crear usuarios con acceso al panel
+    // Usuarios principales
 
-    const accesos=[
-
-        ["Cristhian","2040@","Dueño"],
-
-        ["Zarl","2050@","Owner 2"],
-
-        ["Alan","2060@","mod1"]
-
-    ];
+    let usuarios = await pool.query(
+        "SELECT * FROM users"
+    );
 
 
+    if(usuarios.rows.length === 0){
 
-    for(const u of accesos){
+        await pool.query(`
 
+        INSERT INTO users(username,role)
 
-        const existe = await pool.query(
+        VALUES
 
-        `
-        SELECT *
-        FROM users
-        WHERE username=$1
-        `,
+        ('Cristhian','Dueño'),
 
-        [u[0]]
+        ('Zarl','Owner 2'),
 
-        );
+        ('Alan','Mod 1')
 
-
-        if(existe.rows.length===0){
-
-
-            await pool.query(
-
-            `
-            INSERT INTO users(username,password,role)
-
-            VALUES($1,$2,$3)
-
-            `,
-
-            u
-
-            );
-
-
-        }
-
+        `);
 
     }
 
 
-
     console.log("Base de datos lista");
-
 
 }
 
@@ -132,10 +98,10 @@ iniciar();
 
 
 
-
-// ===============================
+// =========================
 // LOGIN
-// ===============================
+// =========================
+
 
 app.post("/api/login", async(req,res)=>{
 
@@ -144,34 +110,44 @@ app.post("/api/login", async(req,res)=>{
 
 
 
-    const result = await pool.query(
+    // Accesos fijos
 
-    `
-    SELECT id,username,password,role
+    const accesos=[
 
-    FROM users
+        {
+            user:"Cristhian",
+            pass:"2040@",
+            role:"Dueño"
+        },
 
-    WHERE username=$1
+        {
+            user:"Zarl",
+            pass:"2050@",
+            role:"Owner 2"
+        },
 
-    AND password=$2
+        {
+            user:"Alan",
+            pass:"2060@",
+            role:"Mod 1"
+        }
 
-    `,
+    ];
 
-    [
-        user,
-        pass
-    ]
 
+
+    const encontrado =
+    accesos.find(x=>
+        x.user===user &&
+        x.pass===pass
     );
 
 
 
-    if(result.rows.length===0){
+    if(!encontrado){
 
         return res.json({
-
             success:false
-
         });
 
     }
@@ -182,10 +158,17 @@ app.post("/api/login", async(req,res)=>{
 
         success:true,
 
-        user:result.rows[0]
+        user:{
+
+            username:encontrado.user,
+
+            role:encontrado.role,
+
+            password:encontrado.pass
+
+        }
 
     });
-
 
 
 });
@@ -193,61 +176,24 @@ app.post("/api/login", async(req,res)=>{
 
 
 
-
-// ===============================
-// VERIFICAR DUEÑO
-// ===============================
-
-async function esDueño(user,pass){
+// =========================
+// USUARIOS
+// =========================
 
 
-    const result = await pool.query(
-
-    `
-    SELECT *
-
-    FROM users
-
-    WHERE username=$1
-
-    AND password=$2
-
-    AND role='Dueño'
-
-    `,
-
-    [
-        user,
-        pass
-    ]
-
-    );
-
-
-    return result.rows.length>0;
-
-
-}
-// ===============================
-// OBTENER STAFF
-// ===============================
+// Ver usuarios
 
 app.get("/api/users", async(req,res)=>{
 
 
-    const result = await pool.query(
+    let data=await pool.query(
 
-    `
-    SELECT id,username,role
-    FROM users
-    ORDER BY id
-
-    `
+        "SELECT * FROM users ORDER BY id"
 
     );
 
 
-    res.json(result.rows);
+    res.json(data.rows);
 
 
 });
@@ -255,48 +201,24 @@ app.get("/api/users", async(req,res)=>{
 
 
 
+// Crear usuario STAFF
+
+app.post("/api/users",async(req,res)=>{
 
 
-
-
-// ===============================
-// AGREGAR STAFF (SIN PASSWORD)
-// ===============================
-
-app.post("/api/users", async(req,res)=>{
-
-
-    const {adminUser,adminPass,user,role}=req.body;
-
-
-
-    if(!await esDueño(adminUser,adminPass)){
-
-
-        return res.json({
-
-            success:false,
-
-            message:"Sin permisos"
-
-        });
-
-
-    }
+    const {user,role}=req.body;
 
 
 
     if(!role){
 
-
         return res.json({
 
             success:false,
 
-            message:"El rango es obligatorio"
+            message:"Rango obligatorio"
 
         });
-
 
     }
 
@@ -304,20 +226,9 @@ app.post("/api/users", async(req,res)=>{
 
     await pool.query(
 
-    `
-    INSERT INTO users(username,role)
+        "INSERT INTO users(username,role) VALUES($1,$2)",
 
-    VALUES($1,$2)
-
-    `,
-
-    [
-
-        user || "Sin nombre",
-
-        role
-
-    ]
+        [user || "Sin nombre",role]
 
     );
 
@@ -337,75 +248,49 @@ app.post("/api/users", async(req,res)=>{
 
 
 
+// Editar usuario
+
+app.put("/api/users/:id",async(req,res)=>{
 
 
+    const id=req.params.id;
 
 
-// ===============================
-// EDITAR STAFF
-// ===============================
-
-app.put("/api/users/:id", async(req,res)=>{
-
-
-    const {adminUser,adminPass,user,role}=req.body;
-
-
-
-    if(!await esDueño(adminUser,adminPass)){
-
-
-        return res.json({
-
-            success:false,
-
-            message:"Sin permisos"
-
-        });
-
-
-    }
-
+    const {user,role}=req.body;
 
 
 
     if(!role){
 
-
         return res.json({
 
             success:false,
 
-            message:"El rango es obligatorio"
+            message:"Rango obligatorio"
 
         });
-
 
     }
 
 
 
-
     await pool.query(
 
-    `
-    UPDATE users
+        `UPDATE users
 
-    SET username=$1, role=$2
+        SET username=$1, role=$2
 
-    WHERE id=$3
+        WHERE id=$3`,
 
-    `,
+        [
 
-    [
+            user || "Sin nombre",
 
-        user || "Sin nombre",
+            role,
 
-        role,
+            id
 
-        req.params.id
-
-    ]
+        ]
 
     );
 
@@ -424,49 +309,16 @@ app.put("/api/users/:id", async(req,res)=>{
 
 
 
+// Eliminar usuario
 
-
-
-
-// ===============================
-// ELIMINAR STAFF
-// ===============================
-
-app.delete("/api/users/:id", async(req,res)=>{
-
-
-    const {adminUser,adminPass}=req.body;
-
-
-
-    if(!await esDueño(adminUser,adminPass)){
-
-
-        return res.json({
-
-            success:false
-
-        });
-
-
-    }
-
+app.delete("/api/users/:id",async(req,res)=>{
 
 
     await pool.query(
 
-    `
-    DELETE FROM users
+        "DELETE FROM users WHERE id=$1",
 
-    WHERE id=$1
-
-    `,
-
-    [
-
-        req.params.id
-
-    ]
+        [req.params.id]
 
     );
 
@@ -479,40 +331,27 @@ app.delete("/api/users/:id", async(req,res)=>{
     });
 
 
-
 });
 
 
 
 
-
-
-
-
-
-// ===============================
+// =========================
 // ACTUALIZACIONES
-// ===============================
+// =========================
 
 
 app.get("/api/posts",async(req,res)=>{
 
 
-    const result = await pool.query(
+    let data=await pool.query(
 
-    `
-    SELECT *
-
-    FROM posts
-
-    ORDER BY id DESC
-
-    `
+        "SELECT * FROM posts ORDER BY id DESC"
 
     );
 
 
-    res.json(result.rows);
+    res.json(data.rows);
 
 
 });
@@ -520,55 +359,36 @@ app.get("/api/posts",async(req,res)=>{
 
 
 
-
-
-
-
-
-// CREAR ACTUALIZACION
 
 app.post("/api/posts",async(req,res)=>{
 
 
-    const {adminUser,adminPass,titulo,mensaje}=req.body;
+    const {titulo,mensaje}=req.body;
 
 
 
-    if(!await esDueño(adminUser,adminPass)){
-
-
-        return res.json({
-
-            success:false,
-
-            message:"Sin permisos"
-
-        });
-
-
-    }
-
+    let fecha =
+    new Date().toLocaleString();
 
 
 
     await pool.query(
 
-    `
-    INSERT INTO posts(titulo,mensaje,fecha)
+        `INSERT INTO posts
 
-    VALUES($1,$2,$3)
+        (titulo,mensaje,fecha)
 
-    `,
+        VALUES($1,$2,$3)`,
 
-    [
+        [
 
-        titulo,
+            titulo,
 
-        mensaje,
+            mensaje,
 
-        new Date().toLocaleString()
+            fecha
 
-    ]
+        ]
 
     );
 
@@ -581,56 +401,23 @@ app.post("/api/posts",async(req,res)=>{
     });
 
 
+
 });
 
 
 
 
-
-
-
-
-// ELIMINAR ACTUALIZACION
 
 app.delete("/api/posts/:id",async(req,res)=>{
 
 
-    const {adminUser,adminPass}=req.body;
-
-
-
-    if(!await esDueño(adminUser,adminPass)){
-
-
-        return res.json({
-
-            success:false
-
-        });
-
-
-    }
-
-
-
-
     await pool.query(
 
-    `
-    DELETE FROM posts
+        "DELETE FROM posts WHERE id=$1",
 
-    WHERE id=$1
-
-    `,
-
-    [
-
-        req.params.id
-
-    ]
+        [req.params.id]
 
     );
-
 
 
     res.json({
@@ -646,22 +433,94 @@ app.delete("/api/posts/:id",async(req,res)=>{
 
 
 
+// =========================
+// WEBHOOK DISCORD
+// =========================
+
+
+app.post("/api/webhook",async(req,res)=>{
+
+
+    const post=req.body;
+
+
+
+    await fetch(process.env.WEBHOOK_URL,{
+
+        method:"POST",
+
+        headers:{
+
+            "Content-Type":"application/json"
+
+        },
+
+
+        body:JSON.stringify({
+
+            username:"ACTUALIZACION | WEB",
+
+
+            embeds:[{
+
+                title:"📢 ACTUALIZACIÓN OFICIAL",
+
+                description:
+
+                "**"+post.titulo+"**\n\n"+post.mensaje,
+
+
+                color:0x2b2d31,
+
+
+                footer:{
+
+                    text:
+
+                    "Buenos Aires RP • "+post.fecha
+
+                }
+
+            }]
+
+
+        })
+
+    });
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
+});
 
 
 
 
-
-// ===============================
+// =========================
 // INDEX
-// ===============================
+// =========================
 
 
-app.get("*",(req,res)=>{
+app.get("/*splat",(req,res)=>{
 
 
     res.sendFile(
 
-        path.join(__dirname,"public","index.html")
+        path.join(
+
+            __dirname,
+
+            "public",
+
+            "index.html"
+
+        )
 
     );
 
@@ -672,17 +531,15 @@ app.get("*",(req,res)=>{
 
 
 
+const PORT =
+process.env.PORT || 10000;
 
-
-const PORT = process.env.PORT || 10000;
 
 
 app.listen(PORT,()=>{
 
-
     console.log(
         "Servidor activo en puerto "+PORT
     );
-
 
 });
