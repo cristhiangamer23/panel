@@ -6,7 +6,6 @@ const fs = require("fs");
 
 const app = express();
 
-
 const PORT = process.env.PORT || 10000;
 
 
@@ -14,7 +13,10 @@ const PORT = process.env.PORT || 10000;
 // ================= CONFIG =================
 
 
-app.use(cors());
+app.use(cors({
+    origin:true,
+    credentials:true
+}));
 
 
 app.use(express.json());
@@ -35,21 +37,19 @@ app.use(session({
     saveUninitialized:false,
 
     cookie:{
-        maxAge:1000*60*60*24
+        maxAge:1000 * 60 * 60 * 24
     }
 
 }));
 
 
 
-// Archivos públicos
-
 app.use(express.static("public"));
 
 
 
 
-// ================= FUNCIONES =================
+// ================= ARCHIVOS =================
 
 
 function readJSON(file){
@@ -74,7 +74,6 @@ function readJSON(file){
 
 
 
-
 function saveJSON(file,data){
 
 
@@ -95,10 +94,7 @@ function saveJSON(file,data){
 
 
 
-
-
 // ================= LOGIN =================
-
 
 
 app.post("/api/login",(req,res)=>{
@@ -119,14 +115,13 @@ app.post("/api/login",(req,res)=>{
     let account =
     users.find(
         x =>
-        x.user===user &&
-        x.pass===pass
+        x.user === user &&
+        x.pass === pass
     );
 
 
 
     if(!account){
-
 
         return res.json({
 
@@ -136,12 +131,13 @@ app.post("/api/login",(req,res)=>{
 
         });
 
-
     }
 
 
 
     req.session.user={
+
+        id:account.id,
 
         user:account.user,
 
@@ -162,17 +158,13 @@ app.post("/api/login",(req,res)=>{
     });
 
 
-
 });
 
 
 
 
 
-
-
-// ================= VERIFICAR SESION =================
-
+// ================= SESION =================
 
 
 app.get("/api/session",(req,res)=>{
@@ -180,13 +172,11 @@ app.get("/api/session",(req,res)=>{
 
     if(!req.session.user){
 
-
         return res.json({
 
             logged:false
 
         });
-
 
     }
 
@@ -201,14 +191,12 @@ app.get("/api/session",(req,res)=>{
     });
 
 
-
 });
 
 
 
 
-
-// ================= CERRAR SESION =================
+// ================= LOGOUT =================
 
 
 app.post("/api/logout",(req,res)=>{
@@ -230,16 +218,429 @@ app.post("/api/logout",(req,res)=>{
 
 
 
+// ================= STAFF =================
 
-// ================= INICIAR SERVIDOR =================
 
+// VER STAFF
+
+app.get("/api/staff",(req,res)=>{
+
+
+    if(!req.session.user){
+
+        return res.status(401).json({
+
+            error:"No autorizado"
+
+        });
+
+    }
+
+
+
+    res.json(
+        readJSON("usuarios.json")
+    );
+
+
+});
+
+
+
+
+
+// AGREGAR STAFF
+
+
+app.post("/api/staff",(req,res)=>{
+
+
+    if(!req.session.user ||
+       req.session.user.role!=="Dueño"){
+
+        return res.status(403).json({
+
+            error:"Sin permisos"
+
+        });
+
+    }
+
+
+
+    let users =
+    readJSON("usuarios.json");
+
+
+
+    let nuevo={
+
+        id:Date.now(),
+
+        user:req.body.user,
+
+        pass:req.body.pass,
+
+        role:req.body.role,
+
+        activity:req.body.activity || "Inactivo"
+
+    };
+
+
+
+    users.push(nuevo);
+
+
+
+    saveJSON(
+        "usuarios.json",
+        users
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
+});
+
+
+
+
+
+// EDITAR STAFF
+
+
+app.put("/api/staff/:id",(req,res)=>{
+
+
+    if(!req.session.user ||
+       req.session.user.role!=="Dueño"){
+
+        return res.status(403).json({
+
+            error:"Sin permisos"
+
+        });
+
+    }
+
+
+
+    let users =
+    readJSON("usuarios.json");
+
+
+
+    let user =
+    users.find(
+        x=>x.id==req.params.id
+    );
+
+
+
+    if(!user){
+
+        return res.json({
+
+            error:"No encontrado"
+
+        });
+
+    }
+
+
+
+    user.user =
+    req.body.user || user.user;
+
+
+    user.role =
+    req.body.role || user.role;
+
+
+    user.activity =
+    req.body.activity || user.activity;
+
+
+
+    if(req.body.pass){
+
+        user.pass=req.body.pass;
+
+    }
+
+
+
+    saveJSON(
+        "usuarios.json",
+        users
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
+});
+
+
+
+
+
+// ELIMINAR STAFF
+
+
+app.delete("/api/staff/:id",(req,res)=>{
+
+
+    if(!req.session.user ||
+       req.session.user.role!=="Dueño"){
+
+        return res.status(403).json({
+
+            error:"Sin permisos"
+
+        });
+
+    }
+
+
+
+    let users =
+    readJSON("usuarios.json");
+
+
+
+    users =
+    users.filter(
+        x=>x.id!=req.params.id
+    );
+
+
+
+    saveJSON(
+        "usuarios.json",
+        users
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
+});
+
+
+
+
+
+// CAMBIAR ACTIVIDAD
+
+
+app.put("/api/staff/activity/:id",(req,res)=>{
+
+
+    if(!req.session.user ||
+       req.session.user.role!=="Dueño"){
+
+        return res.status(403).json({
+
+            error:"Sin permisos"
+
+        });
+
+    }
+
+
+
+    let users =
+    readJSON("usuarios.json");
+
+
+
+    let user =
+    users.find(
+        x=>x.id==req.params.id
+    );
+
+
+
+    if(user){
+
+        user.activity=req.body.activity;
+
+    }
+
+
+
+    saveJSON(
+        "usuarios.json",
+        users
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
+});
+
+
+
+
+
+// ================= ACTUALIZACIONES =================
+
+
+
+app.get("/api/posts",(req,res)=>{
+
+
+    res.json(
+        readJSON("posts.json")
+    );
+
+
+});
+
+
+
+
+
+app.post("/api/posts",(req,res)=>{
+
+
+    if(!req.session.user ||
+       req.session.user.role!=="Dueño"){
+
+        return res.status(403).json({
+
+            error:"Sin permisos"
+
+        });
+
+    }
+
+
+
+    let posts =
+    readJSON("posts.json");
+
+
+
+    let post={
+
+        id:Date.now(),
+
+        titulo:req.body.titulo,
+
+        mensaje:req.body.mensaje,
+
+        fecha:new Date().toLocaleString()
+
+    };
+
+
+
+    posts.push(post);
+
+
+
+    saveJSON(
+        "posts.json",
+        posts
+    );
+
+
+
+    res.json({
+
+        success:true,
+
+        post
+
+    });
+
+
+});
+
+
+
+
+
+app.delete("/api/posts/:id",(req,res)=>{
+
+
+    if(!req.session.user ||
+       req.session.user.role!=="Dueño"){
+
+        return res.status(403).json({
+
+            error:"Sin permisos"
+
+        });
+
+    }
+
+
+
+    let posts =
+    readJSON("posts.json");
+
+
+
+    posts =
+    posts.filter(
+        x=>x.id!=req.params.id
+    );
+
+
+
+    saveJSON(
+        "posts.json",
+        posts
+    );
+
+
+
+    res.json({
+
+        success:true
+
+    });
+
+
+});
+
+
+
+
+// ================= INICIO =================
 
 
 app.listen(PORT,()=>{
 
 
 console.log(
-`Servidor Buenos Aires RP activo en puerto ${PORT}`
+`🚀 Buenos Aires RP Panel activo en puerto ${PORT}`
 );
 
 
