@@ -845,10 +845,21 @@ success:true
 
 
 
+// ================= STATUS UPTIMEROBOT =================
 
+app.get("/api/status",(req,res)=>{
 
+    res.json({
 
+        online:true,
 
+        server:"Buenos Aires RP Panel",
+
+        time:new Date()
+
+    });
+
+});
 
 
 // ================= SERVIDOR =================
