@@ -5,15 +5,22 @@
 
 <meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Buenos Aires RP | Panel Staff</title>
 
 
 <style>
 
+
 *{
+
 box-sizing:border-box;
+
 font-family:'Segoe UI',Arial,sans-serif;
+
 }
+
 
 
 body{
@@ -23,14 +30,16 @@ margin:0;
 min-height:100vh;
 
 background:
-radial-gradient(circle at top,#1d4ed8,#020617 60%);
+
+radial-gradient(circle at top,#2563eb,#020617 65%);
 
 color:white;
 
 }
 
 
-/* ================= LOGIN ================= */
+
+/* LOGIN */
 
 
 #loginBox{
@@ -39,9 +48,9 @@ height:100vh;
 
 display:flex;
 
-align-items:center;
-
 justify-content:center;
+
+align-items:center;
 
 }
 
@@ -56,23 +65,19 @@ width:420px;
 padding:40px;
 
 
-background:
-
-rgba(15,23,42,.95);
+background:rgba(15,23,42,.95);
 
 
 border-radius:25px;
 
 
+text-align:center;
+
+
 border:1px solid rgba(255,255,255,.1);
 
 
-box-shadow:
-
-0 20px 60px rgba(0,0,0,.7);
-
-
-text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.7);
 
 
 }
@@ -82,9 +87,10 @@ text-align:center;
 .logo{
 
 
-width:140px;
+width:130px;
 
-height:140px;
+
+height:130px;
 
 
 border-radius:50%;
@@ -96,16 +102,10 @@ object-fit:cover;
 border:4px solid #38bdf8;
 
 
-box-shadow:
-
-0 0 35px #38bdf8;
-
-
-margin-bottom:20px;
+box-shadow:0 0 30px #38bdf8;
 
 
 }
-
 
 
 
@@ -115,20 +115,10 @@ margin-bottom:20px;
 font-size:32px;
 
 
-margin:10px 0;
+margin:20px 0 5px;
 
 
-background:
-
-linear-gradient(
-
-90deg,
-
-#38bdf8,
-
-#818cf8
-
-);
+background:linear-gradient(90deg,#38bdf8,#818cf8);
 
 
 -webkit-background-clip:text;
@@ -141,7 +131,6 @@ color:transparent;
 
 
 
-
 .login-card p{
 
 
@@ -149,8 +138,6 @@ color:#94a3b8;
 
 
 }
-
-
 
 
 
@@ -165,16 +152,16 @@ width:100%;
 padding:14px;
 
 
-margin:8px 0;
+margin-top:10px;
 
 
-border-radius:12px;
+background:#020617;
 
 
 border:1px solid #334155;
 
 
-background:#020617;
+border-radius:12px;
 
 
 color:white;
@@ -183,28 +170,32 @@ color:white;
 outline:none;
 
 
-font-size:15px;
+}
+
+
+
+textarea{
+
+
+min-height:120px;
+
+
+resize:none;
 
 
 }
 
 
 
+
 input:focus,
-textarea:focus,
-select:focus{
+textarea:focus{
 
 
 border-color:#38bdf8;
 
 
-box-shadow:
-
-0 0 10px rgba(56,189,248,.4);
-
-
 }
-
 
 
 
@@ -214,19 +205,22 @@ box-shadow:
 width:100%;
 
 
-padding:15px;
-
-
 margin-top:15px;
 
 
-border-radius:15px;
+padding:15px;
 
 
 border:none;
 
 
-cursor:pointer;
+border-radius:15px;
+
+
+background:linear-gradient(90deg,#2563eb,#38bdf8);
+
+
+color:white;
 
 
 font-weight:bold;
@@ -235,44 +229,10 @@ font-weight:bold;
 font-size:16px;
 
 
-color:white;
-
-
-background:
-
-linear-gradient(
-
-90deg,
-
-#2563eb,
-
-#38bdf8
-
-);
-
-
-
-box-shadow:
-
-0 10px 30px rgba(37,99,235,.5);
-
-
-transition:.3s;
+cursor:pointer;
 
 
 }
-
-
-
-
-.login-btn:hover{
-
-
-transform:translateY(-3px);
-
-
-}
-
 
 
 
@@ -282,15 +242,11 @@ transform:translateY(-3px);
 color:#f87171;
 
 
-margin-top:15px;
-
-
 }
 
 
 
-/* ================= PANEL ================= */
-
+/* PANEL */
 
 
 .hidden{
@@ -323,13 +279,13 @@ padding:25px;
 .tab{
 
 
+background:#1e293b;
+
+
 padding:15px 35px;
 
 
 border-radius:15px;
-
-
-background:#1e293b;
 
 
 cursor:pointer;
@@ -338,10 +294,10 @@ cursor:pointer;
 font-weight:bold;
 
 
-border:1px solid rgba(255,255,255,.08);
-
-
 transition:.3s;
+
+
+border:1px solid rgba(255,255,255,.1);
 
 
 }
@@ -362,7 +318,6 @@ transform:translateY(-3px);
 
 
 
-
 .container{
 
 
@@ -379,13 +334,10 @@ padding:20px;
 
 
 
-
 .card{
 
 
-background:
-
-rgba(15,23,42,.95);
+background:rgba(15,23,42,.95);
 
 
 border-radius:20px;
@@ -397,33 +349,13 @@ padding:25px;
 margin-bottom:20px;
 
 
-box-shadow:
-
-0 15px 40px rgba(0,0,0,.4);
+border:1px solid rgba(255,255,255,.08);
 
 
-border:1px solid rgba(255,255,255,.06);
+box-shadow:0 15px 40px rgba(0,0,0,.4);
 
 
 }
-
-
-
-
-button{
-
-
-cursor:pointer;
-
-
-border:none;
-
-
-font-weight:bold;
-
-
-}
-
 
 
 
@@ -433,7 +365,16 @@ font-weight:bold;
 padding:12px 20px;
 
 
+border:none;
+
+
 border-radius:12px;
+
+
+cursor:pointer;
+
+
+font-weight:bold;
 
 
 }
@@ -483,26 +424,19 @@ height:45px;
 border-radius:50%;
 
 
-display:inline-flex;
+border:none;
 
 
-align-items:center;
-
-
-justify-content:center;
-
-
-font-size:18px;
-
-
-margin:5px;
+cursor:pointer;
 
 
 color:white;
 
 
-}
+margin:5px;
 
+
+}
 
 
 
@@ -523,6 +457,7 @@ font-size:13px;
 
 }
 
+
 </style>
 
 
@@ -530,23 +465,131 @@ font-size:13px;
 
 
 <body>
-// ================= LOGIN =================
+
+
+
+<!-- LOGIN -->
+
+
+<div id="loginBox">
+
+
+<div class="login-card">
+
+
+<img class="logo" src="https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a569479&is=6a5542f9&hm=dbf53183c13fb57c127c9b5c0621dfd3a675276ae14116ed2db93257ddee2549&=&format=webp&quality=lossless&width=930&height=930">
+
+
+<h1>
+
+BUENOS AIRES RP
+
+</h1>
+
+
+<p>
+
+Panel Administrativo Staff
+
+</p>
+
+
+
+<input id="username" placeholder="👤 Usuario">
+
+
+<input id="password" type="password" placeholder="🔒 Contraseña">
+
+
+<button class="login-btn" onclick="login()">
+
+🚀 Ingresar
+
+</button>
+
+
+<p id="error"></p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- PANEL -->
+
+
+<div id="panel" class="hidden">
+
+
+
+<div class="nav">
+
+
+<div class="tab" onclick="openTab('staff')">
+
+👥 Staff
+
+</div>
+
+
+
+<div class="tab" onclick="openTab('updates')">
+
+📢 Actualizaciones
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="container">
+
+
+<div id="staff"></div>
+
+
+<div id="updates" class="hidden"></div>
+
+
+</div>
+
+
+
+</div>
+<script>
 
 
 let currentUser = null;
 
 
 
+
+// ================= LOGIN =================
+
+
+
 async function login(){
 
 
-let user = username.value;
 
-let pass = password.value;
+let usuario = document.getElementById("username").value;
+
+let contraseña = document.getElementById("password").value;
 
 
 
-let response = await fetch("/api/login",{
+
+let respuesta = await fetch("/api/login",{
 
 
 method:"POST",
@@ -557,14 +600,18 @@ headers:{
 
 "Content-Type":"application/json"
 
+
 },
 
 
 body:JSON.stringify({
 
-user:user,
 
-pass:pass
+user:usuario,
+
+
+pass:contraseña
+
 
 })
 
@@ -573,14 +620,18 @@ pass:pass
 
 
 
-let data = await response.json();
+
+let datos = await respuesta.json();
 
 
 
-if(!data.success){
+
+if(!datos.success){
 
 
-error.innerHTML="❌ Usuario o contraseña incorrectos";
+document.getElementById("error").innerHTML =
+
+"❌ Usuario o contraseña incorrectos";
 
 
 return;
@@ -590,18 +641,22 @@ return;
 
 
 
-currentUser=data.user;
+
+
+currentUser = datos.user;
 
 
 
-loginBox.style.display="none";
+
+document.getElementById("loginBox").style.display="none";
 
 
-panel.classList.remove("hidden");
+document.getElementById("panel").classList.remove("hidden");
 
 
 
 openTab("staff");
+
 
 
 }
@@ -611,11 +666,13 @@ openTab("staff");
 
 
 
-// ================= PESTAÑAS =================
+
+// ================= CAMBIO DE PESTAÑA =================
 
 
 
-function openTab(nombre){
+function openTab(tab){
+
 
 
 document.getElementById("staff").classList.add("hidden");
@@ -625,11 +682,12 @@ document.getElementById("updates").classList.add("hidden");
 
 
 
-document.getElementById(nombre).classList.remove("hidden");
+document.getElementById(tab).classList.remove("hidden");
 
 
 
-if(nombre==="staff"){
+
+if(tab==="staff"){
 
 
 cargarStaff();
@@ -639,7 +697,7 @@ cargarStaff();
 
 
 
-if(nombre==="updates"){
+if(tab==="updates"){
 
 
 cargarActualizaciones();
@@ -648,6 +706,7 @@ cargarActualizaciones();
 }
 
 
+
 }
 
 
@@ -656,7 +715,9 @@ cargarActualizaciones();
 
 
 
-// ================= STAFF =================
+
+
+// ================= CARGAR STAFF =================
 
 
 
@@ -664,14 +725,16 @@ async function cargarStaff(){
 
 
 
-let res = await fetch("/api/staff");
+let respuesta = await fetch("/api/staff");
 
 
-let usuarios = await res.json();
+let staff = await respuesta.json();
 
 
 
-staff.innerHTML=`
+
+
+document.getElementById("staff").innerHTML = `
 
 
 <div class="card">
@@ -684,13 +747,14 @@ staff.innerHTML=`
 </h2>
 
 
+
 <h3>
 
-Total Staff:
+Total:
 
 <span style="color:#38bdf8">
 
-${usuarios.length}
+${staff.length}
 
 </span>
 
@@ -702,58 +766,23 @@ ${usuarios.length}
 
 
 
-<div class="card">
-
-
-<div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 120px;gap:10px;font-weight:bold;">
-
-
-<div>
-
-Usuario
-
-</div>
-
-
-<div>
-
-Rango
-
-</div>
-
-
-<div>
-
-Actividad
-
-</div>
-
-
-<div>
-
-Acciones
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
 `;
 
 
 
 
 
-usuarios.forEach(u=>{
+
+staff.forEach(persona=>{
 
 
 
-let acciones="";
+let botones="";
 
+
+
+
+// Dueño y Director RRHH pueden editar
 
 
 if(
@@ -765,13 +794,23 @@ currentUser.role==="Director Recursos Humanos"
 ){
 
 
-acciones+=`
+
+botones += `
 
 
 <button class="circle blue"
 
-onclick="editarStaff(${u.id},'${u.username}','${u.role}','${u.activity}')">
+onclick="editarStaff(
 
+${persona.id},
+
+'${persona.username}',
+
+'${persona.role}',
+
+'${persona.activity}'
+
+)">
 
 ✏️
 
@@ -780,19 +819,25 @@ onclick="editarStaff(${u.id},'${u.username}','${u.role}','${u.activity}')">
 
 `;
 
+
+
 }
+
+
+
+
+// Solo Dueño elimina
 
 
 if(currentUser.role==="Dueño"){
 
 
-acciones+=`
+botones += `
 
 
 <button class="circle red"
 
-onclick="eliminarStaff(${u.id})">
-
+onclick="eliminarStaff(${persona.id})">
 
 🗑️
 
@@ -801,13 +846,15 @@ onclick="eliminarStaff(${u.id})">
 
 `;
 
+
+
 }
 
 
 
-let estado =
 
-u.activity==="Activo"
+
+let estado = persona.activity==="Activo"
 
 ?
 
@@ -821,53 +868,54 @@ u.activity==="Activo"
 
 
 
-staff.innerHTML+=`
+
+
+document.getElementById("staff").innerHTML += `
+
 
 
 <div class="card">
 
 
-<div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 120px;gap:10px;align-items:center;">
+<h3>
+
+👤 ${persona.username}
+
+</h3>
 
 
 
-<div>
+<p>
 
-👤 ${u.username}
-
-</div>
-
-
-
-<div>
+Rango:
 
 <span class="badge">
 
-${u.role}
+${persona.role}
 
 </span>
 
-</div>
+</p>
 
 
 
-<div>
+
+<p>
+
+Estado:
 
 ${estado}
 
-</div>
+</p>
 
 
 
 <div>
 
-${acciones}
+${botones}
 
 </div>
 
-
-
-</div>
 
 
 </div>
@@ -877,46 +925,72 @@ ${acciones}
 
 
 
+
 });
 
 
+
 }
+
+
+
+
+
+
+
+
+
 // ================= EDITAR STAFF =================
 
 
-async function editarStaff(id,user,role,activity){
+
+async function editarStaff(id,usuario,rango,estado){
 
 
 
 let nuevoUsuario = prompt(
-"Usuario:",
-user
+
+"Nuevo usuario:",
+
+usuario
+
 );
 
 
 
 let nuevoRango = prompt(
-"Rango:",
-role
+
+"Nuevo rango:",
+
+rango
+
 );
 
 
 
-let nuevaActividad = prompt(
-"Actividad (Activo/Inactivo):",
-activity
+let nuevoEstado = prompt(
+
+"Estado:",
+
+estado
+
 );
 
 
 
-if(!nuevoUsuario)return;
+
+if(!nuevoUsuario) return;
+
+
 
 
 
 await fetch("/api/staff/"+id,{
 
 
+
 method:"PUT",
+
 
 
 headers:{
@@ -924,10 +998,13 @@ headers:{
 
 "Content-Type":"application/json"
 
+
 },
 
 
+
 body:JSON.stringify({
+
 
 
 user:nuevoUsuario,
@@ -936,20 +1013,27 @@ user:nuevoUsuario,
 role:nuevoRango,
 
 
-activity:nuevaActividad
+activity:nuevoEstado
+
 
 
 })
+
 
 
 });
 
 
 
+
+
 cargarStaff();
 
 
+
 }
+
+
 
 
 
@@ -965,45 +1049,34 @@ async function eliminarStaff(id){
 
 
 
-if(!confirm("¿Eliminar este miembro del Staff?"))
+if(!confirm(
 
-return;
+"¿Eliminar miembro del Staff?"
+
+)) return;
+
 
 
 
 await fetch("/api/staff/"+id,{
 
 
+
 method:"DELETE"
+
 
 
 });
 
 
 
+
 cargarStaff();
 
 
+
 }
-
-
-
-
-
-
-
-
-
 // ================= ACTUALIZACIONES =================
-
-
-
-const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDXN9Vg2QrqOp4HyvZwbMP6rAYyZ8hxNqKTebgzDWeYM36N7MV2AaLKkffEfq";
-
-
-const LOGO_BOT = "https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a569479&is=6a5542f9&hm=dbf53183c13fb57c127c9b5c0621dfd3a675276ae14116ed2db93257ddee2549&=&format=webp&quality=lossless&width=930&height=930";
-
-
 
 
 
@@ -1011,16 +1084,27 @@ async function cargarActualizaciones(){
 
 
 
-let res = await fetch("/api/posts");
+let respuesta = await fetch("/api/posts");
 
 
-let posts = await res.json();
+let publicaciones = await respuesta.json();
 
 
 
-updates.innerHTML="";
+
+let contenedor = document.getElementById("updates");
 
 
+
+contenedor.innerHTML="";
+
+
+
+
+
+
+
+// CREAR ACTUALIZACION
 
 
 
@@ -1034,7 +1118,7 @@ currentUser.role==="Owner 2"
 
 
 
-updates.innerHTML+=`
+contenedor.innerHTML += `
 
 
 
@@ -1049,11 +1133,15 @@ updates.innerHTML+=`
 
 
 
+
 <input
 
 id="tituloUpdate"
 
-placeholder="Título de la actualización">
+placeholder="📌 Título de la actualización">
+
+
+
 
 
 
@@ -1061,9 +1149,21 @@ placeholder="Título de la actualización">
 
 id="mensajeUpdate"
 
-placeholder="Mensaje de la actualización">
+placeholder="💬 Escribe el mensaje de la actualización">
 
 </textarea>
+
+
+
+
+
+
+<input
+
+id="imagenUpdate"
+
+placeholder="🖼️ URL de imagen (opcional)">
+
 
 
 
@@ -1076,92 +1176,13 @@ class="btn green"
 onclick="crearActualizacion()">
 
 
-📤 Guardar actualización
+📤 Publicar actualización
 
 </button>
 
 
 
 </div>
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-
-🤖 Crear Embed Discord
-
-</h2>
-
-
-
-<input
-
-id="embedAutor"
-
-placeholder="Nombre del Bot"
-
-value="Buenos Aires RP | Actualizaciones">
-
-
-
-<input
-
-id="embedTitulo"
-
-placeholder="Título del Embed">
-
-
-
-<textarea
-
-id="embedDescripcion"
-
-placeholder="Descripción del Embed">
-
-</textarea>
-
-
-
-<input
-
-id="embedColor"
-
-placeholder="Color HEX ejemplo: 38bdf8">
-
-
-
-<input
-
-id="embedFooter"
-
-placeholder="Footer del Embed">
-
-
-
-
-
-<button
-
-class="btn blue"
-
-onclick="enviarEmbedManual()">
-
-
-🚀 Enviar Embed
-
-</button>
-
-
-
-</div>
-
 
 
 `;
@@ -1177,11 +1198,18 @@ onclick="enviarEmbedManual()">
 
 
 
-posts.forEach(post=>{
+
+// LISTAR ACTUALIZACIONES
 
 
 
-let botones="";
+publicaciones.forEach(post=>{
+
+
+
+let acciones="";
+
+
 
 
 
@@ -1189,7 +1217,7 @@ if(currentUser.role==="Dueño"){
 
 
 
-botones=`
+acciones = `
 
 
 
@@ -1231,11 +1259,14 @@ onclick="eliminarActualizacion(${post.id})">
 
 
 
-updates.innerHTML+=`
+
+
+contenedor.innerHTML += `
 
 
 
 <div class="card">
+
 
 
 <h2>
@@ -1243,6 +1274,8 @@ updates.innerHTML+=`
 📢 ${post.titulo}
 
 </h2>
+
+
 
 
 
@@ -1254,6 +1287,28 @@ ${post.mensaje}
 
 
 
+
+
+
+${
+post.imagen
+
+?
+
+`<img src="${post.imagen}" width="100%" style="border-radius:15px;margin-top:15px;">`
+
+:
+
+""
+
+}
+
+
+
+
+
+
+
 <small>
 
 📅 ${new Date(post.fecha).toLocaleString()}
@@ -1262,10 +1317,14 @@ ${post.mensaje}
 
 
 
+
+
+
 <br><br>
 
 
-${botones}
+
+${acciones}
 
 
 
@@ -1288,11 +1347,45 @@ ${botones}
 
 
 
+
+
+
+
+
 // ================= CREAR ACTUALIZACION =================
 
 
 
 async function crearActualizacion(){
+
+
+
+let titulo = document.getElementById("tituloUpdate").value;
+
+
+let mensaje = document.getElementById("mensajeUpdate").value;
+
+
+let imagen = document.getElementById("imagenUpdate").value;
+
+
+
+
+
+if(!titulo || !mensaje){
+
+
+
+alert("Completa el título y mensaje");
+
+
+return;
+
+
+}
+
+
+
 
 
 
@@ -1302,38 +1395,83 @@ await fetch("/api/posts",{
 method:"POST",
 
 
+
 headers:{
 
 
 "Content-Type":"application/json"
 
+
 },
+
 
 
 body:JSON.stringify({
 
 
-titulo:
-
-tituloUpdate.value,
+titulo,
 
 
-mensaje:
+mensaje,
 
-mensajeUpdate.value
+
+imagen
 
 
 })
+
 
 
 });
 
 
 
+
+
+
+// Enviar automáticamente a Discord
+
+
+await enviarDiscord({
+
+
+titulo,
+
+
+mensaje,
+
+
+imagen,
+
+
+fecha:new Date()
+
+
+});
+
+
+
+
+
+
+alert("✅ Actualización publicada correctamente");
+
+
+
 cargarActualizaciones();
 
 
+
 }
+
+
+
+
+
+
+
+
+
 // ================= ELIMINAR ACTUALIZACION =================
 
 
@@ -1342,9 +1480,13 @@ async function eliminarActualizacion(id){
 
 
 
-if(!confirm("¿Eliminar actualización?"))
+if(!confirm(
 
-return;
+"¿Eliminar actualización?"
+
+)) return;
+
+
 
 
 
@@ -1358,25 +1500,21 @@ method:"DELETE"
 
 
 
+
+
 cargarActualizaciones();
 
 
 
 }
+// ================= DISCORD WEBHOOK =================
 
 
 
+const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDXN9Vg2QrqOp4HyvZwbMP6rAYyZ8hxNqKTebgzDWeYM36N7MV2AaLKkffEfq";
 
 
-
-
-
-// ================= ENVIAR EMBED DISCORD =================
-
-
-
-async function enviarEmbedManual(){
-
+const LOGO_BOT = "https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a569479&is=6a5542f9&hm=dbf53183c13fb57c127c9b5c0621dfd3a675276ae14116ed2db93257ddee2549&=&format=webp&quality=lossless&width=930&height=930";
 
 
 const ID_ROL = "1422554178772795562";
@@ -1384,150 +1522,12 @@ const ID_ROL = "1422554178772795562";
 
 
 
-await fetch(WEBHOOK,{
 
 
 
-method:"POST",
 
 
-
-headers:{
-
-
-
-"Content-Type":"application/json"
-
-},
-
-
-
-body:JSON.stringify({
-
-
-
-
-content:
-
-`<@&${ID_ROL}>`,
-
-
-
-
-username:
-
-"Buenos Aires RP | Actualizaciones",
-
-
-
-
-avatar_url:
-
-LOGO_BOT,
-
-
-
-
-
-embeds:[{
-
-
-author:{
-
-
-name:
-
-"Buenos Aires RP | Actualizaciones",
-
-
-icon_url:
-
-LOGO_BOT
-
-
-},
-
-
-
-title:
-
-embedTitulo.value || "📢 ACTUALIZACIÓN OFICIAL",
-
-
-
-
-description:
-
-embedDescripcion.value || "Sin descripción",
-
-
-
-
-color:
-
-parseInt(
-
-(embedColor.value || "38bdf8")
-
-.replace("#",""),
-
-16
-
-),
-
-
-
-
-
-footer:{
-
-
-text:
-
-embedFooter.value || "Buenos Aires RP | Actualizaciones"
-
-
-},
-
-
-
-
-
-timestamp:
-
-new Date()
-
-
-
-
-}]
-
-
-
-})
-
-
-
-});
-
-
-
-
-alert("✅ Embed enviado correctamente");
-
-
-
-}
-
-
-
-
-
-
-
-
-
-// ================= ENVIAR ACTUALIZACION GUARDADA =================
+// ================= ENVIAR ACTUALIZACION A DISCORD =================
 
 
 
@@ -1535,46 +1535,7 @@ async function enviarDiscord(post){
 
 
 
-await fetch(WEBHOOK,{
-
-
-
-method:"POST",
-
-
-
-headers:{
-
-
-
-"Content-Type":"application/json"
-
-},
-
-
-
-body:JSON.stringify({
-
-
-
-
-username:
-
-"Buenos Aires RP | Actualizaciones",
-
-
-
-
-avatar_url:
-
-LOGO_BOT,
-
-
-
-
-
-embeds:[{
-
+let embed = {
 
 
 
@@ -1633,16 +1594,98 @@ text:
 
 
 
-
 timestamp:
 
-new Date(post.fecha)
+new Date(post.fecha || Date.now())
+
+
+
+};
 
 
 
 
 
-}]
+
+
+if(post.imagen){
+
+
+
+embed.image = {
+
+
+url:post.imagen
+
+
+};
+
+
+
+}
+
+
+
+
+
+
+
+
+await fetch(WEBHOOK,{
+
+
+
+method:"POST",
+
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+
+body:JSON.stringify({
+
+
+
+content:
+
+ID_ROL
+
+?
+
+`<@&${ID_ROL}>`
+
+:
+
+"",
+
+
+
+
+
+username:
+
+"Buenos Aires RP | Actualizaciones",
+
+
+
+
+avatar_url:
+
+LOGO_BOT,
+
+
+
+
+
+
+embeds:[embed]
 
 
 
@@ -1651,11 +1694,6 @@ new Date(post.fecha)
 
 
 });
-
-
-
-
-alert("📨 Actualización enviada a Discord");
 
 
 
@@ -1678,7 +1716,7 @@ window.onload=()=>{
 
 console.log(
 
-"Buenos Aires RP | Actualizaciones cargado correctamente"
+"Buenos Aires RP | Actualizaciones iniciado correctamente"
 
 );
 
@@ -1687,12 +1725,9 @@ console.log(
 
 
 
-
-
 </script>
 
 
 </body>
-
 
 </html>
