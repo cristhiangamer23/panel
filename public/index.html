@@ -30,7 +30,6 @@ color:white;
 }
 
 
-
 /* ================= LOGIN ================= */
 
 
@@ -524,7 +523,6 @@ font-size:13px;
 
 }
 
-
 </style>
 
 
@@ -532,131 +530,10 @@ font-size:13px;
 
 
 <body>
-
-
-
-<!-- LOGIN -->
-
-
-<div id="loginBox">
-
-
-<div class="login-card">
-
-
-<img class="logo"
-
-src="TU_LOGO_AQUI">
-
-
-<h1>
-
-Buenos Aires RP
-
-</h1>
-
-
-<p>
-
-Panel Administrativo Staff
-
-</p>
-
-
-
-<input id="username"
-
-placeholder="👤 Usuario">
-
-
-
-<input id="password"
-
-type="password"
-
-placeholder="🔒 Contraseña">
-
-
-
-<button class="login-btn"
-
-onclick="login()">
-
-
-🚀 Ingresar
-
-
-</button>
-
-
-<p id="error"></p>
-
-
-</div>
-
-
-</div>
-<!-- ================= PANEL ================= -->
-
-
-<div id="panel" class="hidden">
-
-
-<div class="nav">
-
-
-<div class="tab"
-
-onclick="openTab('staff')">
-
-👥 Staff
-
-</div>
-
-
-
-<div class="tab"
-
-onclick="openTab('updates')">
-
-📢 Actualizaciones
-
-</div>
-
-
-</div>
-
-
-
-
-<div class="container">
-
-
-<div id="staff"></div>
-
-
-<div id="updates" class="hidden"></div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<script>
+// ================= LOGIN =================
 
 
 let currentUser = null;
-
-
-
-
-
-// ================= LOGIN =================
 
 
 
@@ -696,9 +573,7 @@ pass:pass
 
 
 
-
 let data = await response.json();
-
 
 
 
@@ -712,7 +587,6 @@ return;
 
 
 }
-
 
 
 
@@ -737,8 +611,6 @@ openTab("staff");
 
 
 
-
-
 // ================= PESTAÑAS =================
 
 
@@ -746,10 +618,10 @@ openTab("staff");
 function openTab(nombre){
 
 
-staff.classList.add("hidden");
+document.getElementById("staff").classList.add("hidden");
 
 
-updates.classList.add("hidden");
+document.getElementById("updates").classList.add("hidden");
 
 
 
@@ -776,10 +648,7 @@ cargarActualizaciones();
 }
 
 
-
 }
-
-
 
 
 
@@ -792,6 +661,7 @@ cargarActualizaciones();
 
 
 async function cargarStaff(){
+
 
 
 let res = await fetch("/api/staff");
@@ -845,7 +715,6 @@ Usuario
 </div>
 
 
-
 <div>
 
 Rango
@@ -853,13 +722,11 @@ Rango
 </div>
 
 
-
 <div>
 
 Actividad
 
 </div>
-
 
 
 <div>
@@ -881,20 +748,12 @@ Acciones
 
 
 
-
-
-
-
 usuarios.forEach(u=>{
 
 
 
 let acciones="";
 
-
-
-
-// Dueño y RRHH pueden editar
 
 
 if(
@@ -921,13 +780,7 @@ onclick="editarStaff(${u.id},'${u.username}','${u.role}','${u.activity}')">
 
 `;
 
-
 }
-
-
-
-
-// Solo Dueño elimina
 
 
 if(currentUser.role==="Dueño"){
@@ -952,7 +805,7 @@ onclick="eliminarStaff(${u.id})">
 
 
 
-let actividad =
+let estado =
 
 u.activity==="Activo"
 
@@ -986,7 +839,6 @@ staff.innerHTML+=`
 
 
 
-
 <div>
 
 <span class="badge">
@@ -1001,10 +853,9 @@ ${u.role}
 
 <div>
 
-${actividad}
+${estado}
 
 </div>
-
 
 
 
@@ -1029,57 +880,36 @@ ${acciones}
 });
 
 
-
 }
-
-
-
-
-
-
-
-
-
 // ================= EDITAR STAFF =================
-
 
 
 async function editarStaff(id,user,role,activity){
 
 
 
-let nuevoUsuario=prompt(
-
+let nuevoUsuario = prompt(
 "Usuario:",
-
 user
-
 );
 
 
 
-let nuevoRango=prompt(
-
+let nuevoRango = prompt(
 "Rango:",
-
 role
-
 );
 
 
 
-let nuevaActividad=prompt(
-
+let nuevaActividad = prompt(
 "Actividad (Activo/Inactivo):",
-
 activity
-
 );
 
 
 
 if(!nuevoUsuario)return;
-
 
 
 
@@ -1127,13 +957,12 @@ cargarStaff();
 
 
 
-
-
 // ================= ELIMINAR STAFF =================
 
 
 
 async function eliminarStaff(id){
+
 
 
 if(!confirm("¿Eliminar este miembro del Staff?"))
@@ -1155,15 +984,24 @@ method:"DELETE"
 cargarStaff();
 
 
-
 }
+
+
+
+
+
+
+
+
+
 // ================= ACTUALIZACIONES =================
 
 
-const WEBHOOK = "TU_WEBHOOK_AQUI";
+
+const WEBHOOK = "https://discord.com/api/webhooks/1520203613325103165/FENLvXQXDXN9Vg2QrqOp4HyvZwbMP6rAYyZ8hxNqKTebgzDWeYM36N7MV2AaLKkffEfq";
 
 
-const LOGO_BOT = "TU_LOGO_AQUI";
+const LOGO_BOT = "https://media.discordapp.net/attachments/1422562797148962929/1524142130363371682/buenos_Aires_RP.png?ex=6a569479&is=6a5542f9&hm=dbf53183c13fb57c127c9b5c0621dfd3a675276ae14116ed2db93257ddee2549&=&format=webp&quality=lossless&width=930&height=930";
 
 
 
@@ -1184,11 +1022,6 @@ updates.innerHTML="";
 
 
 
-
-
-
-
-// Crear actualización
 
 
 if(
@@ -1256,6 +1089,7 @@ onclick="crearActualizacion()">
 
 
 
+
 <div class="card">
 
 
@@ -1273,7 +1107,7 @@ id="embedAutor"
 
 placeholder="Nombre del Bot"
 
-value="Buenos Aires RP">
+value="Buenos Aires RP | Actualizaciones">
 
 
 
@@ -1292,7 +1126,6 @@ id="embedDescripcion"
 placeholder="Descripción del Embed">
 
 </textarea>
-
 
 
 
@@ -1326,8 +1159,8 @@ onclick="enviarEmbedManual()">
 </button>
 
 
-</div>
 
+</div>
 
 
 
@@ -1343,12 +1176,12 @@ onclick="enviarEmbedManual()">
 
 
 
+
 posts.forEach(post=>{
 
 
 
 let botones="";
-
 
 
 
@@ -1455,9 +1288,6 @@ ${botones}
 
 
 
-
-
-
 // ================= CREAR ACTUALIZACION =================
 
 
@@ -1504,15 +1334,6 @@ cargarActualizaciones();
 
 
 }
-
-
-
-
-
-
-
-
-
 // ================= ELIMINAR ACTUALIZACION =================
 
 
@@ -1550,8 +1371,7 @@ cargarActualizaciones();
 
 
 
-
-// ================= EMBED MANUAL DISCORD =================
+// ================= ENVIAR EMBED DISCORD =================
 
 
 
@@ -1559,13 +1379,21 @@ async function enviarEmbedManual(){
 
 
 
+const ID_ROL = "1422554178772795562";
+
+
+
+
 await fetch(WEBHOOK,{
+
 
 
 method:"POST",
 
 
+
 headers:{
+
 
 
 "Content-Type":"application/json"
@@ -1573,19 +1401,31 @@ headers:{
 },
 
 
+
 body:JSON.stringify({
+
+
+
+
+content:
+
+`<@&${ID_ROL}>`,
+
 
 
 
 username:
 
-embedAutor.value || "Buenos Aires RP",
+"Buenos Aires RP | Actualizaciones",
+
 
 
 
 avatar_url:
 
 LOGO_BOT,
+
+
 
 
 
@@ -1597,8 +1437,7 @@ author:{
 
 name:
 
-"Buenos Aires RP | Panel Staff",
-
+"Buenos Aires RP | Actualizaciones",
 
 
 icon_url:
@@ -1628,11 +1467,14 @@ color:
 
 parseInt(
 
-(embedColor.value || "38bdf8").replace("#",""),
+(embedColor.value || "38bdf8")
+
+.replace("#",""),
 
 16
 
 ),
+
 
 
 
@@ -1642,10 +1484,11 @@ footer:{
 
 text:
 
-embedFooter.value || "Buenos Aires RP • Panel Administrativo"
+embedFooter.value || "Buenos Aires RP | Actualizaciones"
 
 
 },
+
 
 
 
@@ -1655,6 +1498,8 @@ timestamp:
 new Date()
 
 
+
+
 }]
 
 
@@ -1662,11 +1507,14 @@ new Date()
 })
 
 
+
 });
 
 
 
+
 alert("✅ Embed enviado correctamente");
+
 
 
 }
@@ -1679,7 +1527,7 @@ alert("✅ Embed enviado correctamente");
 
 
 
-// ================= EMBED DE ACTUALIZACIONES =================
+// ================= ENVIAR ACTUALIZACION GUARDADA =================
 
 
 
@@ -1690,10 +1538,13 @@ async function enviarDiscord(post){
 await fetch(WEBHOOK,{
 
 
+
 method:"POST",
 
 
+
 headers:{
+
 
 
 "Content-Type":"application/json"
@@ -1701,13 +1552,16 @@ headers:{
 },
 
 
+
 body:JSON.stringify({
+
 
 
 
 username:
 
-"Buenos Aires RP",
+"Buenos Aires RP | Actualizaciones",
+
 
 
 
@@ -1717,7 +1571,11 @@ LOGO_BOT,
 
 
 
+
+
 embeds:[{
+
+
 
 
 author:{
@@ -1737,20 +1595,19 @@ LOGO_BOT
 
 
 
+
 title:
 
-"📢 ACTUALIZACIÓN OFICIAL",
+post.titulo,
+
 
 
 
 
 description:
 
-`
-**${post.titulo}**
+post.mensaje,
 
-${post.mensaje}
-`,
 
 
 
@@ -1762,54 +1619,26 @@ color:
 
 
 
-fields:[
-
-
-
-{
-
-name:"🏢 Servidor",
-
-value:"Buenos Aires RP",
-
-inline:true
-
-},
-
-
-
-{
-
-name:"👤 Publicado por",
-
-value:currentUser.user,
-
-inline:true
-
-}
-
-
-
-],
-
-
-
 
 footer:{
 
 
 text:
 
-"Buenos Aires RP • Panel Staff"
+"Buenos Aires RP | Actualizaciones"
 
 
 },
 
 
 
+
+
 timestamp:
 
-new Date()
+new Date(post.fecha)
+
+
 
 
 
@@ -1820,42 +1649,13 @@ new Date()
 })
 
 
-});
-
-
-
-alert("✅ Enviado a Discord");
-
-
-}
-
-
-// ================= ACTUALIZAR VISTA DEL EMBED =================
-
-
-function actualizarPreviewEmbed(){
-
-
-let titulo = document.getElementById("embedTitulo");
-
-let descripcion = document.getElementById("embedDescripcion");
-
-let autor = document.getElementById("embedAutor");
-
-let footer = document.getElementById("embedFooter");
-
-
-
-if(titulo){
-
-
-titulo.addEventListener("input",()=>{
 
 });
 
 
-}
 
+
+alert("📨 Actualización enviada a Discord");
 
 
 
@@ -1872,20 +1672,27 @@ titulo.addEventListener("input",()=>{
 // ================= CARGAR PANEL =================
 
 
+
 window.onload=()=>{
 
 
 console.log(
 
-"Buenos Aires RP Panel cargado correctamente"
+"Buenos Aires RP | Actualizaciones cargado correctamente"
 
 );
 
 
 };
-  </script>
+
+
+
+
+
+</script>
 
 
 </body>
+
 
 </html>
